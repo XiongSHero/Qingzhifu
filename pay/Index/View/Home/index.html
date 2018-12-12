@@ -1,0 +1,214 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-3 col-xs-6">
+                                <div class="panel">
+                                    <div class="panel-body" style="background:#fff;">
+                                        <h4 class="pull-left">
+                                            可用余额
+                                        </h4>
+                                        <h4 class="pull-right text-danger">
+                                            ￥{#$nowmoney#} 元 <a href="{#:U('Home/money')#}">(充值)</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="panel">
+                                    <div class="panel-body" style="background:#fff;">
+                                        <h4 class="pull-left">
+                                            冻结金额
+                                        </h4>
+                                        <h4 class="pull-right text-danger">
+                                            ￥{#$todaymoney#} 元 
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="panel">
+                                    <div class="panel-body" style="background:#fff;">
+                                        <h4 class="pull-left">
+                                            等待支付
+                                        </h4>
+                                        <h4 class="pull-right text-primary">
+                                            ￥{#$tj.payhave#} 元
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="panel">
+                                    <div class="panel-body" style="background:#fff;">
+                                        <h4 class="pull-left">
+                                            已经提现
+                                        </h4>
+                                        <h4 class="pull-right text-info">
+                                            ￥{#$user.tx#} 元
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-xs-6">
+                                <div class="panel">
+                                    <div class="panel-body" style="background:#fff;">
+                                        <h4 class="pull-left">
+                                            今日收益 (元)
+                                        </h4>
+                                        <h4 class="pull-right text-danger">
+                                            ￥{#$tj.dingdantoday#} 元
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="panel">
+                                    <div class="panel-body" style="background:#fff;">
+                                        <h4 class="pull-left">
+                                            昨日收益（元）
+                                        </h4>
+                                        <h4 class="pull-right text-primary">
+                                            ￥{#$tj.dingdanyes#} 元
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="panel">
+                                    <div class="panel-body" style="background:#fff;">
+                                        <h4 class="pull-left">
+                                            今日订单（笔）
+                                        </h4>
+                                        <h4 class="pull-right text-info">
+                                            {#$tj.dingdantodaycount#} 笔
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-xs-6">
+                                <div class="panel">
+                                    <div class="panel-body" style="background:#fff;">
+                                        <h4 class="pull-left">
+                                            昨日订单（笔）
+                                        </h4>
+                                        <h4 class="pull-right text-info">
+                                            {#$tj.dingdanyescount#} 笔
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <em class="fa fa-bell-o fa-fw">
+                                            </em>
+                                            商户信息
+                                        </h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="list-group">
+                                            {#if condition="$baozhengjin eq '0'"#}
+                                            <p>商户ID：{#$user.userid#}</p>
+                                            <p class="margin-small-top clearfix">
+                                                <span class="fl">商户秘钥：<em class="text-blue-deep miyaocon">******</em> <button class="btn btn-primary" status="1" id="copy_show">查看</button> <button class="btn btn-primary" data-clipboard-action="copy" data-clipboard-text="{#$user.miyao#}" id="copy_btn">复制</button></span>
+                                            </p><p>网关地址：{#$apihttp#}</p>
+                                            <p>结算周期：{#$balancestyle#}</p>
+                                            {#else/#}
+                                            支付保证金后显示 <a href="{#:U('Index/Home/api')#}">去支付</a>
+                                            {#/if#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <em class="fa fa-bell-o fa-fw">
+                                            </em>
+                                            公告信息
+                                        </h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="list-group">
+                                            {#$config.notice#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <em class="fa fa-bell-o fa-fw">
+                                            </em>
+                                            客服信息
+                                        </h4>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="list-group">
+                                            <p>手机：{#$config.phone#}</p>
+                                            <p>QQ：<a href="http://wpa.qq.com/msgrd?v=3&amp;uin={#$config.qq#}&amp;Menu=yes" target='_blank'><i class="iconfont icon-qq">{#$config.qq#}</i></a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="/Public/plugin/clipboard.js"></script> 
+    <script>
+        $(document).ready(function () {
+            var targetText=$("#target").text();
+            var clipboard = new Clipboard('#copy_btn');
+            clipboard.on('success', function(e) {
+                alert("复制成功");
+                e.clearSelection();
+            });
+            $('#copy_show').click(function(){
+                var status=$(this).attr('status');
+                if(status=='1'){
+                    $(this).text('隐藏');
+                    $(this).attr('status',2);
+                    $('.miyaocon').text($('#copy_btn').attr('data-clipboard-text'));
+                }else{
+                    $(this).text('查看');
+                    $(this).attr('status',1);
+                    $('.miyaocon').text('******');
+                }
+            });
+        });
+    </script>
+    {#include file="Public/footer" /#}

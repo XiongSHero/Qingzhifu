@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta http-equiv="Content-Language" content="zh-cn">
+        <meta name="apple-mobile-web-app-capable" content="no"/>
+        <meta name="apple-touch-fullscreen" content="yes"/>
+        <meta name="format-detection" content="telephone=no,email=no"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="white"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+        <meta http-equiv="Expires" content="0"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Cache-control" content="no-cache"/>
+        <meta http-equiv="Cache" content="no-cache"/>
+        <meta name="viewport"
+              content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"/>
+        <title>{#$data.shutname#}扫码支付</title>
+        <link href="__PUBLIC__/index/ewm/pay.css" rel="stylesheet" media="screen"/>
+        <script src="__PUBLIC__/plugin/jquery-1.8.0.min.js"></script>
+    </head>
+
+    <body>
+        <div class="body">
+            <h1 class="mod-title">
+                <span class="ico_log ico-{#$data.jkstyle#}"></span>
+            </h1>
+
+            <div class="mod-ct">
+                <div class="order">
+                </div>
+                <div class="amount" id="money">￥{#$data.totalmoney#}</div>
+                <div class="qrcode-img-wrapper" data-role="qrPayImgWrapper">
+                    <div data-role="qrPayImg" class="qrcode-img-area">
+                        <div class="ui-loading qrcode-loading" data-role="qrPayImgLoading" style="display: none;">加载中</div>
+                        <div style="position: relative;display: inline-block;">
+                            <img id='show_qrcode' alt="加载中..." src="{#$qr#}" width="210" height="210" style="display: block;">
+                            <img onclick="$('#use').hide()" id="use" src="__PUBLIC__/index/ewm/use_{#$data.jkstyle#}.png"
+                                 style="position: absolute;top: 50%;left: 50%;width:32px;height:32px;margin-left: -16px;margin-top: -16px">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="time-item">
+                    <div class="time-item" id="msg"><h1>备注：请使用{#$data.shutname#}扫一扫</h1> </div>
+                    <strong id="hour_show">0时</strong>
+                    <strong id="minute_show">0分</strong>
+                    <strong id="second_show">0秒</strong>
+                </div>
+
+                <div class="tip">
+                    <div class="ico-scan"></div>
+                    <div class="tip-text">
+                        <p>请使用{#$data.shutname#}扫一扫</p>
+                        <p>扫描二维码完成支付</p>
+                    </div>
+                </div>
+
+                <div class="detail" id="orderDetail">
+                    <dl class="detail-ct" id="desc" style="display: none;">
+                        <dt>金额</dt>
+                        <dd>{#$data.totalmoney#}</dd>
+                        <dt>商户订单：</dt>
+                        <dd id="ordernum">{#$data.ordernum#}</dd>
+                        <dt>创建时间：</dt>
+                        <dd>{#$data.addtime#}</dd>
+                        <dt>状态</dt>
+                        <dd>{#$data.statusname#}</dd>
+                    </dl>
+
+                    <a href="javascript:void(0)" class="arrow"><i class="ico-arrow"></i></a>
+                </div>
+
+                <div class="tip-text">
+                </div>
+
+
+            </div>
+            <div class="foot">
+                <div class="inner">
+                    <p>手机用户可保存上方二维码到手机中</p>
+                    <p>在{#$data.shutname#}扫一扫中选择“相册”即可</p>
+                </div>
+            </div>
+
+        </div>
+        <div class="copyRight">
+
+        </div>
+        <!--注意下面加载顺序 顺序错乱会影响业务-->
+
+        <script>
+            $(document).ready(function () {
+                var md = '{#$data.md#}';
+                var ddh = $('#ordernum').text();
+                var postflag = 0;
+                $(function () {
+                    timer(360);
+                });
+
+                $('#orderDetail .arrow').click(function (event) {
+                    if ($('#orderDetail').hasClass('detail-open')) {
+                        $('#orderDetail .detail-ct').slideUp(500, function () {
+                            $('#orderDetail').removeClass('detail-open');
+                        });
+                    } else {
+                        $('#orderDetail .detail-ct').slideDown(500, function () {
+                            $('#orderDetail').addClass('detail-open');
+                        });
+                    }
+                });
+
+                //定时检测订单支付情况
+                var myTimer;
+                function timer(intDiff) {
+                    var i = 0;
+                    myTimer = window.setInterval(function () {
+                        i++;
+                        var day = 0,
+                                hour = 0,
+                                minute = 0,
+                                second = 0;//时间默认值
+                        if (intDiff > 0) {
+                            day = Math.floor(intDiff / (60 * 60 * 24));
+                            hour = Math.floor(intDiff / (60 * 60)) - (day * 24);
+                            minute = Math.floor(intDiff / 60) - (day * 24 * 60) - (hour * 60);
+                            second = Math.floor(intDiff) - (day * 24 * 60 * 60) - (hour * 60 * 60) - (minute * 60);
+                        }
+                        if ((intDiff-1) % 20 == 0) {
+                            checkOrder();
+                        }
+                        if (minute <= 9)
+                            minute = '0' + minute;
+                        if (second <= 9)
+                            second = '0' + second;
+                        $('#hour_show').html('<s id="h"></s>' + hour + '时');
+                        $('#minute_show').html('<s></s>' + minute + '分');
+                        $('#second_show').html('<s></s>' + second + '秒');
+                        if (hour <= 0 && minute <= 0 && second <= 0) {
+                            qrcode_timeout()
+                            clearInterval(myTimer);
+
+                        }
+                        intDiff--;
+                    }, 1000);
+                }
+                qrcode_timeout = function () { //二维码超时则停止显示二维码
+                    $("#show_qrcode").attr("src", '');
+                    $("#show_qrcode").attr("alt", '二维码失效');
+
+                    $("#msg h1").html("支付超时 请重新提交订单"); //过期提醒信息
+                }
+                checkOrder = function () { //获取订单状态
+                    if(postflag==1){
+                        return ;
+                    }
+                    postflag=1;
+                    $.post('{#:U("Pay/getddhstatus")#}', {'ddh': ddh, 'md': md, 't': Math.random()}, function (data) {
+                        postflag=0;
+                        if(data['status']==1 && data['data'][0]['status']==1){
+                            postflag=1;
+                            //转入支付成功
+                            location.href='/Pay/backurl/{#$data.pzstyle#}/1/ddh/'+ddh;
+                            return;
+                        }else{
+                            return;
+                        }
+                    });
+                }
+            });
+        </script>
+    </body>
+</html>

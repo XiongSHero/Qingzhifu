@@ -1,0 +1,181 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Pay/dingdansave')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    商户id：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="userid" value="{#$edit.userid#}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    提现金额：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="money" value="{#$edit.money#}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    提现信息：
+                                </label>
+                                <div class="col-md-4">
+                                    <textarea type="text" class="form-control" disabled=''>{#$edit.info#}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    状态：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="statusname" value="{#$edit.statusname#}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    代付状态：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="daifustatusname" value="{#$edit.daifustatusname#}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    申请时间：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="addtime" value="{#$edit.addtime#}" />
+                                </div>
+                            </div>
+
+                            {#if condition="($edit.daifustatus eq '0' or $edit.daifustatus eq '2') and  $edit.status neq '3' "#}
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    代付机构：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="pzid" class="form-control payother">
+                                        {#volist name="payother" id="n" #}
+                                        <option value="{#$n['pzid']#}" {#if condition="$edit.payotherid eq $n['pzid']"#}selected="selected"{#/if#}>{#$n.pzname#}</option>
+                                        {#/volist#}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group paybankdiv">
+                                <label class="col-md-2 control-label">
+                                    代付银行：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="paybank" class="form-control paybank">
+                                        {#volist name="paybank" id="n" #}
+                                        <option value="{#$key#}" {#if condition="$edit.paybank eq $key"#}selected="selected"{#/if#}>{#$n#}</option>
+                                        {#/volist#}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="id" value="{#$edit.id#}"/>
+                                    <button type="submit" class="btn btn-primary " onclick="javascript:return confirm('是否确定提交代付信息？');">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Pay/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                            {#/if#}
+                            <div class="panel-body">
+                                <div class="panel-heading">
+                                    代付记录
+                                </div>
+                                <div class="form-group">
+                                    <table class="table table-hover">
+                                        <tr>
+                                            <th>订单号</th>
+                                            <th>代付订单号</th>
+                                            <th>状态</th>
+                                            <th>添加时间</th>
+                                            <th>支付机构</th>
+                                            <th>支付银行</th>
+                                            <th>返回说明</th>
+                                            <th>支付时间</th>
+                                            <th>操作</th>
+                                        </tr>
+                                        {#if condition="$list"#}
+                                        {#volist name="list" id="n" #}
+                                        <tr>
+                                            <td align="center">{#$n.ddh#}</td>
+                                            <td align="center">{#$n.outddh#}</td>
+                                            <td align="center">{#$n.statusname#}</td>
+                                            <td align="center">{#$n.addtime#}</td>
+                                            <td align="center">{#$n.pzname#}</td>
+                                            <td align="center">{#$n.paybankname#}</td>
+                                            <td align="center">{#$n.outdesc#}</td>
+                                            <td align="center">{#$n.paytime#}</td>
+                                            <td align="center"><a href="javascript:;" data-id="{#$n.ddh#}" data-show="1" data-url="{#:U('Pay/dingdanselect',array('id'=>$n['ddh'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete btn btn-primary"><span class="glyphicon glyphicon-transfer"></span>&nbsp;查询订单</a></td>
+                                        </tr>
+                                        {#/volist#}
+                                        {#else/#}
+                                        <tr>
+                                            <td colspan="10" align="center">暂无数据</td>
+                                        </tr>
+                                        {#/if#}
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.payother').on('change', function () {
+            $('.paybankdiv').hide();
+            var t = $(this).find('option:selected').val();
+            var index = layer.load();
+            $.post('{#:U("Pay/dingdanbank")#}', {'payother': t, 'times': Math.random()}, function (result) {
+                layer.close(index);
+                if (result['status'] == 1) {
+                    var str = '';
+                    if (typeof (result['data'][0][0]) == 'object') {
+                        for (var i in result['data'][0]) {
+                            str += '<option value="' + result['data'][0][i]['code'] + '">' + result['data'][0][i]['name'] + '</option>';
+                        }
+                        $('.paybank').html(str);
+                        $('.paybankdiv').show();
+                    }else{
+                        $('.paybankdiv').hide();
+                    }
+                } else if (result['status'] == 0) {
+                    layer.msg(result['data']);
+                } else {
+                    layer.msg(result);
+                }
+            });
+        });
+        if($('.paybank').find('option').length==0) $('.paybankdiv').hide();
+    });
+</script>
+{#include file="Public/footer" /#} 

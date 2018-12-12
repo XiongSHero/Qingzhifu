@@ -1,0 +1,157 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <h3>
+                    <span class="current">{#$pageName#}</span>
+                </h3>
+                <br>
+                <div class="row tagtopdiv">
+                    <div class="col-md-3 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">当日</span>
+                                    <h5>收入</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.today#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    当日收入
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">当日</span>
+                                    <h5>支出</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.paytoday#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    当日支出
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">全部</span>
+                                    <h5>收入</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.all#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    总收入
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">全部</span>
+                                    <h5>支出</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.payall#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    总支出
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="J_Date" class="layui-form layui-form-pane form-inline" action="" method="get">
+                            <div class="form-group">
+                                <input class="form-control" name="userid" placeholder="商户id" value="{#$Think.request.userid#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <select name="status" class="layui-btn-small ajax-action form-control"  >
+                                    <option value="">全部</option>
+                                    {#volist name="zt" id="n" #}
+                                    <option value="{#$key#}" {#if condition="$Think.request.status eq $key && $Think.request.status neq ''"#}selected="selected"{#/if#}>{#$n#}</option>
+                                    {#/volist#}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control startTime" name="start" placeholder="开始时间" value="{#$Think.request.start#}" size="12" type="text">
+                                -
+                                <input class="form-control endTime" name="end" placeholder="结束时间" value="{#$Think.request.end#}" size="12" type="text">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search">
+                                </span>
+                                &nbsp;立即查询
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <form action="" method="post"  class="ajax-form">
+                    <div class="set set0 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="10">
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('Agent/status',array('status'=>2))#}"><span class="glyphicon glyphicon-check"></span>&nbsp;通过</button>
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('Agent/status',array('status'=>3))#}"><span class="glyphicon glyphicon-alert"></span>&nbsp;冻结</button>
+                                        <button class="btn btn-primary anniu flushbtn" type="button" data-url="#"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <th style="width: 15px;"><input type="checkbox" name="mmAll" class="selectAllCheckbox"/></th>
+                                    <th align="center" >ID</th>
+                                    <th align="center">商户id</th>
+                                    <th align="center">当日金额</th>
+                                    <th align="center">费率</th>
+                                    <th align="center">获取金额</th>
+                                    <th align="center">状态</th>
+                                    <th align="center">时间</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <tr id="tr{#$n.id#}" >
+                                    <td align="center"><input type="checkbox" class="thisid checkbox" title="{#$n.id#}" name="thisid[]" value="{#$n.id#}"/></td>
+                                    <td align="center">{#$n.id#}</td>
+                                    <td align="center">{#$n.userid#}</td>
+                                    <td align="center">{#$n.totalmoney#}</td>
+                                    <td align="center">{#$n.fl#}</td>
+                                    <td align="center">{#$n.havemoney#}</td>
+                                    <td align="center">{#$n.statusname#}</td>
+                                    <td align="center">{#$n.addtime#}</td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="11" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </tbody>
+                        </table>
+                        <div id="wypage">{#$page#}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#}

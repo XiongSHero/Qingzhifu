@@ -1,0 +1,103 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    {#$pageName#}&nbsp;&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+                                <form class="layui-form layui-form-pane form-inline" action="" method="get">
+                                    <div class="form-group">
+                                        <input class="form-control" name="username" placeholder="收款人" value="{#$Think.request.username#}" size="12" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <input class="form-control" name="ka" placeholder="账户" value="{#$Think.request.ka#}" size="12" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <select name="ifcheck" class="layui-btn-small ajax-action form-control"  >
+                                            <option value="">所有状态</option>
+                                            <option value="0" {#if condition="$Think.request.ifcheck eq '0'"#}selected="selected"{#/if#}>未通过</option>
+                                            <option value="1" {#if condition="$Think.request.ifcheck eq '1'"#}selected="selected"{#/if#}>通过</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">
+                                        <span class="glyphicon glyphicon-search">
+                                        </span>
+                                        &nbsp;立即查询
+                                    </button>
+                                </form>
+
+                                <div class="table-responsive mt10">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <td colspan="10">
+                                                    <button class="btn btn-primary anniu addbtn" type="button" data-url="{#:U('Index/Home/yhkadd')#}"><span class="glyphicon glyphicon-edit"></span>&nbsp;添加账户</button>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th align="center">收款人</th>
+                                                <th align="center">账户</th>
+                                                <th align="center">开户行</th>
+                                                <th align="center">联行号</th>
+                                                <th align="center">状态</th>
+                                                <th align="center">添加时间</th>
+                                                <th align="center">审核时间</th>
+                                                <th align="center">操作</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {#if condition="$list"#}
+                                            {#volist name="list" id="n" #}
+                                            <tr id="tr{#$n.id#}" >
+                                                <td align="center">{#$n.username#}</td>
+                                                <td align="center">{#$n.ka#}</td>
+                                                <td align="center">{#$n.sheng#}{#$n.shi#}{#$n.address#}{#$n.zhihang#}</td>
+                                                <td align="center">{#$n.lhh#}</td>
+                                                <td align="center">{#$n.ifcheckname#}</td>
+                                                <td align="center">{#$n.addtime#}</td>
+                                                <td align="center">{#$n.checktime#}</td>
+                                                <td align="center">
+                                                    <a href="{#:U('Index/Home/yhkadd',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
+                                                    <a href="javascript:;" data-id="{#$n.id#}" data-url="{#:U('Index/Home/yhk',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete btn btn-primary"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+                                                </td>
+                                            </tr>
+                                            {#/volist#}
+                                            {#else/#}
+                                            <tr>
+                                                <td colspan="15" align="center">暂无数据</td>
+                                            </tr>
+                                            {#/if#}
+                                        </tbody>
+                                    </table>
+                                    <div id="wypage">{#$page#}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#include file="Public/footer" /#}

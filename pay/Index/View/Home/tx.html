@@ -1,0 +1,214 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    {#$pageName#}&nbsp;&nbsp; (结算周期：{#$balancestyle#})
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+                                <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Index/Home/tx')#}" method="post">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            可用余额：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input name="money" class="form-control" value="{#$nowmoney#}" disabled="" required="" type="text">
+                                                <span class="input-group-addon">元</span>
+                                            </div> （最小提现额度{#$config.minpay#}元）
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            冻结金额：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input name="money" class="form-control" value="{#$todaymoney#}" disabled="" required="" type="text">
+                                                <span class="input-group-addon">元</span>
+                                            </div> 
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            提现手续费：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <div class="input-group">
+                                                <input name="dffl" class="form-control" value="{#$dffl[1]#}" disabled="" required="" type="text">
+                                                <span class="input-group-addon">{#if condition="$dffl[0] eq 1"#}%{#else/#}元{#/if#}</span>    
+                                            </div> （单笔提现手续费）
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            提现时间：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input name="txpaytime" class="form-control" value="{#$txpaytime#}" disabled="" required="" type="text">
+                                            （请在提现允许时间内提现）
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    个人代付
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Index/Home/tx')#}" method="post">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            选择银行卡：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <select name="yhk" class="form-control" >
+                                                <option value="">请选择银行卡</option>
+                                                {#volist name="ka" id="n" #}
+                                                <option value="{#$n.id#}">{#$n.username#}({#$n.ka#})</option>
+                                                {#/volist#}
+                                            </select>
+                                            {#if condition="$ka eq null"#}* 没有银行卡？ {#/if#}
+                                            <a href="{#:U('Index/Home/yhkadd')#}">添加银行卡</a>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            提现金额：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input class="form-control" name="money" value="" type="text"> * 请填写整数
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            提现密码：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input name="txmm" name="txmm" class="form-control" value="" type="password">
+                                        </div>
+                                    </div>
+                                    {#if condition="$config.ifsms eq '1'"#}
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            短信验证：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <div class="col-sm-7 col-xs-8" style="margin-left:0px;padding-left:0px;">
+                                                <input type="text" class="yzm form-control" placeholder="验证码" name="code" />
+                                            </div>
+                                            <div class="col-sm-4 col-xs-4">
+                                                <input type="button" class="sendyzm form-control btn btn-primary sendsms" value="发送验证码" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {#/if#}
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-4">
+                                            <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                            <input type="hidden" class="form-control" name="id" value="{#$edit.id#}"/>
+                                            <button type="submit" class="btn btn-primary ">
+                                                &nbsp;
+                                                <span class="glyphicon glyphicon-saved">
+                                                </span>
+                                                &nbsp;提现&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    委托结算
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <form class="layui-form form-container form-horizontal" enctype="multipart/form-data" action="{#:U('Index/Home/tx')#}" method="post">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            上传文件：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input type="file" accept="csv,xls,xlsx" name="file">
+                                            上传委托结算Excel文件 <a href="/Public/tx.xls">模板下载</a>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            提现密码：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <input name="txmm" name="txmm" class="form-control" value="" type="password">
+                                        </div>
+                                    </div>
+                                    {#if condition="$config.ifsms eq '1'"#}
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            短信验证：
+                                        </label>
+                                        <div class="col-md-6">
+                                            <div class="col-sm-7 col-xs-8" style="margin-left:0px;padding-left:0px;">
+                                                <input type="text" class="yzm form-control" placeholder="验证码" name="code" />
+                                            </div>
+                                            <div class="col-sm-4 col-xs-4">
+                                                <input type="button" class="sendyzm form-control btn btn-primary sendsms" value="发送验证码" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {#/if#}
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-4">
+                                            <input type="hidden" class="form-control" name="act" value="list"/>
+                                            <input type="hidden" class="form-control" name="id" value="{#$edit.id#}"/>
+                                            <button type="submit" class="btn btn-primary ">
+                                                &nbsp;
+                                                <span class="glyphicon glyphicon-saved">
+                                                </span>
+                                                &nbsp;提现&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        {#if condition = "$config.ifsms eq '1'"#}
+        $('.sendsms').live('click', function () {
+            if ($(this).val().indexOf('重发') != -1) {
+                return false;
+            }
+            sendsms('{#:U("Index/Index/sendsms")#}', '{#$user.username#}', 2);
+        });
+        {#/if#}
+    </script>
+    {#include file="Public/footer" /#}

@@ -1,0 +1,98 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+                <div class="right-content">
+                    <h3>
+                        <span class="current">{#$pageName#}</span>
+                    </h3>
+                    <form action="" method="post"  class="ajax-form">
+                        <div class="set set0 table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <td colspan="10">
+                                            <button class="btn btn-primary anniu checkbtn" type="button" data-url="{#:U('Api/check')#}"><span class="glyphicon glyphicon-check"></span>&nbsp;检测</button>
+                                            <button class="btn btn-primary anniu ifopen" type="button" data-url="{#:U('Api/userchangeopen')#}" tid="1"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;开启接口</button>
+                                            <button class="btn btn-primary anniu ifopen" type="button" data-url="{#:U('Api/userchangeopen')#}" tid="0"><span class="glyphicon glyphicon-eye-close"></span>&nbsp;关闭接口</button>
+                                            <button class="btn btn-primary anniu flushbtn" type="button" data-url="#"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                                        </td>
+                                    </tr>
+                                    <tr class="info">
+                                        <th style="width: 15px;"><input type="checkbox" name="mmAll" class="selectAllCheckbox"/></th>
+                                        <th align="center" >ID</th>
+                                        <th align="center">账户名称</th>
+                                        <th align="center">接口名称</th>
+                                        <th align="center">接口类型</th>
+                                        <th align="center">费率</th>
+                                        <th align="center">是否开启</th>
+                                        <th align="center">是否应用</th>
+                                        <th align="center">检测返回</th>
+                                        <th align="center">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {#if condition="$list"#}
+                                    {#volist name="list" id="n" #}
+                                    <tr id="tr{#$n.zjid#}" >
+                                        <td align="center"><input type="checkbox" class="thisid checkbox" title="{#$n.zjid#}" name="thisid[]" value="{#$n.zjid#}"/></td>
+                                        <td align="center">{#$n.zjid#}</td>
+                                        <td align="center">{#$n.pzname#}</td>
+                                        <td align="center">{#$n.jkname#}</td>
+                                        <td align="center">{#$n.jkstyle#}</td>
+                                        <td align="center">{#$n.fl#}%</td>
+                                        <td align="center" class="openstyle">{#$n.ifopen#}</td>
+                                        <td align="center">{#$n.ifchoose#}</td>
+                                        <td align="center"><div style="overflow:auto;width:200px;height:80px;" class="checkresult">-</div></td>
+                                        <td align="center">
+                                            <a href="javascript:;" data-url="{#:U('Api/check')#}" data-id="{#$n.zjid#}" class="layui-btn layui-btn-normal layui-btn-mini checkbtn btn btn-primary" ><span class="glyphicon glyphicon-check"></span>&nbsp;检测</a>
+                                            <a href="javascript:;" data-url="{#:U('Api/userchangeopen')#}" data-id="{#$n.zjid#}" class="layui-btn layui-btn-normal layui-btn-mini ifopen openstyle btn btn-primary"><span class="glyphicon glyphicon-wrench"></span>&nbsp;{#$n.ifopenno#}</a>
+                                        </td>
+                                    </tr>
+                                    {#/volist#}
+                                    {#else/#}
+                                    <tr>
+                                        <td colspan="10" align="center">暂无数据</td>
+                                    </tr>
+                                    {#/if#}
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.ifopen').on('click', function () {
+            var url = $(this).attr('data-url');
+            var id = $(this).attr('data-id');
+            var status = $(this).attr('tid');
+            if (typeof (id) == 'undefined' || id == '')
+                id = $.commonjs.getCheckedID('.ajax-form');
+            if (typeof (status) == 'undefined' || status == '')
+                status = '';
+            if (id == '') {
+                layer.alert('请选择要检测的数据。');
+                return false;
+            }
+            layer.confirm('是否要执行此操作？', function (index) {
+                $.post(url, {'zjid': id, 'ifopen': status, 'times': Math.random()}, function (data) {
+                    layer.close(index);
+                    if (data.status == '0') {
+                        layer.alert(data['data']);
+                    } else {
+                        layer.msg(data['data'][0], function () {
+                            location.reload();
+                        });
+                    }
+                }, 'json');
+            });
+        });
+    });
+</script>
+{#include file="Public/footer" /#}

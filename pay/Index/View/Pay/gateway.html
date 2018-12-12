@@ -1,0 +1,140 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta content="never" name="referrer">
+        <title>{#$sitename#}收银台</title>
+        <link href="__PUBLIC__/index/pay/payorder.css" rel="stylesheet" type="text/css">
+        <!---[if lt IE 9]-->
+        <script type="text/javascript" src="__PUBLIC__/index/pay/jquery-1.js"></script>
+        <!--[endif]--->
+        <!---[if gt IE 9]-->
+        <script type="text/javascript" src="__PUBLIC__/index/pay/jquery-2.js"></script>
+        <!--[endif]--->
+    </head>
+    <body>
+        <div class="header_wrap">
+            <div class="header">
+                <div class="fl">
+                    <a target="_blank" class="logo_unionPay">
+                        <img src="{#$config.logopath#}" width="230" height="80" border="0">
+                    </a>
+                </div>
+                <div class="fr">
+                    <a><img src="__PUBLIC__/index/pay/kefu.jpg" height="40" border="0"></a>
+                    <p>QQ：{#$config.qq#}</p>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="content">
+                <table class="tb_style" width="100%" cellspacing="0" cellpadding="0" border="0">
+                    <tbody>
+                        <tr>
+                            <td class="td_border" width="31%" height="43"><strong>订单金额：<font style="font-size: 20px; color: #F60;">{#$data.fxfee#}</font>&nbsp;&nbsp;元</strong></td>
+                            <td class="td_border" width="36%"><strong>商品名称：</strong>{#$data.fxdesc#}</td>
+                            <td class="td_border" width="33%"><strong>订单编号：</strong>{#$data.fxddh#}</td>
+                        </tr><tr>
+                            <td class="td_border" height="43"><strong>交易币种：</strong>人民币</td>
+                            <td class="td_border"><strong>交易时间：</strong>{#:date('Y-m-d H:i:s')#}</td>
+                            <td class="td_border"><strong>用户ip：</strong>{#$data.fxip#}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="main">
+            <div class="content">
+                <div class="bank-wrap">
+                    <div class="ui-tab-items">
+                        <div class="ui-tab-item bw-tab-curr">
+                            <a href="javascript:;">
+                                <i><img src="__PUBLIC__/index/pay/chinabank.png" width="20" height="20"></i>网关支付</a>
+                        </div>
+                        <!--
+                        <div class="ui-tab-item bw-tab-quick">
+                            <a href="#">
+                                <i><img src="__PUBLIC__/index/pay/quickpay.png" width="20" height="20"></i>快捷支付</a>
+                        </div>
+                        <div class="ui-tab-item bw-tab-quick">
+                            <a href="#">
+                                <i><img src="__PUBLIC__/index/pay/index-weixin.png" width="20" height="20"></i>微信支付</a>
+                        </div>
+                        <div class="ui-tab-item bw-tab-quick">
+                            <a href="#">
+                                <i><img src="__PUBLIC__/index/pay/index-alipay.png" width="20" height="20"></i>支付宝支付</a>
+                        </div>-->
+                    </div>
+                    <form id="form1" class="form1" method="post" action="{#$wg#}">
+                        <div class="paybox j_paybox paybox-selected">
+                            <div class="bw-tab-content">
+                                <div class="payments">
+                                    <ul id="ul_pay_bank" class="pay_bank  pay_ico">
+                                        {#if condition="$list"#}
+                                        {#volist name="list" id="n" #}
+                                        <li>
+                                            <input name="fxbankcode" value="{#$n.bankcode#}" class="radioBt" id="{#$n.bankcode#}" type="radio">
+                                            <label for="{#$n.bankcode#}" class="{#$n.bankcode#}"><img alt="{#$n.bankname#}" src="{#$n.icon#}" width="178" height="36"/></label>
+                                        </li>
+                                        {#/volist#}
+                                        {#else/#}
+                                        <li>暂无银行数据</li>
+                                        {#/if#}
+                                    </ul>
+                                </div>
+                                {#$hidden#}
+                                <input type="hidden" name="jumpflag" value="1" />
+                                <input type="hidden" name="fxnoback" value="1" />
+                                <a href="javascript:document.getElementById('form1').submit();" id="gwSubmit" rel="noreferrer" class="nextStep grayBtn">支付</a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="main">
+            <div class="footer">
+                {#$sitename#}&nbsp;&nbsp;&nbsp;&nbsp;
+                版权所有&nbsp; © 2017-2018 
+                <em>&nbsp;&nbsp;&nbsp;<br>
+                    <strong>该商户由 <a href="http://www.qianlicc.cc/" target="_blank">{#$sitename#}</a> 提供技术服务支持</strong>
+                </em>
+            </div>
+            <em>
+            </em>
+        </div>
+        <script>
+            $(function () {
+                $(".btn_top").hide();
+                $(".btn_top").click(function () {
+                    $('html, body').animate({scrollTop: 0}, 300);
+                    return false;
+                })
+                $(window).bind('scroll resize', function () {
+                    if ($(window).scrollTop() <= 300) {
+                        $(".btn_top").hide();
+                    } else {
+                        $(".btn_top").show();
+                    }
+                })
+            })
+        </script>
+        <script type="text/javascript">
+            $(function () {
+                $(".pay_bank li").click(function () {
+                    $(".pay_bank li").children("label").removeClass("l_current").children("b").removeClass("pitchOn");
+                    $(this).children("label").addClass("l_current").children("b").addClass("pitchOn");
+                });
+                $('#ul_pay_bank .radioBt').each(function () {
+                    $(this).click(function () {
+                        var banktype = $(this).val();
+                        var _gwSubmit = $('#gwSubmit');
+                        if (_gwSubmit.hasClass('grayBtn')) {
+                            _gwSubmit.removeClass('grayBtn').addClass('yellowBtn');
+                            //_gwSubmit.attr('href', 'prepayId=' + $.getUrlParam("prepayId") + '&bankCode=' + banktype);
+                        }
+                    });
+                });
+            })
+        </script>
+    </body>
+</html>

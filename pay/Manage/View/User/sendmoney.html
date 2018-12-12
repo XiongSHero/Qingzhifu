@@ -1,0 +1,125 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('User/sendmoney')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    商户id：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="userid" value="{#$edit.userid#}" required lay-verify="required" placeholder="请输入商户id" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    用户余额：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="usermoney" value="{#$edit.money#}" required lay-verify="required" placeholder="请输入用户可用余额" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    用户可用余额：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="nowmoney" value="{#$nowmoney#}" required lay-verify="required" placeholder="请输入用户余额" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    冻结金额：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="todaymoney" value="{#$todaymoney#}" required lay-verify="required" placeholder="请输入冻结金额" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    结算周期：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="balancestyle" value="{#$balancestyle#}"  />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    提现手续费：
+                                </label>
+                                <div class="col-md-4">
+                                    <div class="input-group">
+                                        <input name="dffl" class="form-control" value="{#$dffl[1]#}" disabled="" required="" type="text">
+                                        <span class="input-group-addon">{#if condition="$dffl[0] eq 1"#}%{#else/#}元{#/if#}</span>    
+                                    </div> （单笔提现手续费）
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    结算状态：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="status" class="form-control flselect">
+                                        <option value="1">已结算</option>
+                                        <option value="0">申请结算</option>
+                                        <option value="2">冻结金额</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    选择银行卡：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="yhk" class="form-control" >
+                                        <option value="">请选择银行卡</option>
+                                        {#volist name="ka" id="n" #}
+                                        <option value="{#$n.id#}">{#$n.username#}({#$n.ka#})</option>
+                                        {#/volist#}
+                                    </select>
+                                    {#if condition="$ka eq null"#}* 没有银行卡？ {#/if#}
+                                    <a href="{#:U('Index/Home/yhkadd')#}">添加银行卡</a>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    结算金额：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="money" value="" placeholder="请输入结算金额" />
+                                    * 用户余额均可结算
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="id" value="{#$edit.id#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('User/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#} 

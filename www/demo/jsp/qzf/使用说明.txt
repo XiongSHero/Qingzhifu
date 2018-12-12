@@ -1,0 +1,2 @@
+1、引入jar文件qzf\web\WEB-INF\lib下的所有文件
+2、修改qzf\web\WEB-INF\jsp\config.jsp中的商户信息和网关，修改index.asp中的同步异步路径

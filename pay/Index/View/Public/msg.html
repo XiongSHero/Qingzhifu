@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Transitional//EN' 'http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd'>
+<html>
+<head>
+    <title>提示信息</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <script src="__PUBLIC__/plugin/jquery-1.8.0.min.js" type="text/javascript"></script>
+    <script language=javascript src="__PUBLIC__/plugin/layer/layer.js?{#$Think.config.FX_UPDATE_FILE_DATE#}"></script>
+</head>
+<body>
+<script language="JavaScript">
+    var msg='<div style="margin:10px 20px;"><p>{#$msg#}</p><p>系统将在 <font color="#00a0ea" style="padding:0 5px" id="spanSeconds">{#$waitSecond#}</font>秒后自动返回...</p></div>';
+    var index = layer.open({
+        title: '提示信息',
+        content: msg,
+        type:1,
+        btn:['确定'],
+        yes:function(index){
+            location.href='{#$jumpUrl#}';
+        }
+    });
+    
+<!--
+var seconds = {#$waitSecond#};
+var defaultUrl = "{#$jumpUrl#}";
+var alertWindow='';
+onload = function()
+{
+  if (defaultUrl == 'javascript:history.go(-1)' && window.history.length == 0)
+  {
+   // document.getElementById('redirectionMsg').innerHTML = '';
+    return;
+  }
+
+    alertWindow=window.setInterval(redirection, 1000);
+}
+function redirection()
+{
+  if (seconds <= 0)
+  {
+    window.clearInterval(alertWindow);
+    return;
+  }
+  seconds --;
+  document.getElementById('spanSeconds').innerHTML = seconds;
+
+  if (seconds == 0)
+  {
+    window.clearInterval(alertWindow);
+    window.parent.location.href = defaultUrl;
+  }
+}
+</script>
+</body>
+</html>

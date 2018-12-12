@@ -1,0 +1,216 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <h3>
+                    <span class="current">{#$pageName#}</span>
+                </h3>
+                <br>
+                <div class="row tagtopdiv">
+                    <div class="col-md-3 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">当日</span>
+                                    <h5>未支付</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.today#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    当日未支付
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">当日</span>
+                                    <h5>支出</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.paytoday#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    当日支出
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">全部</span>
+                                    <h5>总额</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.all#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    总额
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">全部</span>
+                                    <h5>支出</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.payall#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    总支出
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="J_Date" class="layui-form layui-form-pane form-inline" action="" method="get">
+                            <div class="form-group">
+                                <input class="form-control" name="userid" placeholder="商户id" value="{#$Think.request.userid#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="ddh" placeholder="订单号" value="{#$Think.request.ddh#}" size="22" type="text">
+                            </div>
+                            <div class="form-group">
+                                <select name="status" class="layui-btn-small ajax-action form-control statuszt"  >
+                                    {#volist name="zt" id="n" #}
+                                    <option value="{#$key#}" {#if condition="$Think.request.status eq $key"#}selected="selected"{#/if#}>{#$n#}</option>
+                                    {#/volist#}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control startTime" name="start" placeholder="开始时间" value="{#$Think.request.start#}" size="12" type="text">
+                                -
+                                <input class="form-control endTime" name="end" placeholder="结束时间" value="{#$Think.request.end#}" size="12" type="text">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search">
+                                </span>
+                                &nbsp;立即查询
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <form action="" method="post"  class="ajax-form">
+                    <div class="set set0 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="10">
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('Pay/save',array('status'=>0))#}"><span class="glyphicon glyphicon-floppy-remove"></span>&nbsp;未支付</button>
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('Pay/save',array('status'=>1))#}"><span class="glyphicon glyphicon-floppy-saved"></span>&nbsp;已支付</button>
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('Pay/save',array('status'=>2))#}"><span class="glyphicon glyphicon-floppy-save"></span>&nbsp;冻结</button>
+                                        <button class="btn btn-primary anniu flushbtn" type="button" data-url="#"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                                        <div class="checkbox label shownew">
+                                            <label class="i-checks">
+                                            <div class="icheckbox_square-green" style="position: relative;"><input type="checkbox" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins></div>
+                                            <i></i> 新账单提醒
+                                            </label>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <th style="width: 15px;"><input type="checkbox" name="mmAll" class="selectAllCheckbox"/></th>
+                                    <th align="center" >ID</th>
+                                    <th align="center">商户id</th>
+                                    <th align="center">订单号</th>
+                                    <th align="center">提现金额</th>
+                                    <th align="center">手续费</th>
+                                    <th align="center">订单状态</th>
+                                    <th align="center">代付状态</th>
+                                    <th align="center">时间</th>
+                                    <th align="center">提现信息</th>
+                                    <th align="center">异步通知</th>
+                                    <th align="center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <tr id="tr{#$n.id#}" >
+                                    <td align="center"><input type="checkbox" class="thisid checkbox" title="{#$n.id#}" name="thisid[]" value="{#$n.id#}"/></td>
+                                    <td align="center">{#$n.id#}</td>
+                                    <td align="center">{#$n.userid#}</td>
+                                    <td align="center">{#$n.ddh#}</td>
+                                    <td align="center">{#$n.money#}</td>
+                                    <td align="center">{#$n.dffl#}</td>
+                                    <td align="center" class="status" status="{#$n.status#}">{#$n.statusname#}</td>
+                                    <td align="center">{#$n.daifustatusname#}</td>
+                                    <td align="center" class="addtime">{#$n.addtime#}</td>
+                                    <td align="center">开户名:{#$n.realname#} 账户:{#$n.ka#} 开户行:{#$n.sheng#}{#$n.shi#}{#$n.address#}{#$n.zhihang#}</td>
+                                    <td align="center">{#$n.tzname#}{#if condition="$n['tz'] eq '1'"#}<a href="{#:U('Pay/dingdancf',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-edit"></span>&nbsp;重发</a>{#/if#}</td>
+                                    <td align="center">
+                                        {#if condition="$n['status'] neq '3'"#}<a href="{#:U('Pay/dingdan',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-transfer"></span>&nbsp;代付</a>{#/if#}
+                                        {#if condition="$n['status'] neq '3' and $n['daifustatus'] neq '1' and $n['daifustatus'] neq '3'"#}<a href="javascript:;" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary ajax-delete" data-id="{#$n.id#}" data-url="{#:U('Pay/save',array('id'=>$n['id'],'status'=>3,'p'=>$_GET['p']))#}"><span class="glyphicon glyphicon-remove"></span>&nbsp;取消</a>{#/if#}
+                                    </td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="11" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </tbody>
+                        </table>
+                        <div id="wypage">{#$page#}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<audio id="myaudio" src="/Public/audio/dingdan.mp3" controls="controls" hidden="true" >
+</audio>
+<script>
+    var timelimit = 5000;
+    var indexset=1;
+    function checknewdingdan() {
+        var times = $('.addtime').eq(0).html();
+        var status = $('.statuszt').find('option:selected').val();
+        $.post('{#:U("Pay/checkneworder")#}', {'times': times, 'status':status, 't': Math.random()}, function (data) {
+            if (typeof (data['data']) != 'undefined' && data['data'][0] == '1') {
+                var myAuto = document.getElementById('myaudio');
+                myAuto.play();
+                layer.alert('您有新的订单请查看。', function () {
+                    layer.load();
+                    location.reload();
+                });
+            } else {
+                if(indexset==1) setTimeout(checknewdingdan, timelimit);
+            }
+        });
+    }
+    $('.shownew').live('click',function(e){
+        if($(this).find('input').attr('checked')=='checked'){
+            indexset=1;
+            Cookie.Set('indexset',1);
+            setTimeout(checknewdingdan, timelimit);
+        }else{
+            Cookie.Set('indexset',0);
+            indexset=0;
+        }
+        e.stopPropagation();
+        return false;
+    });
+    var tcookie=Cookie.Get('indexset');
+    if(tcookie==1){
+        $('.icheckbox_square-green').addClass('checked');
+        $(this).find('input').attr('checked','checked');
+        setTimeout(checknewdingdan, timelimit);
+    }
+</script>
+{#include file = "Public/footer" /#}

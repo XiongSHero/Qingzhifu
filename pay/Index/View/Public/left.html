@@ -1,0 +1,189 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu" style="display: block;">
+            <li class="nav-header">
+                <div class="dropdown profile-element text-center">
+                    <span style="font-size:26px;color:#fff;font-weight:bold;">
+                        {#$sitename#}
+                    </span>
+                </div>
+            </li>
+            {#if condition="$user.ifagent eq '1' && $config.ifagent eq '0'"#}
+            <li class="active navmain">
+                <a href="#">
+                    <span class="nav-label">
+                        <i class="fa fa-windows">
+                        </i>
+                        代理管理
+                    </span>
+                <span class="fa arrow"></span></a>
+            </li>
+            <li class="">
+                <a href="{#:U('Index/Home/dl')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-newspaper-o">
+                        </i>
+                        代理详情
+                    </span></a>
+            </li>
+            <li class="">
+                <a href="{#:U('Index/Home/dluser')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-users">
+                        </i>
+                        下级商户
+                    </span></a>
+            </li>
+            <li class="">
+                <a href="{#:U('Index/Home/dldingdan')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-line-chart">
+                        </i>
+                        交易订单
+                    </span></a>
+            </li>
+            <li class="">
+                <a href="{#:U('Index/Home/dlfandian')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-map-signs">
+                        </i>
+                        交易返点
+                    </span></a>
+            </li>
+            {#/if#}
+
+            <li class="active navmain">
+                <a href="#">
+                    <span class="nav-label">
+                        <i class="fa fa-windows">
+                        </i>
+                        用户中心
+                    </span>
+                <span class="fa arrow"></span></a>
+            </li>
+            <li class="">
+                <a href="{#:U('Index/Home/index')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-home">
+                        </i>
+                        用户首页
+                    </span></a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/pass')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-newspaper-o">
+                        </i>
+                        我的资料
+                    </span></a>
+            </li>
+            {#if condition="$config.ifopenusercheck eq '1'"#}
+            <li>
+                <a href="{#:U('Index/Home/info')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-camera">
+                        </i>
+                        商户认证
+                    </span></a>
+            </li>
+            {#/if#}
+            <li>
+                <a href="{#:U('Index/Home/myqrcode')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-qrcode">
+                        </i>
+                        商户二维码
+                    </span></a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/dingdan')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-line-chart">
+                        </i>
+                        交易记录
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/dingdancheck')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-exchange">
+                        </i>
+                        对账记录
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/yhk')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-arrows"></i>
+                        代付账户
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/tx')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-paypal">
+                        </i>
+                        申请代付
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/txjl')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-calculator">
+                        </i>
+                        代付记录
+                    </span></a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/moneylog')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-chain">
+                        </i>
+                        资金变动
+                    </span></a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/fl')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-map-signs">
+                        </i>
+                        费率详情
+                    </span>
+                </a>
+            </li>
+            {#if condition="$config['ifopenuserhttp'] eq '1'"#}
+            <li>
+                <a href="{#:U('Index/Home/http')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-link">
+                        </i>
+                        接入域名管理
+                    </span>
+                </a>
+            </li>
+            {#/if#}
+            <li>
+                <a href="{#:U('Index/Home/api')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-wrench">
+                        </i>
+                        接入支付API
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/loginout')#}">
+                    <span class="nav-label">
+                        <i class="fa fa-sign-out">
+                        </i>
+                        退出系统
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>

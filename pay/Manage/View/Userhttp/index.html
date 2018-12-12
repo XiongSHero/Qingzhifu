@@ -1,0 +1,110 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <h3>
+                    <span class="current">{#$pageName#}</span>
+                </h3>
+                <br>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="layui-form layui-form-pane form-inline" action="" method="get">
+                            <div class="form-group">
+                                <input class="form-control" name="userid" placeholder="商户ID" value="{#$Think.request.userid#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="sitename" placeholder="网站名称" value="{#$Think.request.sitename#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="http" placeholder="域名" value="{#$Think.request.http#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="sitephone" placeholder="手机" value="{#$Think.request.sitephone#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <select name="status" class="layui-btn-small ajax-action form-control"  >
+                                    <option value="">所有状态</option>
+                                    <option value="0" {#if condition="$Think.request.status eq '0'"#}selected="selected"{#/if#}>待审核</option>
+                                    <option value="1" {#if condition="$Think.request.status eq '1'"#}selected="selected"{#/if#}>通过</option>
+                                    <option value="2" {#if condition="$Think.request.status eq '2'"#}selected="selected"{#/if#}>未通过</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search">
+                                </span>
+                                &nbsp;立即查询
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <form action="" method="post"  class="ajax-form">
+                    <div class="set set0 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="15">
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('Userhttp/delete')#}"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</button>
+                                        <button class="btn btn-primary anniu addbtn" type="button" data-url="{#:U('Userhttp/add')#}"><span class="glyphicon glyphicon-edit"></span>&nbsp;添加</button>
+                                        <button class="btn btn-primary anniu flushbtn" type="button" data-url="#"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <th style="width: 15px;"><input type="checkbox" name="mmAll" class="selectAllCheckbox"/></th>
+                                    <th align="center">id</th>
+                                    <th align="center">商户id</th>
+                                    <th align="center">网站名称</th>
+                                    <th align="center">网站域名</th>
+                                    <th align="center">网站类型</th>
+                                    <th align="center">备案</th>
+                                    <th align="center">管理员</th>
+                                    <th align="center">手机</th>
+                                    <th align="center">QQ</th>
+                                    <th align="center">状态</th>
+                                    <th align="center">添加时间</th>
+                                    <th align="center">审核时间</th>
+                                    <th align="center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <tr id="tr{#$n.id#}" >
+                                    <td align="center"><input type="checkbox" class="thisid checkbox" title="{#$n.id#}" name="thisid[]" value="{#$n.id#}"/></td>
+                                    <td align="center">{#$n.id#}</td>
+                                    <td align="center">{#$n.userid#}</td>
+                                    <td align="center">{#$n.sitename#}</td>
+                                    <td align="center"><a href="{#:U('Userhttp/edit',array('id'=>$n['id'],'p'=>$_GET['p']))#}">{#$n.http#}</a></td>
+                                    <td align="center">{#$n.sitestyle#}</td>
+                                    <td align="center">{#$n.beian#}</td>
+                                    <td align="center">{#$n.siteadmin#}</td>
+                                    <td align="center">{#$n.sitephone#}</td>
+                                    <td align="center">{#$n.siteqq#}</td>
+                                    <td align="center">{#$n.statusname#}</td>
+                                    <td align="center">{#$n.addtime#}</td>
+                                    <td align="center">{#$n.checktime#}</td>
+                                    <td align="center">
+                                        <a href="{#:U('Userhttp/edit',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
+                                        <a href="javascript:;" data-id="{#$n.id#}" data-url="{#:U('Userhttp/delete',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete btn btn-primary"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+                                    </td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="15" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </tbody>
+                        </table>
+                        <div id="wypage">{#$page#}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#}

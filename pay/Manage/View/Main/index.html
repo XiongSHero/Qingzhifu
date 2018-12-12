@@ -1,0 +1,354 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content gray-bg"> 
+                <div class="wrapper wrapper-content">
+                    <div class="container" style="width:100%">
+                        <div class="row" style="margin-bottom:30px;">
+                            <h3>网站概况</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <span class="label label-success pull-right">全部</span>
+                                        <h5>商户数</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <h1 class="no-margins">{#$buffer['alluser']#}</h1>
+                                        <div class="stat-percent font-bold text-success">{#$buffer['dluser']#} <i class="fa fa-bolt"></i>
+                                        </div>
+                                        <small>代理数</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <span class="label label-info pull-right">全部</span>
+                                        <h5>订单数</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <h1 class="no-margins">{#$buffer['alldingdan']#}</h1>
+                                        <div class="stat-percent font-bold text-info">{#$buffer['successdingdan']#} <i class="fa fa-level-up"></i>
+                                        </div>
+                                        <small>付款率</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <span class="label label-primary pull-right">全部</span>
+                                        <h5>资金流水</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h1 class="no-margins">¥ {#$buffer['allmoney']#}</h1>
+                                                <div class="font-bold text-navy">{#$buffer['paymoneylv']#} <i class="fa fa-level-up"></i>
+                                                    <small>支出比例</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h1 class="no-margins">¥ {#$buffer['havemoney']#}</h1>
+                                                <div class="font-bold text-navy">{#$buffer['havemoneylv']#} <i class="fa fa-level-up"></i>
+                                                    <small>收入比例</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <span class="label label-primary pull-right">月</span>
+                                        <h5>上月收入</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <h1 class="no-margins">¥ {#$buffer['allpremonthmoney']#}</h1>
+                                                <div class="font-bold text-navy">{#$buffer['paypremonthmoneylv']#}<i class="fa fa-level-up"></i>
+                                                    <small>支出比例</small>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <h1 class="no-margins">¥ {#$buffer['havepremonthmoney']#}</h1>
+                                                <div class="font-bold text-navy">{#$buffer['havepremonthmoneylv']#} <i class="fa fa-level-up"></i>
+                                                    <small>收入比例</small>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-content">
+                                        <div>
+                                            <span class="pull-right text-right">
+                                                金额： {#$buffer['alldingdanmoney30']#}
+                                            </span>
+                                            <h3 class="font-bold no-margins">
+                                                最近30天的流水 </h3>
+                                        </div>
+                                        <div class="m-t-sm">
+                                            <div class="row">
+                                                <div class="col-md-8">
+                                                    <div id="lineChart" style="width: 100%; height: 260px;">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <ul class="stat-list m-t-lg">
+                                                        <li>
+                                                            <h2 class="no-margins">{#$buffer['havedingdan30']#}</h2>
+                                                            <small>订单数</small>
+                                                            <div class="progress progress-mini">
+                                                                <div class="progress-bar" style="width: {#$buffer['havedingdan30lv']#};"></div>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <h2 class="no-margins ">{#$buffer['havedingdanmoney30']#}</h2>
+                                                            <small>收入</small>
+                                                            <div class="progress progress-mini">
+                                                                <div class="progress-bar" style="width: {#$buffer['havedingdanmoney30lv']#};"></div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="m-t-md">
+                                            <small class="pull-right">
+                                                <i class="glyphicon glyphicon-refresh"> </i> {#:date('Y-m-d H:i:s')#}更新
+                                            </small>
+                                            <small>
+                                                <strong>说明：</strong> 仅显示最近30天的流水信息。
+                                            </small>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>今日资金统计</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <small class="stats-label">订单数</small>
+                                                <h4>{#$buffer['alltodaydingdan']#}</h4>
+                                            </div>
+
+                                            <div class="col-xs-4">
+                                                <small class="stats-label">成功订单</small>
+                                                <h4>{#$buffer['havetodaydingdan']#}</h4>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <small class="stats-label">扣量订单</small>
+                                                <h4>{#$buffer['kltodaydingdan']#}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <small class="stats-label">总金额</small>
+                                                <h4>{#$buffer['alltodaymoney']#}</h4>
+                                            </div>
+
+                                            <div class="col-xs-4">
+                                                <small class="stats-label">支出</small>
+                                                <h4>{#$buffer['paytodaymoney']#}</h4>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <small class="stats-label">收入</small>
+                                                <h4>{#$buffer['havetodaymoney']#}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <small class="stats-label">申请打款</small>
+                                                <h4>{#$buffer['allpay']#}</h4>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <small class="stats-label">支付金额</small>
+                                                <h4>{#$buffer['havepay']#}</h4>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <small class="stats-label">未付款金额</small>
+                                                <h4>{#$buffer['nopay']#}</h4>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="ibox float-e-margins">
+                                    <div class="ibox-title">
+                                        <h5>通道情况</h5>
+                                    </div>
+                                    <div class="ibox-content">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th>通道名称</th>
+                                                        <th>通道编号</th>
+                                                        <th>本站状态</th>
+                                                        <th>用户默认状态</th>
+                                                        <th>轮询</th>
+                                                        <th>网关</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {#if condition="$payStyleStatus"#}
+                                                    {#volist name="payStyleStatus" id="n" #}
+                                                    <tr>
+                                                        <td>{#$n.jkname#}</td>
+                                                        <td>{#$n.jkstyle#}</td>
+                                                        <td>{#$n.ifopenname#}</td>
+                                                        <td>{#$n.ifuseropenname#}</td>
+                                                        <td>{#$n.ifroundname#}</td>
+                                                        <td>{#$n.httppath#}/Pay</td>
+                                                    </tr>
+                                                    {#/volist#}
+                                                    {#else/#}
+                                                    <tr>
+                                                        <td colspan="10" align="center">暂无数据</td>
+                                                    </tr>
+                                                    {#/if#}
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        </div>
+    </div>
+</div>
+<script src="__PUBLIC__/plugin/echarts.common.min.js"></script>
+<script>
+    $(document).ready(function () {
+        var myChart = echarts.init(document.getElementById('lineChart'));
+        
+        var buffer={#$dingdan30MonthBuffer#};
+        var dataAxis=[];
+        var data=[];
+        var yMax =0;
+        if(buffer!=0){
+            for(i in buffer){
+                dataAxis.push(buffer[i]['date']);
+                data.push(buffer[i]['totalmoney']);
+                if(buffer[i]['totalmoney']>yMax) yMax=buffer[i]['totalmoney'];
+            }
+        }
+        
+        //var dataAxis = ['点', '击', '柱', '子', '或', '者', '两', '指', '在', '触', '屏', '上', '滑', '动', '能', '够', '自', '动', '缩', '放'];
+        //var data = [220, 182, 191, 234, 290, 330, 310, 123, 442, 321, 90, 149, 210, 122, 133, 334, 198, 123, 125, 220];
+        //var yMax = 500;
+        var dataShadow = [];
+
+        for (var i = 0; i < data.length; i++) {
+            dataShadow.push(yMax);
+        }
+
+        option = {
+            title: {
+                show: false
+            },
+            xAxis: {
+                data: dataAxis,
+                axisLabel: {
+                    inside: false,
+                    textStyle: {
+                        color: '#000'
+                    }
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLine: {
+                    show: false
+                },
+                z: 10
+            },
+            yAxis: {
+                axisLine: {
+                    show: false
+                },
+                axisTick: {
+                    show: false
+                },
+                axisLabel: {
+                    textStyle: {
+                        color: '#999'
+                    }
+                }
+            },
+            dataZoom: [
+                {
+                    type: 'inside'
+                }
+            ],
+            series: [
+                {// For shadow
+                    type: 'bar',
+                    itemStyle: {
+                        normal: {color: 'rgba(0,0,0,0.05)'}
+                    },
+                    barGap: '-100%',
+                    barCategoryGap: '40%',
+                    data: dataShadow,
+                    animation: false
+                },
+                {
+                    type: 'bar',
+                    itemStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(
+                                    0, 0, 0, 1,
+                                    [
+                                        {offset: 0, color: '#83bff6'},
+                                        {offset: 0.5, color: '#188df0'},
+                                        {offset: 1, color: '#188df0'}
+                                    ]
+                                    )
+                        },
+                        emphasis: {
+                            color: new echarts.graphic.LinearGradient(
+                                    0, 0, 0, 1,
+                                    [
+                                        {offset: 0, color: '#2378f7'},
+                                        {offset: 0.7, color: '#2378f7'},
+                                        {offset: 1, color: '#83bff6'}
+                                    ]
+                                    )
+                        }
+                    },
+                    data: data
+                }
+            ]
+        };
+        myChart.setOption(option);
+    });
+</script>
+{#include file="Public/footer" /#}

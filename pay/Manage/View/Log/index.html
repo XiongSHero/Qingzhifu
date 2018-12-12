@@ -1,0 +1,95 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <h3>
+                    <span class="current">{#$pageName#}</span>
+                </h3>
+                <br>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="J_Date" class="layui-form layui-form-pane form-inline" action="" method="get">
+                            <div class="form-group">
+                                <input class="form-control" name="userid" placeholder="管理员或商户id" value="{#$Think.request.userid#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="content" placeholder="内容"  value="{#$Think.request.content#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="module" placeholder="模块" value="{#$Think.request.module#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control startTime" name="start" placeholder="开始时间" value="{#$Think.request.start#}" size="12" type="text">
+                                -
+                                <input class="form-control endTime" name="end" placeholder="结束时间" value="{#$Think.request.end#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <select name="ifadmin" class="layui-btn-small ajax-action form-control"  >
+                                    <option value="">所有状态</option>
+                                    <option value="0" {#if condition="$Think.request.ifadmin eq '0'"#}selected="selected"{#/if#}>用户</option>
+                                    <option value="1" {#if condition="$Think.request.ifadmin eq '1'"#}selected="selected"{#/if#}>管理员</option>
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search">
+                                </span>
+                                &nbsp;立即查询
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <form action="" method="post"  class="ajax-form">
+                    <div class="set set0 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="10">
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('Log/delete')#}"><span class="glyphicon glyphicon-remove"></span>删除</button>
+                                        <button class="btn btn-primary anniu flushbtn" type="button" data-url="#"><span class="glyphicon glyphicon-refresh"></span>刷新</button>
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <th style="width: 15px;"><input type="checkbox" name="mmAll" class="selectAllCheckbox"/></th>
+                                    <th align="center" >日志ID</th>
+                                    <th align="center">用户</th>
+                                    <th align="center">模块</th>
+                                    <th align="center">内容</th>
+                                    <th align="center">时间</th>
+                                    <th align="center">ip</th>
+                                    <th align="center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <tr id="tr{#$n.id#}" >
+                                    <td align="center"><input type="checkbox" class="thisid checkbox" title="{#$n.id#}" name="thisid[]" value="{#$n.id#}"/></td>
+                                    <td align="center">{#$n.id#}</td>
+                                    <td align="center">{#$n.userid#}</td>
+                                    <td align="center">{#$n.module#}</td>
+                                    <td align="center">{#$n.content#}</td>
+                                    <td align="center">{#$n.addtime#}</td>
+                                    <td align="center">{#$n.ip#}</td>
+                                    <td align="center">
+                                        <a href="javascript:;" data-id="{#$n.id#}" data-url="{#:U('Log/delete',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete btn btn-primary"><span class="glyphicon glyphicon-remove"></span>删除</a>
+                                    </td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="10" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </tbody>
+                        </table>
+                        <div id="wypage">{#$page#}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#}

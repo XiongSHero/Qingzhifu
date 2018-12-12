@@ -1,0 +1,73 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <h3>
+                    <span class="current">{#$pageName#}</span>
+                </h3>
+                <br>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="layui-form layui-form-pane form-inline" action="" method="get">
+                            <div class="form-group">
+                                <input class="form-control" name="userid" placeholder="商户ID" value="{#$Think.request.userid#}" size="12" type="text">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search">
+                                </span>
+                                &nbsp;立即查询
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <form action="" method="post"  class="ajax-form">
+                    <div class="set set0 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="10">
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('Kou/delete')#}"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</button>
+                                        <button class="btn btn-primary anniu addbtn" type="button" data-url="{#:U('Kou/add')#}"><span class="glyphicon glyphicon-edit"></span>&nbsp;添加</button>
+                                        <button class="btn btn-primary anniu flushbtn" type="button" data-url="#"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <th style="width: 15px;"><input type="checkbox" name="mmAll" class="selectAllCheckbox"/></th>
+                                    <th align="center" >商户ID</th>
+                                    <th align="center">初始值</th>
+                                    <th align="center">自减值</th>
+                                    <th align="center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <tr id="tr{#$n.zjid#}" >
+                                    <td align="center"><input type="checkbox" class="thisid checkbox" title="{#$n.zjid#}" name="thisid[]" value="{#$n.zjid#}"/></td>
+                                    <td align="center"><a href="{#:U('Kou/edit',array('id'=>$n['zjid'],'p'=>$_GET['p']))#}">{#$n.userid#}</a></td>
+                                    <td align="center">{#$n.initval#}</td>
+                                    <td align="center">{#$n.zijian#}</td>
+                                    <td align="center">
+                                        <a href="{#:U('Kou/edit',array('id'=>$n['zjid'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
+                                        <a href="javascript:;" data-id="{#$n.zjid#}" data-url="{#:U('Kou/delete',array('id'=>$n['zjid'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete btn btn-primary"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+                                    </td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="15" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </tbody>
+                        </table>
+                        <div id="wypage">{#$page#}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#}

@@ -1,0 +1,269 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('User/save')#}" method="post">
+                            {#if condition="$edit.userid neq null"#}
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    商户id：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="userid" value="{#$edit.userid#}" required lay-verify="required" placeholder="请输入商户id" />
+                                </div>
+                            </div>
+                            {#/if#}
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    用户账户：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" {#if condition="$act eq 'edit'"#}disabled=''{#/if#} name="username" value="{#$edit.username#}" required lay-verify="required" placeholder="请输入用户账户" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    密码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="password" class="form-control" name="password" value="" />
+                                    {#if condition="$edit.userid neq null"#}* 不修改请留空{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    重复密码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="password" class="form-control" name="password2" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    提现密码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="txpassword" value="" />
+                                    {#if condition="$edit.userid neq null"#}* 不修改请留空{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    qq：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="qq" value="{#$edit.qq#}" placeholder="请输入qq" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    手机号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="phone" value="{#$edit.phone#}" placeholder="请输入手机号" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    手机验证：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifcheckphone" class="form-control flselect">
+                                        <option value="0" {#if condition="$edit.ifcheckphone eq '0'"#}selected="selected"{#/if#}>未验证</option>
+                                        <option value="1" {#if condition="$edit.ifcheckphone eq '1'"#}selected="selected"{#/if#}>已验证</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    邮箱：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="email" value="{#$edit.email#}" placeholder="请输入邮箱" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    状态：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="status" class="form-control flselect">
+                                        <option value="0" {#if condition="$edit.status eq '0'"#}selected="selected"{#/if#}>正常</option>
+                                        <option value="1" {#if condition="$edit.status eq '1'"#}selected="selected"{#/if#}>锁定</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    保证金：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="regmoney" value="{#$edit.regmoney#}" placeholder="请输入保证金" />
+                                    * 可留空，如填写请填写用户已经支付的保证金
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    是否代理：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifagent" class="form-control flselect">
+                                        <option value="0" {#if condition="$edit.ifagent eq '0'"#}selected="selected"{#/if#}>不是</option>
+                                        <option value="1" {#if condition="$edit.ifagent eq '1'"#}selected="selected"{#/if#}>是</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    代理id：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="agent" value="{#$edit.agent#}" placeholder="请输入代理id" />
+                                    * 可留空，如填写请填写商户id 例如20181000
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    结算类型：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="balancestyle" class="form-control">
+                                        <option value="0" {#if condition="$edit['balancestyle'] eq '0'"#}selected="selected"{#/if#}>默认（按系统设置）</option>
+                                        <option value="T" {#if condition="$edit['balancestyle'] eq 'T'"#}selected="selected"{#/if#}>工作日（T）</option>
+                                        <option value="D" {#if condition="$edit['balancestyle'] eq 'D'"#}selected="selected"{#/if#}>自然日（D）</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    结算周期：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="balancetime" value="{#$edit['balancetime']#}" placeholder="请输入结算周期" />
+                                    *例如T+0这里填0，D+0这里填0，T+1这里填1，与结算类型配合使用
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    扣量：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifkl" class="form-control flselect">
+                                        <option value="-1" {#if condition="$edit.ifkl eq '-1'"#}selected="selected"{#/if#}>按照系统配置</option>
+                                        <option value="0" {#if condition="$edit.ifkl eq '0'"#}selected="selected"{#/if#}>不扣量</option>
+                                        <option value="1" {#if condition="$edit.ifkl eq '1'"#}selected="selected"{#/if#}>扣量</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    代理开户开关：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifagentopenuser" class="form-control flselect">
+                                        <option value="-1" {#if condition="$edit.ifagentopenuser eq '-1'"#}selected="selected"{#/if#}>按照系统配置</option>
+                                        <option value="0" {#if condition="$edit.ifagentopenuser eq '0'"#}selected="selected"{#/if#}>关闭</option>
+                                        <option value="1" {#if condition="$edit.ifagentopenuser eq '1'"#}selected="selected"{#/if#}>开启</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    自动代付开关：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifdaifuauto" class="form-control flselect">
+                                        <option value="-1" {#if condition="$edit.ifdaifuauto eq '-1'"#}selected="selected"{#/if#}>按照系统配置</option>
+                                        <option value="0" {#if condition="$edit.ifdaifuauto eq '0'"#}selected="selected"{#/if#}>关闭</option>
+                                        <option value="1" {#if condition="$edit.ifdaifuauto eq '1'"#}selected="selected"{#/if#}>开启</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    默认代付账户：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="daifuid" class="form-control daifuid">
+                                        <option value="" {#if condition="$edit.daifuid eq ''"#}selected="selected"{#/if#}>请选择</option>
+                                        {#volist name="payother" id="n" #}
+                                        <option value="{#$n['pzid']#}" {#if condition="$edit.daifuid eq $n['pzid']"#}selected="selected"{#/if#}>{#$n.pzname#}</option>
+                                        {#/volist#}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label paybankdiv">
+                                    默认代付银行：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="daifubank" class="form-control daifubank">
+                                        <option value="" {#if condition="$edit.daifubank eq ''"#}selected="selected"{#/if#}>请选择</option>
+                                        {#volist name="paybank" id="n" #}
+                                        <option value="{#$key#}" {#if condition="$edit.daifubank eq $key"#}selected="selected"{#/if#}>{#$n#}</option>
+                                        {#/volist#}
+                                    </select>
+                                    *没有可不填
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="id" value="{#$edit.id#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('User/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('.daifuid').on('change', function () {
+            $('.daifubank').hide();
+            var t = $(this).find('option:selected').val();
+            var index = layer.load();
+            $.post('{#:U("Pay/dingdanbank")#}', {'payother': t, 'times': Math.random()}, function (result) {
+                layer.close(index);
+                if (result['status'] == 1) {
+                    var str='';
+                    if(typeof(result['data'][0][0])=='object'){
+                        for(var i in result['data'][0]){
+                            str+='<option value="'+result['data'][0][i]['code']+'">'+result['data'][0][i]['name']+'</option>';
+                        }
+                        $('.daifubank').html(str);
+                        $('.daifubank').show();
+                    }
+                } else if (result['status'] == 0) {
+                    layer.msg(result['data']);
+                } else {
+                    layer.msg(result);
+                }
+            });
+        });
+    });
+</script>
+{#include file="Public/footer" /#} 

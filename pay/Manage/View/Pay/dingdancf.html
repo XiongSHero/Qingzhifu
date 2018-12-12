@@ -1,0 +1,101 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Manage/Pay/dingdancf')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    系统订单号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control ddh" name="ddh" value="{#$edit.ddh#}" required lay-verify="required" placeholder="请输入订单号" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    用户订单号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control " name="sigleddh" value="{#$edit.sigleddh#}" required lay-verify="required" placeholder="请输入用户订单号" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    参数：
+                                </label>
+                                <div class="col-md-4">
+                                    <textarea class="form-control params" cols="50" rows="5" name="params" >{#$edit.params#}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    发送地址：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control notifyurl" name="notifyurl" value="{#$edit.notifyurl#}" required lay-verify="required" placeholder="请输入发送地址" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    返回值：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control returntxt" name="return" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control stylee" name="e" value="{#$e#}"/>
+                                    <input type="hidden" class="form-control" name="id" value="{#$edit.id#}"/>
+                                    <input type="hidden" class="form-control notifystyle" name="notifystyle" value="{#$edit.notifystyle#}"/>
+                                    <button type="button" class="btn btn-primary resend">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved"></span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Manage/Pay/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.resend').on('click', function () {
+        var index = layer.load();
+        var ddh = $('.ddh').val();
+        var e = $('.stylee').val();
+        var notifyurl = $('.notifyurl').val();
+        var notifystyle = $('.notifystyle').val();
+        var params = $('.params').html();
+        $.post('{#:U("Manage/Pay/dingdancf")#}', {'url': notifyurl, 'ddh': ddh, 'e': e, 'params': params, 'notifystyle': notifystyle, 'times': Math.random()}, function (data) {
+            layer.close(index);
+            if (data.status == 1) {
+                $('.returntxt').val(data['data'][0]);
+                layer.alert('返回信息：' + data['data'][0]);
+            } else if (data.status == 0) {
+                layer.alert('返回信息：' + data['data']);
+            } else {
+                layer.alert('返回信息：' + data);
+            }
+        });
+    });
+
+</script>
+{#include file="Public/footer" /#} 

@@ -1,0 +1,108 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Admin/save')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    管理员账户：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" {#if condition="$act eq 'edit'"#}disabled=''{#/if#} name="adminname" value="{#$edit.adminname#}" required lay-verify="required" placeholder="请输入管理员账户" />
+                                </div>
+                            </div>
+                            {#if condition="$edit.adminid eq '1'"#}
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    原密码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="password" class="form-control" name="passwordy" value="" />
+                                    * 不修改请留空
+                                </div>
+                            </div>
+                            {#/if#}
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    密码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="password" class="form-control" name="password" value="" />
+                                    {#if condition="$edit.adminid neq null"#}* 不修改请留空{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    重复密码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="password" class="form-control" name="password2" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    真实姓名：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="realname" value="{#$edit.realname#}" required lay-verify="required" placeholder="请输入真实姓名" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    手机号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="phone" value="{#$edit.phone#}" required lay-verify="required" placeholder="请输入手机号" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    邮箱：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="email" value="{#$edit.email#}" required lay-verify="required" placeholder="请输入邮箱" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    状态：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="status" class="form-control flselect">
+                                        <option value="0" {#if condition="$edit.status eq '0'"#}selected="selected"{#/if#}>启用</option>
+                                        <option value="1" {#if condition="$edit.status eq '1'"#}selected="selected"{#/if#}>禁用</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="adminid" value="{#$edit.adminid#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved"></span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Admin/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#} 

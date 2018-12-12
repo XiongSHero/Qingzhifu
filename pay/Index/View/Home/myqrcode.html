@@ -1,0 +1,89 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    {#$pageName#}&nbsp;&nbsp;
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="content-box">
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div style="padding:20px 15px;border:1px solid #ccc;margin-bottom:30px;">
+                                                <form class="form-horizontal"  action="{#:U('Index/Home/myqrcode')#}" method="post">
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">
+                                                            标题：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="str" class="form-control" value="{#$str#}" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">
+                                                            二维码宽度：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control username" name="width" value="{#$width#}"  type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-3 control-label">
+                                                            二维码高度：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control userid" name="height" value="{#$height#}"  type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-offset-3 col-md-6">
+                                                            <button type="submit" class="btn btn-primary">
+                                                                &nbsp;
+                                                                <i class="fa fa-check-square-o"></i>
+                                                                &nbsp;重新生成二维码&nbsp;
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4">
+                                            <div class="row" style="text-align:center;font-size:16px;">
+                                                <img src="{#$img#}" style=" border:1px solid #ccc;padding:10px;"/>
+                                                <p><a href="{#$img#}" target="_blank">下载二维码</a>[右键另存为]</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#include file="Public/footer" /#}

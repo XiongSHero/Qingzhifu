@@ -1,0 +1,125 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <h3>
+                    <span class="current">{#$pageName#}</span>
+                </h3>
+                <form action="" method="post"  class="ajax-form">
+                    <div class="set set0 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="10">
+                                        <button class="btn btn-primary anniu startbd" type="button" data-url=""><span class="glyphicon glyphicon-stats"></span>&nbsp;开始补单</button>
+                                        <button class="btn btn-primary anniu flushbtn" type="button" data-url="#"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                                        * 补单后需要重新补单请刷新后重试。
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <th align="center" >ID</th>
+                                    <th align="center">订单编号</th>
+                                    <th align="center">商户id</th>
+                                    <th align="center">支付时间</th>
+                                    <th align="center">补单返回</th>
+                                    <th align="center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <tr id="tr{#$n.ddid#}" class="ddlist" ordernum="{#$n.ordernum#}">
+                                    <td align="center">{#$n.ddid#}</td>
+                                    <td align="center">{#$n.ordernum#}</td>
+                                    <td align="center">{#$n.userid#}</td>
+                                    <td align="center">{#$n.paytime#}</td>
+                                    <td align="center"><div style="overflow:auto;width:200px;height:80px;" class="checkresult">-</div></td>
+                                    <td align="center">
+                                        <a href="javascript:;" data-url="" data-id="{#$n.ddid#}" class="layui-btn layui-btn-normal layui-btn-mini jumpbd btn btn-primary" ><span class="glyphicon glyphicon-check"></span>&nbsp;跳过补单</a>
+                                        <a href="{#:U('Dingdan/edit',array('id'=>$n['ddid'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-repeat"></span>&nbsp;详细</a>
+                                    </td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="10" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        //批量补单
+        $('.startbd').on('click', function () {
+            var html=$(this).html();
+            var text=$(this).text();
+            if(text.indexOf('开始')!=-1){
+                html=html.replace('开始','暂停');
+                $(this).html(html);
+                sendDingdan();
+            }else{
+                html=html.replace('暂停','开始');
+                $(this).html(html);
+            }
+        });
+
+        function sendDingdan() {
+            var text=$('.startbd').text();
+            if(text.indexOf('开始')!=-1){
+                return false;
+            }
+            if ($('.ddlist').length == 0) {
+                var html=$('.startbd').html();
+                html=html.replace('暂停','开始');
+                $('.startbd').html(html);
+                layer.msg('订单已全部重发，请刷新后重试。');
+                return false;
+            }
+            var id = $('.ddlist').eq(0).attr('ordernum');
+            var index = layer.load();
+            $.post('{#:U("Dingdan/save")#}', {'ddh': id, 'times': Math.random()}, function (data) {
+                layer.close(index);
+                if (data.status == '0') {
+                    $('.ddlist').eq(0).find('.checkresult').html(data['data']);
+                } else {
+                    $('.ddlist').eq(0).find('.checkresult').html(data['data'][0]);
+                }
+                $('.ddlist').eq(0).removeClass('ddlist');
+                setTimeout(sendDingdan,1000);
+            }, 'json');
+        }
+
+        //跳过补单
+        $('.jumpbd').on('click', function () {
+            var id = $(this).attr('data-id');
+            if (id == '') {
+                layer.alert('请选择要操作的数据。');
+                return false;
+            }
+            layer.confirm('是否要执行此操作？', function (index) {
+                var index = layer.load();
+                $.post('{#:U("Dingdan/savetz")#}', {'id': id, 'times': Math.random()}, function (data) {
+                    layer.close(index);
+                    if (data.status == '0') {
+                        layer.alert(data['data']);
+                    } else {
+                        layer.msg(data['data'][0], function () {
+                            $('#tr' + id).remove();
+                        });
+                    }
+                }, 'json');
+            });
+        });
+    });
+</script>
+{#include file="Public/footer" /#}

@@ -1,0 +1,144 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/> 
+        <title>微信支付 - {#$sitename#}</title>
+        <style>
+            html{ height: 100%;width: 100%; background: none}
+            body{text-align: center;height: 100%;width: 100% ;padding: 0px; margin: 0px;font-family: "Microsoft Yahei", "微软雅黑", Arial, "Hiragino Sans GB", "宋体", "Helvetica Neue", Helvetica, sans-serif;}
+            .paybg{
+                background: -moz-linear-gradient(top, #49d526 0%, #42ac24 100%);
+                background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#42ac24), color-stop(100%,#42ac24));
+                background: -webkit-linear-gradient(top, #49d526 0%,#42ac24 100%);
+                background: -o-linear-gradient(top, #49d526 0%,#42ac24 100%);
+                background: -ms-linear-gradient(top, #49d526 0%,#42ac24 100%);
+                background: linear-gradient(to bottom, #49d526 0%,#42ac24 100%);
+            }
+            .head {
+                text-align: center;
+                margin:auto;
+                min-height: 50%;
+                padding-bottom: 50px;
+            }
+            .bottom {
+                margin-top: 50px;
+                margin-bottom:60px;
+                /* background-color:#eee; */
+                height: 50px;
+                color: #666;
+                font-weight: 100;
+                text-align: center;
+                padding: 0px 20px 0px 20px !important;
+            }
+            .button {
+                background-color: #4CAF50; /* Green */
+                border: none;
+                color: white;
+                padding: 15px 32px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+            }
+            .button4 {border-radius: 12px;}
+            .btn{
+                padding-top: 50px;
+                width:100%;
+                text-align: center;
+            }
+            .paybg p{ font-size: 24px; line-height: 24px; color: #fff; margin: 0px;}
+            h2{text-align: center;font-size: 36px;margin-bottom: 20px; color: #fff;font-weight: 400;}
+            .payimg{height: auto;width: 160px;padding-top:50px;}
+            @media (max-width: 1000px) {
+                .paybg p {
+                    font-size: 24px;
+                }
+            }
+            @media (max-width: 800px) {
+                .paybg p {
+                    font-size: 18px;
+                }
+            }
+            @media (max-width: 600px) {
+                .paybg p {
+                    font-size: 18px;
+                }
+                h2{text-align: center;font-size: 24px;margin-bottom: 10px; color: #fff;font-weight: 400;}
+                .payimg{height: auto;width: 150px;padding-top: 80px;}
+                .head {
+                    text-align: center;
+                    margin:auto;
+                    min-height: 40%;
+                    padding-bottom: 50px;
+                }
+            }
+            @media (max-width: 400px) {
+                .paybg p {
+                    font-size: 16px;
+                }
+                h2{text-align: center;font-size: 24px;margin-bottom: 10px; color: #fff;font-weight: 400;}
+                .payimg{height: auto;width: 150px;padding-top: 60px;}
+                .head {
+                    text-align: center;
+                    margin:auto;
+                    min-height: 38%;
+                    padding-bottom: 50px;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="head paybg" align="center">
+            <img src="__PUBLIC__/index/common/payimg.jpg" class="payimg">
+            <h2>保护你的支付安全</h2>
+            <p>安全技术保障</p>
+        </div>
+        <div class="btn"><button onclick="callpay()" class="button button4" style="z-index: 99999">确认支付</button></div>
+        <div class="bottom">
+            温馨提示：如果付款时出现风险提示，请点击‘继续支付’放心付款！
+        </div>
+        <script type="text/javascript">
+            //调用微信JS api 支付
+            function jsApiCall()
+            {
+                WeixinJSBridge.invoke(
+                        'getBrandWCPayRequest',
+                {#$jsApiParameters#},
+                        function (res) {
+                        if (res.err_msg == 'get_brand_wcpay_request:ok') {
+                            alert('pay success');
+                            location.href = "{#$backurl#}";
+                            return;
+                        } else {
+                            //alert(res.err_code+res.err_desc+res.err_msg);
+                            alert('pay error');
+                        }
+                        //WeixinJSBridge.log(res.err_msg);
+                        //alert(res.err_code+res.err_desc+res.err_msg);
+                        }
+                );
+            }
+
+            function callpay()
+            {
+                if (typeof WeixinJSBridge == "undefined") {
+                    if (document.addEventListener) {
+                        document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                    } else if (document.attachEvent) {
+                        document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                        document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                    }
+                } else {
+                    jsApiCall();
+                }
+            }
+        </script>
+        <script type="text/javascript">
+            window.onload = function () {
+                callpay();
+            };
+        </script>
+    </body>
+</html>

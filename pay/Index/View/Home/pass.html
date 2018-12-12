@@ -1,0 +1,325 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    {#$pageName#}
+                                </div>
+                            </div>
+                            <div class="panel-body" style="background-color:#eee;">
+                                <div class="tabs-container">
+                                    <ul class="nav nav-tabs">
+                                        <li class="active">
+                                            <a data-toggle="tab" href="#tab-1" aria-expanded="false">我的资料</a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab-2" aria-expanded="false">修改资料</a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab-3" aria-expanded="false">修改登录密码</a>
+                                        </li>
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab-4" aria-expanded="false">修改支付密码</a>
+                                        </li>
+                                        {#if condition="$config.ifsms eq '1'"#}
+                                        <li class="">
+                                            <a data-toggle="tab" href="#tab-5" aria-expanded="false">手机绑定(解绑)</a>
+                                        </li>
+                                        {#/if#}
+                                    </ul>
+                                    <div class="tab-content" style="background-color:#fff;padding:20px 20px;">
+                                        <div id="tab-1" class="tab-pane active">
+                                            <div class="panel-body">
+                                                <form class="form-ajax form-horizontal"  action="{#:U('Index/Home/pass')#}" method="post">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            登陆帐号：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control username" value="{#$user.username#}" disabled="" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            商户id：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control userid" value="{#$user.userid#}" disabled="" type="text">
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            账户余额：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control logintimes" value="{#$user.money#}" disabled="" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            支付金额：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control logintimes" value="{#$user.tx#}" disabled="" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            注册时间：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control logintimes" value="{#$user.addtime|date="Y-m-d H:i:s",####}" disabled="" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            登录次数：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control logintimes" value="{#$user.logintimes#}" disabled="" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            是否代理：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control logintimes" value="{#if condition='$user.ifagent eq "1"'#}是{#else/#}否{#/if#}" disabled="" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            上级代理id：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input class="form-control logintimes" value="{#$user.agent#}" disabled="" type="text">
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <div id="tab-2" class="tab-pane">
+                                            <div class="panel-body">
+                                                <form class="form-ajax form-horizontal"  action="{#:U('Index/Home/pass')#}" method="post">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            QQ：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="qq" class="form-control" value="{#$user.qq#}"  type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            手机号：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="phone" class="form-control" value="{#$user.phone#}" {#if condition="$config.ifsms eq '1'"#}readonly{#/if#} type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            邮箱：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="email" class="form-control" value="{#$user.email#}"  type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-offset-2 col-md-6">
+                                                            <input name="thisstyle" value="1"  type="hidden">
+                                                            <button type="submit" class="btn btn-primary">
+                                                                &nbsp;
+                                                                <i class="fa fa-check-square-o"></i>
+                                                                &nbsp;修改资料&nbsp;
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        <div id="tab-3" class="tab-pane">
+                                            <div class="panel-body">
+                                                <form class="form-ajax form-horizontal"  action="{#:U('Index/Home/pass')#}" method="post">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            原密码：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="passwordy" class="form-control" value="" type="password">不修改密码请留空
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            新密码：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="password" class="form-control" value="" type="password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            重复新密码：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="password2" class="form-control" value="" type="password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-offset-2 col-md-6">
+                                                            <input name="thisstyle" value="2"  type="hidden">
+                                                            <button type="submit" class="btn btn-primary">
+                                                                &nbsp;
+                                                                <i class="fa fa-check-square-o"></i>
+                                                                &nbsp;修改登录密码&nbsp;
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+
+                                        <div id="tab-4" class="tab-pane">
+                                            <div class="panel-body">
+                                                <form class="form-ajax form-horizontal"  action="{#:U('Index/Home/pass')#}" method="post">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            支付原密码：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="txmmy" class="form-control" value="" type="password">不修改密码请留空
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            支付新密码：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="txmm" class="form-control" value="" type="password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            重复新密码：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="txmm2" class="form-control" value="" type="password">
+                                                        </div>
+                                                    </div>
+                                                    {#if condition="$config.ifsms eq '1'"#}
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            短信验证：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <div class="col-sm-7 col-xs-8" style="margin-left:0px;padding-left:0px;">
+                                                                <input type="text" class="yzm form-control" placeholder="验证码" name="code" />
+                                                            </div>
+                                                            <div class="col-sm-4 col-xs-4">
+                                                                <input type="button" class="sendyzm form-control btn btn-primary sendsms" value="发送验证码" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    {#/if#}
+                                                    <div class="form-group">
+                                                        <div class="col-md-offset-2 col-md-6">
+                                                            <input name="thisstyle" value="3"  type="hidden">
+                                                            <button type="submit" class="btn btn-primary">
+                                                                &nbsp;
+                                                                <i class="fa fa-check-square-o"></i>
+                                                                &nbsp;修改支付密码&nbsp;
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        {#if condition="$config.ifsms eq '1'"#}
+                                        <div id="tab-5" class="tab-pane">
+                                            <div class="panel-body">
+                                                <form class="form-ajax form-horizontal"  action="{#:U('Index/Home/pass')#}" method="post">
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            手机号：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <input name="phone" class="form-control phone" {#if condition="$user.ifcheckphone eq '1'"#}readonly{#/if#} value="{#$user.phone#}"  type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label class="col-md-2 control-label">
+                                                            短信验证：
+                                                        </label>
+                                                        <div class="col-md-6">
+                                                            <div class="col-sm-7 col-xs-8" style="margin-left:0px;padding-left:0px;">
+                                                                <input type="text" class="yzm form-control" placeholder="验证码" name="code" />
+                                                            </div>
+                                                            <div class="col-sm-4 col-xs-4">
+                                                                <input type="button" class="sendyzm form-control btn btn-primary sendsms" thisid="tab-5" value="发送验证码" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="col-md-offset-2 col-md-6">
+                                                            <input name="thisstyle" value="4"  type="hidden">
+                                                            <button type="submit" class="btn btn-primary">
+                                                                &nbsp;
+                                                                <i class="fa fa-check-square-o"></i>
+                                                                {#if condition="$user.ifcheckphone eq '1'"#}&nbsp;解绑手机&nbsp;{#/if#}
+                                                                {#if condition="$user.ifcheckphone eq '0'"#}&nbsp;绑定手机&nbsp;{#/if#}
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                        {#/if#}
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        {#if condition = "$config.ifsms eq '1'"#}
+        $('.sendsms').live('click', function () {
+            if ($(this).val().indexOf('重发') != -1) {
+                return false;
+            }
+            var phone='{#$user.username#}';
+            var phonestyle=2;
+            {#if condition="$user.ifcheckphone eq '0'"#}
+            if($(this).attr('thisid')=='tab-5'){
+                phone=$('#tab-5').find('.phone').val();
+                phonestyle=0;
+            }
+            {#/if#}
+            sendsms('{#:U("Index/Index/sendsms")#}', phone, phonestyle);
+        });
+        {#/if#}
+    </script>
+    {#include file="Public/footer" /#}

@@ -1,0 +1,123 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    {#$pageName#}&nbsp;&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+                                <div class="content-box">
+                                    <form class="form-ajax form-horizontal" action="" method="post">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                商户总数：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="qq" class="form-control" value="{#$tj.user#}" disabled="" required="" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                总代理金：
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <input class="form-control" value="{#$tj.all#}" disabled="" type="text"><span class="input-group-addon">
+                                                        元</span>    
+                                                </div>  
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                代理当月提成：
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <input name="qq" class="form-control" value="{#$tj.month#}" disabled="" required="" type="text"><span class="input-group-addon">
+                                                        元</span>    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                代理当日提成：
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <input name="qq" class="form-control" value="{#$tj.day#}" disabled="" required="" type="text"><span class="input-group-addon">
+                                                        元</span>    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                商户今日充值量：
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <input name="qq" class="form-control" value="{#$tj.usertoday#}" disabled="" required="" type="text"><span class="input-group-addon">
+                                                        元</span>    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                商户当月充值量：
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <input name="qq" class="form-control" value="{#$tj.usermonth#}" disabled="" required="" type="text"><span class="input-group-addon">
+                                                        元</span>    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                商户当年充值量：
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <div class="input-group">
+                                                    <input name="qq" class="form-control" value="{#$tj.useryear#}" disabled="" required="" type="text"><span class="input-group-addon">
+                                                        元</span>    
+                                                </div> 
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                推广连接获取：
+                                            </label>
+                                            <div class="col-lg-6">
+                                                <input name="qq" class="form-control" value="{#:U('/reg',array('agent'=>$user['userid']),true,true)#}"  required="" type="text">
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#include file="Public/footer" /#}

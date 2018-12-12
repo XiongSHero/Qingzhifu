@@ -1,0 +1,95 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <h3>
+                    <span class="current">{#$pageName#}</span>
+                </h3>
+                <form action="" method="post"  class="ajax-form">
+                    <div class="set set0 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="10">
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('Api/deleteuser')#}"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</button>
+                                        <button class="btn btn-primary anniu addbtn" type="button" data-url="{#:U('Api/adduser')#}"><span class="glyphicon glyphicon-edit"></span>&nbsp;添加</button>
+                                        <button class="btn btn-primary anniu flushbtn" type="button" data-url="#"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <th style="width: 15px;"><input type="checkbox" name="mmAll" class="selectAllCheckbox"/></th>
+                                    <th align="center" >ID</th>
+                                    <th align="center">名称</th>
+                                    <th align="center">类型</th>
+                                    <th align="center">参数</th>
+                                    <th align="center">绑定域名</th>
+                                    <th align="center">接口</th>
+                                    <th align="center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <tr id="tr{#$n.pzid#}" >
+                                    <td align="center"><input type="checkbox" class="thisid checkbox" title="{#$n.pzid#}" name="thisid[]" value="{#$n.pzid#}"/></td>
+                                    <td align="center"><a href="{#:U('Api/edituser',array('id'=>$n['pzid'],'p'=>$_GET['p']))#}">{#$n.jkid#}</a></td>
+                                    <td align="center">{#$n.pzname#}</td>
+                                    <td align="center">{#$n.style#}</td>
+                                    <td align="center"><div style="overflow:auto;width:250px;height:100px;">{#$n.params#}</div></td>
+                                    <td align="center">{#$n.http#}</td>
+                                    <td align="center">
+                                        {#volist name="n['sub']" id="t" #}
+                                        <p>{#$t.jkname#}({#$t.jkstyle#})【{#$t.ifopen#}】【费率：{#$t.fl#}%】【支付范围：{#$t.je#}-{#$t.jemax#}】<br/>【单日限额：{#$t.jetotal#}】{#if condition="$t.jetotal neq '不限'"#}【已用额度：{#$t.jetoday#}】{#/if#}【{#$t.ifjumpname#}】
+                                            {#if condition="$t.ifround neq '1'"#}【切换：{#$t.changetime#}】【当前：{#$t.ifchoose#}】{#/if#}
+                                            {#if condition="$t.ifround eq '1' and $t.isround eq '1'"#}【轮询：选中】{#/if#}
+                                            {#if condition="$t.ifround eq '1' and $t.isround eq '0'"#}【轮询：未选中】{#/if#}
+                                        </p>
+                                        {#/volist#}
+                                    </td>
+                                    <td align="center">
+                                        <a href="{#:U('Api/edituser',array('id'=>$n['pzid'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
+                                        <a href="javascript:;" data-id="{#$n.pzid#}" data-url="{#:U('Api/deleteuser',array('id'=>$n['pzid'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete btn btn-primary"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+                                    </td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="10" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.ifchoose').on('click', function () {
+            var zjid = $(this).attr('tid');
+            layer.confirm('确认切换为当前账户。', function (index) {
+                layer.close(index);
+                var index2 = layer.load();
+                $.post('{#:U("Api/userchangechoose")#}', {'zjid': zjid, 'times': Math.random()}, function (result) {
+                    layer.close(index2);
+                    if (result['status'] == 1) {
+                        layer.msg('切换成功', function () {
+                            location.reload();
+                        });
+                    } else if (result['status'] == 0) {
+                        layer.msg(result['data']);
+                    } else {
+                        layer.msg(result);
+                    }
+                });
+            });
+        });
+    });
+</script>
+{#include file="Public/footer" /#}

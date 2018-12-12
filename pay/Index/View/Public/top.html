@@ -1,0 +1,24 @@
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top white-bg" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <span class="thiscookie none"></span>
+        </div>
+        <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+                <a href="{#:U('Index/Home/pass')#}" class="dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-user">
+                    </span>
+                    &nbsp;{#:stringChange('hiddenUserName',$user['username'])#}&nbsp;{#if condition="$user.ifagent eq '1' && $config.ifagent eq '0'"#}(代理商){#/if#}
+                </a>
+            </li>
+            <li>
+                <a href="{#:U('Index/Home/loginout')#}">
+                    <i class="fa fa-sign-out">
+                    </i>
+                    退出
+                </a>
+            </li>
+        </ul>
+    </nav>
+</div>

@@ -1,0 +1,1196 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    {#$pageName#}&nbsp;&nbsp;
+                                </div>
+                            </div>
+
+                            {#if condition="$baozhengjin eq '1'"#}
+                            <div class="panel-body">
+                                <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Index/Home/yhkadd')#}" method="post">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            支付保证金：
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" disabled='' class="form-control bzj" name="baozhengjin" value="{#$config.baozhengjin#}" required lay-verify="required" placeholder="请输入收款人" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            支付方式：
+                                        </label>
+                                        <div class="col-md-4">
+                                            <select name="jkstyle" class="layui-btn-small ajax-action form-control jkstyle">
+                                                {#volist name="list" id="n" #}
+                                                <option value="{#$n.jkstyle#}" {#if condition="$Think.request.jkstyle eq $n.jkstyle"#}selected="selected"{#/if#}>{#$n.jkname#}</option>
+                                                {#/volist#}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-4">
+                                            <button type="button" class="btn btn-success paysubmit">
+                                                &nbsp;
+                                                <span class="glyphicon glyphicon-save ">
+                                                </span>
+                                                &nbsp;提交&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group imgediv" style="display:none;">
+                                        <label class="col-md-2 control-label">
+                                            扫描支付：
+                                        </label>
+                                        <div class="col-md-4">
+                                            <p class="imgewm"></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            {#else/#}
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="alert alert-warning" style="margin-bottom:0;">
+                                            <p><span class="glyphicon" style="margin-left:30px;"></span>您的商户ID：<font color="#000000">{#$user.userid#}</font></p>
+                                            <p><span class="glyphicon" style="margin-left:30px;"></span>商户密钥：<em class="text-blue-deep miyaocon">******</em> <button class="btn btn-primary" status="1" id="copy_show">查看</button> <button class="btn btn-primary" data-clipboard-action="copy" data-clipboard-text="{#$user.miyao#}" id="copy_btn">复制</button> <button class="btn btn-primary" id="reset_btn">重置</button></p>
+                                            <p><span class="glyphicon" style="margin-left:30px;"></span>网关地址：{#$apihttp#}</p>
+                                            <p><span class="glyphicon" style="margin-left:30px;"></span>结算周期：{#$balancestyle#}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    接口流程&nbsp;&nbsp;
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="alert alert-warning" style="margin-bottom:0;">
+                                            <p><span class="glyphicon" style="margin-left:30px;"></span>①阅读下方接口文档 &nbsp;&nbsp;&nbsp;&nbsp;②获取上方商户ID及商户秘钥 &nbsp;&nbsp;&nbsp;&nbsp;③制作接口程序 &nbsp;&nbsp;&nbsp;&nbsp;④接口上线开始走量</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    接口DEMO&nbsp;&nbsp;
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="alert alert-warning" style="margin-bottom:0;">
+                                            <a href="/demo/html.rar">html版下载</a>
+                                            <a href="/demo/php.rar">PHP版下载</a>
+                                            <a href="/demo/jsp.rar">JSP版下载</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    接口开发文档&nbsp;&nbsp;（编码：UTF-8）
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <h1>支付接口</h1>
+                                        <p>支付接口参数【请求方式：GET或POST均可】【如遇问题可尝试用html表单提交参数】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数名称</th>
+                                                    <th>参数含义</th>
+                                                    <th>必填</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxddh</td>
+                                                    <td>商户订单号</td>
+                                                    <td>是</td>
+                                                    <td>仅允许字母或数字类型,不超过22个字符，不要有中文</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxdesc</td>
+                                                    <td>商品名称</td>
+                                                    <td>是</td>
+                                                    <td>utf-8编码</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxfee</td>
+                                                    <td>支付金额</td>
+                                                    <td>是</td>
+                                                    <td>请求的价格(单位：元) 可以0.01元</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxnotifyurl</td>
+                                                    <td>异步通知地址</td>
+                                                    <td>是</td>
+                                                    <td>异步接收支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxbackurl</td>
+                                                    <td>同步通知地址</td>
+                                                    <td>是</td>
+                                                    <td>支付成功后跳转到的地址，不参与签名。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxpay</td>
+                                                    <td>请求类型
+                                                        {#volist name="jiekou" id="n" #}
+                                                        【{#$n.jkname#}：{#$n.jkstyle#}】
+                                                        {#/volist#}
+                                                    </td>
+                                                    <td>是</td>
+                                                    <td>请求支付的接口类型。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxnotifystyle</td>
+                                                    <td>异步数据类型</td>
+                                                    <td>否</td>
+                                                    <td>异步返回数据的类型，默认1 返回数据为表单数据（Content-Type: multipart/form-data），2 返回post json数据。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxattch</td>
+                                                    <td>附加信息</td>
+                                                    <td>否</td>
+                                                    <td>原样返回，utf-8编码</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsmstyle</td>
+                                                    <td>扫码模式</td>
+                                                    <td>否</td>
+                                                    <td>用于扫码模式（sm），仅带sm接口可用，默认0返回扫码图片，为1则返回扫码跳转地址。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxbankcode</td>
+                                                    <td>银行类型</td>
+                                                    <td>否</td>
+                                                    <td>用于网银直连模式，请求的银行编号，参考<a href="#yh">银行附录</a>,仅网银接口可用。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxfs</td>
+                                                    <td>反扫付款码数字</td>
+                                                    <td>否</td>
+                                                    <td>用于用户被扫，用户的付款码数字,仅反扫接口可用。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxuserid</td>
+                                                    <td>快捷模式绑定商户id</td>
+                                                    <td>否</td>
+                                                    <td>用于识别用户绑卡信息，仅快捷接口可用。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(商务号+商户订单号+支付金额+异步通知地址+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxip</td>
+                                                    <td>支付用户IP地址</td>
+                                                    <td>是</td>
+                                                    <td>用户支付时设备的IP地址</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                        <p>支付申请示例（请用脚本语言模拟如下提交方式）</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td><pre>
+&lt;form id="Form1" name="Form1" method="post" action="http://localhost:8001/Pay"&gt;
+    &lt;input type="hidden" name="fxid" value='2017100'/&gt;
+    &lt;input type="hidden" name="fxddh" value='1531392180374'/&gt;
+    &lt;input type="hidden" name="fxdesc" value='test'/&gt;
+    &lt;input type="hidden" name="fxfee" value='10'/&gt;
+    &lt;input type="hidden" name="fxattch" value='mytest'/&gt;
+    &lt;input type="hidden" name="fxnotifyurl" value='http://localhost:8001/notifyUrl.php'/&gt;
+    &lt;input type="hidden" name="fxbackurl" value='http://localhost:8001/backUrl.php'/&gt;
+    &lt;input type="hidden" name="fxpay" value='wxsm'/&gt;
+    &lt;input type="hidden" name="fxip" value='126.155.2.36'/&gt;
+    &lt;input type="hidden" name="fxsign" value='3990af9dbffc4e0ac6d307aee9b034d8'/&gt;
+&lt;/form&gt;
+</pre>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+
+                                        <p>支付接口返回【数据格式：json】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>status</td>
+                                                    <td>状态</td>
+                                                    <td>是</td>
+                                                    <td>状态【1代表正常】【0代表错误】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>payurl</td>
+                                                    <td>支付链接</td>
+                                                    <td>是</td>
+                                                    <td>正常状态下返回支付跳转路径，跳转到该路径即可支付</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>error</td>
+                                                    <td>错误信息</td>
+                                                    <td>是</td>
+                                                    <td>错误状态下返回错误信息utf-8编码数据</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        
+                                        <p>支付申请返回示例</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td><pre>
+{
+    "status":1,
+    "payurl":"http://localhost:8001/Index/Index/qrcode?url=weixin%3A%2F%2Fwxpay%2Fbizpayurl%3Fpr%3D1qznay9&w=150&k=a7f356ce6e0bd96cde2e404b9b272ad4"
+}
+                                                    </pre>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+
+                                        <p>同步（GET）/异步（POST）【数据格式：默认 表单数组（Content-Type: multipart/form-data）（java请用request.getInputStream获取参数）】</p>
+                                        <p>返回参数【成功失败均返回数据，请判断订单状态，请以异步数据为准】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxddh</td>
+                                                    <td>商户订单号</td>
+                                                    <td>是</td>
+                                                    <td>平台返回商户提交的订单号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxorder</td>
+                                                    <td>平台订单号</td>
+                                                    <td>是</td>
+                                                    <td>平台内部生成的订单号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxdesc</td>
+                                                    <td>商品名称</td>
+                                                    <td>是</td>
+                                                    <td>utf-8编码</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxfee</td>
+                                                    <td>支付金额</td>
+                                                    <td>是</td>
+                                                    <td>支付的价格(单位：元)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxattch</td>
+                                                    <td>附加信息</td>
+                                                    <td>是</td>
+                                                    <td>原样返回，utf-8编码</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxstatus</td>
+                                                    <td>订单状态</td>
+                                                    <td>是</td>
+                                                    <td>【1代表支付成功】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxtime</td>
+                                                    <td>支付时间</td>
+                                                    <td>是</td>
+                                                    <td>支付成功时的时间，unix时间戳。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(订单状态+商务号+商户订单号+支付金额+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p><font color="red">【商户接收数据后需要返回success代表通知成功】</font></p>
+
+                                        <p>订单查询【提交参数GET或POST均可】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxddh</td>
+                                                    <td>商户订单号</td>
+                                                    <td>是</td>
+                                                    <td>平台返回商户提交的订单号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxaction</td>
+                                                    <td>商户查询动作</td>
+                                                    <td>是</td>
+                                                    <td>商户查询动作，这里填写【orderquery】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(商务号+商户订单号+商户查询动作+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>订单查询返回【数据格式：json】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxstatus</td>
+                                                    <td>状态</td>
+                                                    <td>是</td>
+                                                    <td>支付状态【1正常支付】【0支付异常】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxddh</td>
+                                                    <td>商户订单号</td>
+                                                    <td>是</td>
+                                                    <td>平台返回商户提交的订单号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxorder</td>
+                                                    <td>平台订单号</td>
+                                                    <td>是</td>
+                                                    <td>平台内部生成的订单号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxdesc</td>
+                                                    <td>商品名称</td>
+                                                    <td>是</td>
+                                                    <td>utf-8编码</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxfee</td>
+                                                    <td>支付金额</td>
+                                                    <td>是</td>
+                                                    <td>支付的价格(单位：元)</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxattch</td>
+                                                    <td>附加信息</td>
+                                                    <td>是</td>
+                                                    <td>原样返回，utf-8编码</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxtime</td>
+                                                    <td>支付时间</td>
+                                                    <td>是</td>
+                                                    <td>支付成功时的时间，unix时间戳。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(订单状态+商务号+商户订单号+支付金额+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>error</td>
+                                                    <td>错误信息</td>
+                                                    <td>是</td>
+                                                    <td>错误状态下返回错误信息utf-8编码数据</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <p>代付申请【提交参数POST方式】【代付允许时间段{#$txpaytime#}】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxaction</td>
+                                                    <td>商户查询动作</td>
+                                                    <td>是</td>
+                                                    <td>商户查询动作，这里填写【repay】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxnotifyurl</td>
+                                                    <td>异步返回地址</td>
+                                                    <td>是</td>
+                                                    <td>异步接收支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数。如果代付实时返回支付成功或失败结果则可能没有异步通知；</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxnotifystyle</td>
+                                                    <td>异步数据类型</td>
+                                                    <td>否</td>
+                                                    <td>异步返回数据的类型，默认1 返回数据为表单数据（Content-Type: multipart/form-data），2 返回post json数据。</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxbody</td>
+                                                    <td>订单信息域</td>
+                                                    <td>是</td>
+                                                    <td>提交代付订单信息参考下方订单信息域（json格式字符串）</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(商务号+商户查询动作+订单信息域（json格式字符串）+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>fxbody订单信息域（二维数组）</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxddh</td>
+                                                    <td>商户订单号</td>
+                                                    <td>是</td>
+                                                    <td>仅允许字母或数字类型,不超过22个字符，不要有中文</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxdate</td>
+                                                    <td>交易时间</td>
+                                                    <td>是</td>
+                                                    <td>格式YYYYMMDDhhmmss</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxfee</td>
+                                                    <td>金额</td>
+                                                    <td>是</td>
+                                                    <td>代付金额 单位0.01元</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxbody</td>
+                                                    <td>收款账户</td>
+                                                    <td>是</td>
+                                                    <td>收款人的账户</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxname</td>
+                                                    <td>开户名</td>
+                                                    <td>是</td>
+                                                    <td>收款人的开户名</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxaddress</td>
+                                                    <td>开户行</td>
+                                                    <td>是</td>
+                                                    <td>收款人的开户行，例如中国银行</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxzhihang</td>
+                                                    <td>开户行所在支行</td>
+                                                    <td>否</td>
+                                                    <td>收款人的开户地址所在支行</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsheng</td>
+                                                    <td>开户行所在省</td>
+                                                    <td>否</td>
+                                                    <td>收款人的开户地址所在省</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxshi</td>
+                                                    <td>开户行所在市</td>
+                                                    <td>否</td>
+                                                    <td>收款人的开户地址所在市</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxlhh</td>
+                                                    <td>开户卡的联行号</td>
+                                                    <td>否</td>
+                                                    <td>开户卡对应银行联行号</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>代付申请示例</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td><pre>
+&lt;form id="Form1" name="Form1" method="post" action="http://域名/Pay"&gt;
+    &lt;input type="hidden" name="fxid" value='2017100'/&gt;
+    &lt;input type="hidden" name="fxaction" value='repay'/&gt;
+    &lt;input type="hidden" name="fxbody" value='[{
+                            "fxddh":"1531384116197",
+                            "fxdate":"20180712162836",
+                            "fxfee":"100",
+                            "fxbody":"62220214784512003225",
+                            "fxname":"\u5f20\u6d69\u660e",
+                            "fxaddress":"\u5de5\u5546\u94f6\u884c",
+                            "fxzhihang":"\u5f00\u53d1\u533a\u652f\u884c",
+                            "fxsheng":"\u6d59\u6c5f\u7701",
+                            "fxshi":"\u91d1\u534e\u5e02",
+                            "fxlhh":"123456789012"
+                        },{
+                            "fxddh":"1531384116759",
+                            "fxdate":"20180712162836",
+                            "fxfee":"80",
+                            "fxbody":"62125868442225500151",
+                            "fxname":"\u5f20\u6d69\u660e",
+                            "fxaddress":"\u4ea4\u901a\u94f6\u884c",
+                            "fxzhihang":"\u4f0f\u725b\u8def\u652f\u884c",
+                            "fxsheng":"\u6cb3\u5357\u7701",
+                            "fxshi":"\u90d1\u5dde\u5e02",
+                            "fxlhh":"123456789012"
+                        }]'/&gt;
+    &lt;input type="hidden" name="fxsign" value='5b1570902dd3927dc9d8cc9dc3424425'/&gt;
+&lt;/form&gt;</pre></td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+
+                                        <p>代付申请返回【数据格式：json】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxstatus</td>
+                                                    <td>状态</td>
+                                                    <td>是</td>
+                                                    <td>代付申请状态【0申请失败】【1申请成功】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxmsg</td>
+                                                    <td>状态描述</td>
+                                                    <td>是</td>
+                                                    <td>申请信息描述</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxbody</td>
+                                                    <td>返回信息域</td>
+                                                    <td>是</td>
+                                                    <td>返回代付信息参考下方订单信息域（json格式字符串）</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(状态+商务号+订单信息域（json格式字符串）+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <p>fxbody订单信息域（二维数组）</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxddh</td>
+                                                    <td>商户订单号</td>
+                                                    <td>是</td>
+                                                    <td>仅允许字母或数字类型,不超过22个字符，不要有中文</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxfee</td>
+                                                    <td>金额</td>
+                                                    <td>是</td>
+                                                    <td>代付申请金额，单位元，支持两位小数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxstatus</td>
+                                                    <td>订单状态</td>
+                                                    <td>是</td>
+                                                    <td>订单处理结果【0申请异常】【1正常申请】【2打款中】【3已打款】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxcode</td>
+                                                    <td>订单状态描述</td>
+                                                    <td>是</td>
+                                                    <td>订单状态描述</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <p>代付申请返回示例</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <td><pre>
+{
+    "fxid":"2017100",
+    "fxstatus":1,
+    "fxbody":"[
+        {
+            \"fxddh\":\"1531390451608\",
+            \"fxstatus\":1,
+            \"fxfee\":\"100\",
+            \"fxcode\":\"\\u4ee3\\u4ed8\\u7533\\u8bf7\\u6210\\u529f\\u3002\"
+        },
+        {
+            \"fxddh\":\"1531390451937\",
+            \"fxstatus\":0,
+            \"fxfee\":\"80\",
+            \"fxcode\":\"\\u63d0\\u73b0\\u91d1\\u989d\\u5c0f\\u4e8e\\u6700\\u5c0f\\u8981\\u6c42\\u91d1\\u989d\\uff01\\u6700\\u5c0f\\u63d0\\u73b0\\u91d1\\u989d100\\u5143\"
+        }
+    ]",
+    "fxmsg":"\u63d0\u4ea4\u6210\u529f",
+    "fxsign":"a437fc2243d3271a728a0ba76a6363d6"
+}</pre>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                        </table>
+
+                                        <p>代付异步返回通知【数据格式：默认 表单数组（Content-Type: multipart/form-data）（java请用request.getInputStream获取参数）】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxddh</td>
+                                                    <td>商户订单号</td>
+                                                    <td>是</td>
+                                                    <td>平台返回商户提交的订单号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxorder</td>
+                                                    <td>平台订单号</td>
+                                                    <td>是</td>
+                                                    <td>平台内部生成的订单号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxfee</td>
+                                                    <td>金额</td>
+                                                    <td>是</td>
+                                                    <td>商户请求代付金额 单位0.01元</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxdffee</td>
+                                                    <td>手续费</td>
+                                                    <td>是</td>
+                                                    <td>商户请求代付扣除手续费金额，单位元</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxstatus</td>
+                                                    <td>订单状态</td>
+                                                    <td>是</td>
+                                                    <td>订单处理结果【0代付失败】【1代付成功】【2代付进行中】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxbody</td>
+                                                    <td>收款账户</td>
+                                                    <td>是</td>
+                                                    <td>收款人的账户</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxname</td>
+                                                    <td>开户名</td>
+                                                    <td>是</td>
+                                                    <td>收款人的开户名</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxaddress</td>
+                                                    <td>开户行</td>
+                                                    <td>是</td>
+                                                    <td>收款人的开户行，例如中国银行</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxzhihang</td>
+                                                    <td>开户行所在支行</td>
+                                                    <td>否</td>
+                                                    <td>收款人的开户地址所在支行</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsheng</td>
+                                                    <td>开户行所在省</td>
+                                                    <td>否</td>
+                                                    <td>收款人的开户地址所在省</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxshi</td>
+                                                    <td>开户行所在市</td>
+                                                    <td>否</td>
+                                                    <td>收款人的开户地址所在市</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxlhh</td>
+                                                    <td>开户卡的联行号</td>
+                                                    <td>否</td>
+                                                    <td>开户卡对应银行联行号</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(商务号+商户订单号+平台订单号+订单状态+金额+手续费+收款账户+开户名+开户行+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p><font color="red">【商户接收数据后需要返回success代表通知成功】</font></p>
+                                        
+                                        <p>代付查询【提交参数POST方式】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxaction</td>
+                                                    <td>商户查询动作</td>
+                                                    <td>是</td>
+                                                    <td>商户查询动作，这里填写【repayquery】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxbody</td>
+                                                    <td>订单信息域</td>
+                                                    <td>是</td>
+                                                    <td>提交代付订单信息参考下方订单信息域（json格式字符串）</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(商务号+商户查询动作+订单信息域（json格式字符串）+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>fxbody订单信息域（二维数组）</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxddh</td>
+                                                    <td>商户订单号</td>
+                                                    <td>是</td>
+                                                    <td>仅允许字母或数字类型,不超过22个字符，不要有中文</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <p>代付查询返回【数据格式：json】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxstatus</td>
+                                                    <td>状态</td>
+                                                    <td>是</td>
+                                                    <td>代付查询状态【0失败】【1成功】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxmsg</td>
+                                                    <td>状态描述</td>
+                                                    <td>是</td>
+                                                    <td>查询信息描述</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxbody</td>
+                                                    <td>返回信息域</td>
+                                                    <td>是</td>
+                                                    <td>返回代付信息参考下方订单信息域（json格式字符串）</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(状态+商务号+订单信息域（json格式字符串）+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>fxbody订单信息域（二维数组）</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxddh</td>
+                                                    <td>商户订单号</td>
+                                                    <td>是</td>
+                                                    <td>仅允许字母或数字类型,不超过22个字符，不要有中文</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxfee</td>
+                                                    <td>金额</td>
+                                                    <td>是</td>
+                                                    <td>代付申请金额，单位元，支持两位小数</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxstatus</td>
+                                                    <td>订单状态</td>
+                                                    <td>是</td>
+                                                    <td>订单处理结果【-1订单不存在】【0正常申请】【1已打款】【2冻结】【3已取消】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxcode</td>
+                                                    <td>订单状态描述</td>
+                                                    <td>是</td>
+                                                    <td>订单状态描述</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p>商户余额查询【提交参数GET或POST均可】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxdate</td>
+                                                    <td>查询时间</td>
+                                                    <td>是</td>
+                                                    <td>时间格式YYYMMDDhhmmss</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxaction</td>
+                                                    <td>商户查询动作</td>
+                                                    <td>是</td>
+                                                    <td>商户查询动作，这里填写【money】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(商务号+查询时间+商户查询动作+商户秘钥)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+
+                                        <p>查询余额返回【数据格式：json】</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>参数</th>
+                                                    <th>参数含义</th>
+                                                    <th>必须</th>
+                                                    <th>说明</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>fxid</td>
+                                                    <td>商务号</td>
+                                                    <td>是</td>
+                                                    <td>唯一号，由{#$sitename#}提供</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxstatus</td>
+                                                    <td>状态</td>
+                                                    <td>是</td>
+                                                    <td>余额查询状态【0失败】【1成功】</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxmsg</td>
+                                                    <td>状态描述</td>
+                                                    <td>是</td>
+                                                    <td>余额查询状态描述</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxmoney</td>
+                                                    <td>余额</td>
+                                                    <td>是</td>
+                                                    <td>商户余额信息</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>fxsign</td>
+                                                    <td>签名【md5(状态+商务号+余额)】</td>
+                                                    <td>是</td>
+                                                    <td>通过签名算法计算得出的签名值。</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p id="yh">银行附录</p>
+                                        <table class="table table-bordered">
+                                            <thead>
+                                                <tr>
+                                                    <th>银行名称</th>
+                                                    <th>银行编号</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {#volist name="bank" id="n" #}
+                                                <tr>
+                                                    <td>{#$n.bankname#}</td>
+                                                    <td>{#$n.bankcode#}</td>
+                                                </tr>
+                                                {#/volist#}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            {#/if#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/Public/plugin/clipboard.js"></script> 
+    <script>
+        $(document).ready(function () {
+            $('.paysubmit').on('click', function () {
+                $('.imgediv').css({'display': 'none'});
+                var pay = $('.jkstyle option:selected').val();
+
+                if (typeof (pay) == 'undefined' || pay == '') {
+                    layer.alert('请选择支付方式');
+                    return false;
+                }
+
+                var index = layer.load();
+                $.post('', {'pay': pay, 'times': Math.random()}, function (data) {
+                    layer.close(index);
+                    if (data['status'] == 1) {
+                        if (pay.indexOf('sm') != -1) {
+                            $('.imgewm').html('<p><img src="' + data['data'][0] + '"/></p><p>扫码支付，<a href="javascript:location.reload();">已付款</a></p>');
+                            $('.imgediv').css({'display': 'block'});
+                        } else {
+                            location.href = data['data'][0];
+                        }
+                    } else {
+                        layer.alert(data['data']);
+                    }
+                });
+            });
+
+            var targetText = $("#target").text();
+            var clipboard = new Clipboard('#copy_btn');
+            clipboard.on('success', function (e) {
+                alert("复制成功");
+                e.clearSelection();
+            });
+            
+            $('#copy_show').click(function(){
+                var status=$(this).attr('status');
+                if(status=='1'){
+                    $(this).text('隐藏');
+                    $(this).attr('status',2);
+                    $('.miyaocon').text($('#copy_btn').attr('data-clipboard-text'));
+                }else{
+                    $(this).text('查看');
+                    $(this).attr('status',1);
+                    $('.miyaocon').text('******');
+                }
+            });
+
+            $('#reset_btn').click(function () {
+                var idname = "resetkeydiv";
+                var content = '<div style="margin:25px 20px 10px 20px;">' +
+                        '<table border="0"><tbody>' +
+                        '<tr><td align="center"><b>支付密码：</b></td>' +
+                        '<td>' +
+                        '<input type="password" id="paypass" value="" style="margin:0px 10px;width:150px;padding:5px 5px;color:#555;"/>' +
+                        '</td>' +
+                        '<td align="center" colspan="2">' +
+                        '<input type="button" value="重置秘钥" id="savesubmit"/>' +
+                        '<input type="hidden" value="idName" id="closediv" />' +
+                        '</td></tr>' +
+                        '</tbody></table>' +
+                        '<div id="showsaveinfo"></div>' +
+                        '<div id="explain">' +
+                        '<b style="color:#000;">重置秘钥后所有之前的对接信息将失效。</b>' +
+                        '</div></div>';
+                layer.open({
+                    id: 'resetkeydiv',
+                    type: 1,
+                    title: '重置秘钥',
+                    content: content,
+                    area: ['400px', '150px'],
+                    btn: []
+                });
+            });
+            $('#savesubmit').live('click', function () {
+                $('#showsaveinfo').html('');
+                var paypass = $('#paypass').val();
+                var index = layer.load();
+                $.post('{#:U("Home/resetkey")#}', {'paypass': paypass, 'times': Math.random()}, function (data) {
+                    layer.close(index);
+                    if (data.status == '0') {
+                        layer.msg(data['data']);
+                    } else {
+                        layer.closeAll();
+                        layer.msg('秘钥重置成功');
+                        $("#copy_btn").attr('data-clipboard-text',data['data'][0]);
+                        if($('#copy_show').attr('status')=='2') $('.miyaocon').text(data['data'][0]);
+                    }
+                });
+            });
+        });
+    </script>
+    {#include file="Public/footer" /#}

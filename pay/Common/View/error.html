@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<TITLE>异常提示</TITLE>
+</HEAD>
+<BODY>
+<?php 
+$arr=str_replace('\\','/',$e['file']);
+$arr=explode('\\',$e['file']);
+if(count($arr)<2) $arr=explode('/',$e['file']);
+krsort($arr);
+$newarr=array();
+foreach($arr as $i=>$iArr){
+    if($iArr=='main' || $iArr=='pay'){
+        $newarr=array();
+        continue;
+    }
+    $newarr[]=$iArr;
+}
+krsort($newarr);
+$file=unserialize(file_get_contents(implode('/',$newarr).'/pay/Runtime/Temp/'.md5('params')));
+////exit(print_r(implode('/',$newarr).'/pay/Runtime/Temp/'.md5('params')));
+
+if($file['ifshowerror']!=1) exit('系统异常或您的网址输入有误，请核对，或者<a href="/">回到首页</a>');
+ ?>
+系统发现异常如下：<br/>
+异常文件名: <?php $a=explode('/',$e['file']); if(count($a)<2) $a=explode('\\',$e['file']);  echo $a[count($a)-3].'/'.$a[count($a)-2].'/'.$a[count($a)-1]; ?><br/>
+异常发生的文件行数: <?php echo $e['line']; ?> <br/>
+异常信息: <?php echo $e['message']; ?> <br/>
+异常的详细Trace信息: <?php echo $e['trace']; ?> <br/>
+</BODY>
+</HTML>

@@ -1,0 +1,102 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    {#$pageName#}&nbsp;&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+                                <form id="J_Date" method="get" class="form-inline m-b-xs" action="">
+                                    <div class="form-group">
+                                        <select name="style" class="layui-btn-small ajax-action form-control"  >
+                                                <option value="">所有状态</option>
+                                                {#volist name="style" id="n" #}
+                                                <option value="{#$key#}" {#if condition="$Think.request.style eq $key"#}selected="selected"{#/if#}>{#$n#}</option>
+                                                {#/volist#}
+                                        </select>
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <input size="16" class="form-control startTime" name="start" readonly="" placeholder="开始时间" class="form_datetime form-control" value="{#$Think.request.start#}" type="text">
+                                        </div>
+                                        -
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="fa fa-calendar"></i>
+                                            </span>
+                                            <input size="16" class="form-control endTime" name="end" readonly="" placeholder="结束时间" class="form_datetime form-control" value="{#$Think.request.end#}" type="text">
+                                        </div>
+                                    </div>
+                                    &nbsp;&nbsp;
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-search"></i>
+                                        &nbsp;立即查询
+                                    </button>
+                                </form>
+
+                                <div class="table-responsive mt10">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th align="center" >ID</th>
+                                                <th align="center">类型</th>
+                                                <th align="center">变动金额</th>
+                                                <th align="center">余额</th>
+                                                <th align="center">内容</th>
+                                                <th align="center">时间</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {#if condition="$list"#}
+                                            {#volist name="list" id="n" #}
+                                            <tr>
+                                                <td align="center">{#$n.id#}</td>
+                                                <td align="center">{#$n.stylename#}</td>
+                                                <td align="center">{#$n.changemoney#}</td>
+                                                <td align="center">{#$n.leavemoney#}</td>
+                                                <td align="center">{#$n.desc#}</td>
+                                                <td align="center">{#$n.addtime|date="Y-m-d H:i:s",####}</td>
+                                            </tr>
+                                            {#/volist#}
+                                            {#else/#}
+                                            <tr>
+                                                <td colspan="10" align="center">暂无数据</td>
+                                            </tr>
+                                            {#/if#}
+                                        </tbody>
+                                    </table>
+                                    <div id="wypage">{#$page#}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#include file="Public/footer" /#}

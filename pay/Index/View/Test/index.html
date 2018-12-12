@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width,initial-scale=0.7, minimum-scale=0.7, maximum-scale=1.0, user-scalable=no"/>
+        <title>支付体验 - {#$sitename#}</title>
+        <link href="__PUBLIC__/plugin/bootstrap/bootstrap.css?{#$Think.config.FX_UPDATE_FILE_DATE#}" rel="stylesheet" type="text/css" media="all" />
+        <link href="__PUBLIC__/index/night/base.css?{#$Think.config.FX_UPDATE_FILE_DATE#}" rel="stylesheet" type="text/css" media="all" />
+        <link href="__PUBLIC__/index/night/index.css?{#$Think.config.FX_UPDATE_FILE_DATE#}" rel="stylesheet" type="text/css" media="all" />
+    </head>
+    <body class="singlebg">
+        <div class="hd2">
+            <div class="hdInner">
+                <div class="l logo"><a href="/"><img src="{#$config.logopath#}" width="230" height="80"  alt="{#$sitename#}" /></a></div>
+                <div class="l dlBtn"><a href="javascript:;" class="tbtn loginBtn">登录</a><a class="tbtn" href="{#:U('/reg')#}">注册</a><a class="tbtn" href="{#:U('Test/index')#}">支付体验</a></div>
+            </div>
+        </div>
+        <div class="regWrap">
+            <form action="" class="regform form-horizontal" name="form1" method="post">
+                <div class="wzz">
+                    <dl style="height:50px;line-height:30px;margin-top:20px;">
+                        <dt>请选择支付方式</dt>
+                    </dl>
+                    <div class="form-group">
+                        <label for="input3" class="col-sm-3 control-label">*支付方式</label>
+                        <div class="col-sm-8 ">
+                            <select class="fxpay form-control" name="fxpay">
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <option value="{#$n.jkstyle#}" >{#$n.jkname#}</option>
+                                {#/volist#}
+                                {#else/#}
+                                <option value="">暂无可用接口</option>
+                                {#/if#}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="input1" class="col-sm-3 control-label">*支付金额</label>
+                        <div class="col-sm-8">
+                            <div class="input-group">
+                                <input type="text" id="input1" value="{#$paytest|default='1'#}" class="fxfee form-control" placeholder="支付金额" name="fxfee" aria-describedby="basic-addon1" />
+                                <span class="input-group-addon" id="basic-addon1">元</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group ewmdiv" style="display:none;">
+                        <label for="input1" class="col-sm-3 control-label">二维码扫描</label>
+                        <div class="col-sm-8 ewm">
+
+                        </div>
+                    </div>
+                    <div class="form-group" style="text-align:center;padding-top:15px;">
+                        <button type="button" name="add" class="zcBtn btn btn-default" >支付</button>&nbsp;
+                        <a href="{#:U('Index/Test/backurl')#}" target="_blank" style="position:relative;top:10px;display:inline-block;">支付结果查看</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="ft">
+
+        </div><div class="copyright">Copyright @2017-2018 {#$sitename#} All Rights Reserved</div>
+        <script language="javascript" src="__PUBLIC__/plugin/jquery-1.8.0.min.js"></script>
+        <script language="javascript" src="__PUBLIC__/plugin/layer/layer.js?{#$Think.config.FX_UPDATE_FILE_DATE#}"></script>
+        <script language="javascript" src="__PUBLIC__/common/js/common.js?{#$Think.config.FX_UPDATE_FILE_DATE#}"></script>
+        <script>
+            $(document).ready(function () {
+                $('.zcBtn').on('click', function () {
+                    $('.ewmdiv').css({'display': 'none'});
+                    var fxpay = $('.fxpay option:selected').val();
+                    var fxfee = $('.fxfee').val();
+                    if (fxpay == '') {
+                        layer.alert('请选择支付接口。');
+                        return;
+                    }
+                    if (parseFloat(fxfee) < 0.01) {
+                        layer.alert('请填写正确的支付金额。');
+                        return;
+                    }
+                    var index = layer.load();
+                    $.post('{#:U("Test/index")#}', {'fxpay': fxpay, 'fxfee': fxfee, 't': Math.random()}, function (result) {
+                        layer.close(index);
+                        if (result.status == '0') {
+                            layer.alert(result['data']);
+                            return;
+                        }
+                        if (result.status == '1') {
+                            //if (fxpay.indexOf('sm') != -1) {
+                            //    $('.ewm').html('<img src="' + result['data'][0] + '"/>');
+                            //    $('.ewmdiv').css({'display': 'block'});
+                            //} else {
+                                location.href = result['data'][0];
+                            //}
+                            return;
+                        }
+                        layer.alert(result);
+                    });
+                });
+            });
+        </script>
+        {#include file="Index/login" /#}
+    </body>
+</html>

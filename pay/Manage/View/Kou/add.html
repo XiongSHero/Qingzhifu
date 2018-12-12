@@ -1,0 +1,62 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Kou/save')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    商户id：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="userid" value="{#$edit.userid#}" required lay-verify="required" placeholder="请输入商户id" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    初始值：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="initval" value="{#$edit.initval#}" required lay-verify="required" placeholder="请输入初始值" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    计数值：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="zijian" value="{#$edit.zijian#}" required lay-verify="required" placeholder="请输入计数值" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="zjid" value="{#$edit.zjid#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Kou/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#} 

@@ -1,0 +1,115 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    {#$pageName#}&nbsp;&nbsp;
+                                </div>
+                            </div>
+
+                            <div class="panel-body">
+                                <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Index/Home/yhkadd')#}" method="post">
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            我的余额：
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" readonly class="form-control bzj" name="yue" value="{#$yue#}"  />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            充值金额：
+                                        </label>
+                                        <div class="col-md-4">
+                                            <input type="text" class="form-control money" name="money" value="100" required lay-verify="required" placeholder="请输入充值金额" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-md-2 control-label">
+                                            支付方式：
+                                        </label>
+                                        <div class="col-md-4">
+                                            <select name="jkstyle" class="layui-btn-small ajax-action form-control jkstyle">
+                                                {#volist name="list" id="n" #}
+                                                <option value="{#$n.jkstyle#}" {#if condition="$Think.request.jkstyle eq $n.jkstyle"#}selected="selected"{#/if#}>{#$n.jkname#}(费率：{#$n.fl#}%)</option>
+                                                {#/volist#}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-offset-2 col-md-4">
+                                            <button type="button" class="btn btn-success paysubmit">
+                                                &nbsp;
+                                                <span class="glyphicon glyphicon-save ">
+                                                </span>
+                                                &nbsp;充值&nbsp;
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group imgediv" style="display:none;">
+                                        <label class="col-md-2 control-label">
+                                            扫描支付：
+                                        </label>
+                                        <div class="col-md-4">
+                                            <p class="imgewm"></p>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $('.paysubmit').on('click', function () {
+                $('.imgediv').css({'display': 'none'});
+                var pay = $('.jkstyle option:selected').val();
+                var money = $('.money').val();
+
+                if (typeof (pay) == 'undefined' || pay == '') {
+                    layer.alert('请选择支付方式');
+                    return false;
+                }
+
+                var index = layer.load();
+                $.post('', {'money': money, 'pay': pay, 'times': Math.random()}, function (data) {
+                    layer.close(index);
+                    if (data['status'] == 1) {
+                        if (pay.indexOf('sm') != -1) {
+                            $('.imgewm').html('<p><img src="' + data['data'][0] + '"/></p><p>扫码支付，<a href="javascript:location.reload();">已付款</a></p>');
+                            $('.imgediv').css({'display': 'block'});
+                        } else {
+                            location.href = data['data'][0];
+                        }
+                    } else {
+                        layer.alert(data['data']);
+                    }
+                });
+            });
+        });
+    </script>
+    {#include file="Public/footer" /#}

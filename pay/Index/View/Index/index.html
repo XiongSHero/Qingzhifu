@@ -1,0 +1,378 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>{#$sitename#}_让支付变简单</title>
+        <meta name="keywords" content="聚合支付,扫码支付,网关支付,快捷支付,游戏支付,移动支付,{#$sitename#}"/>
+        <meta name="description" content="{#$sitename#}是国内领先的移动和PC支付接入服务商，业务范围包括微信扫码支付,微信公众号支付,微信H5支付,微信APP支付,支付宝扫码支付,网关支付,快捷支付和各行业聚合支付解决方案。"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width,initial-scale=0.7, minimum-scale=0.7, maximum-scale=1.0, user-scalable=no"/>
+        <script src="__PUBLIC__/plugin/jquery-1.11.1.min.js" type="text/javascript"></script>
+        <link href="__PUBLIC__/plugin/bootstrap/bootstrap.css" rel="stylesheet"/>
+        <script src="__PUBLIC__/plugin/bootstrap/bootstrap.js" type="text/javascript"></script>
+        <script src="__PUBLIC__/plugin/jquery-1.8.0.min.js" type="text/javascript"></script>
+        <script language=javascript src="__PUBLIC__/plugin/layer/layer.js?{#$Think.config.FX_UPDATE_FILE_DATE#}"></script>
+        <script language=javascript src="__PUBLIC__/common/js/common.js?{#$Think.config.FX_UPDATE_FILE_DATE#}"></script>
+        <!-- font-->
+        <link rel="stylesheet" href="__PUBLIC__/index/auto/iconfont.css?{#$Think.config.FX_UPDATE_FILE_DATE#}"/>
+        <!--public.css-->
+        <link rel="stylesheet" href="__PUBLIC__/index/auto/public.css?{#$Think.config.FX_UPDATE_FILE_DATE#}"/>
+        <link rel="icon" href="/favicon.ico" type="image/x-icon"/>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon"/>
+        <!--关键js结束-->
+    </head>
+    <body>
+        <!--header-->
+        <div id="idx" class="header">
+
+            <div class="hd-title">
+                <div class="container">
+                    <div class="pull-left">
+                        <a href="/">{#$sitename#}</a>
+                    </div>
+                    <div class="pull-right">
+                        <a href="#" class='loginBtn'>登录</a>
+                        <a href="{#:U('/reg')#}" target="_blank">注册</a>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="navbar navbar-default navbar-static-top" role="navigation">
+                <div class="container">
+                    <div class=" col-lg-4">
+                        <a class="navbar-brand" href="/">
+                            <img src="{#$config.logopath#}" width="230" height="80"  alt="{#$sitename#}" />
+                            <span class="none">{#$sitename#}</span>
+                        </a>
+                    </div>
+                    <div id="navbar" class=" col-lg-8">
+                        <div class="right-nav navbar-right">
+                            <ul class="nav navbar-nav">
+                                <li><a href="/">首页</a></li>
+                                <li><a href="{#:U('Test/index')#}">支付体验</a></li>
+                                <li role="presentation" class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        聚合支付 <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>微信WAP支付</li>
+                                        <li>微信公众号支付</li>
+                                        <li>微信扫码支付</li>
+                                        <li>支付宝WAP支付</li>
+                                        <li>支付宝扫码支付</li>
+                                    </ul>
+                                </li>
+                                <li role="presentation" class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                        解决方案 <span class="caret"></span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li>多级商户</li>
+                                        <li>零售电商</li>
+                                        <li>游戏周边</li>
+                                        <li>传统行业</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+
+                    </div><!--/.nav-collapse -->
+                </div>
+            </nav>
+
+        </div>
+        <div class="polyPay_banner"> 
+            <div class="main"> 
+                <h1>{#$sitename#}PHP 为支付而生</h1> 
+                <h2>方便快捷的支付接入体验，让支付和收款更简单！</h2> 
+                <h2>极速、便捷、安全、稳定</h2> 
+                <a href="#" class="btn loginBtn">用户登录</a> 
+                <a href="{#:U('/reg')#}" class="btnr">账户注册</a> 
+            </div>
+        </div>
+
+        <!--main-->
+        <div class="ix main">
+            <div class="container pay padding-none">
+
+                <div class="title">
+                    <h3>{#$sitename#}聚合支付</h3>
+                    <p>支持移动网页、PC网页、微信公众号、支付宝扫码、手机APP、H5等场景，随时查询所有接口交易明细</p>
+                    <span>统一管理账户及时对帐，提升对账效率，费用更低！ <strong><a href="{#:U('Test/index')#}">马上体验</a></strong></span>
+                </div>
+
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="one-icon">
+                            <h3>支付宝支付</h3>
+                            <img src="__PUBLIC__/index/auto/ixicon1.png" alt="">
+                                <p>支付宝扫码支付</p>
+                                <p>支付宝H5支付</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="one-icon">
+                            <h3>微信支付</h3>
+                            <img src="__PUBLIC__/index/auto/ixicon6.png" alt="">
+                                <p>微信扫码支付</p>
+                                <p>微信公众号支付</p>
+                                <p>微信H5、APP支付</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 ">
+                        <div class="one-icon">
+                            <h3>扫码支付</h3>
+                            <img src="__PUBLIC__/index/auto/ixicon3.png" alt="">
+                                <p>微信扫码</p>
+                                <p>支付宝扫码</p>
+                        </div>
+                    </div>
+
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="one-icon">
+                            <h3>公众号支付</h3>
+                            <img src="__PUBLIC__/index/auto/ixicon4.png" alt="">
+                                <p>微信公众号支付</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2">
+                        <div class="one-icon">
+                            <h3>手机支付</h3>
+                            <img src="__PUBLIC__/index/auto/v2icon3.png" alt="">
+                                <p>安卓支付</p>
+                                <p>苹果支付</p>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2 col-lg-2 ">
+                        <div class="one-icon">
+                            <h3>第四方支付</h3>
+                            <img src="__PUBLIC__/index/auto/ixicon2.png" alt="">
+                                <p>轻支付</p>
+                                <p>翼支付</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ix-layout-1">
+            <div class="title">
+                <h3>快速接入流程</h3>
+                <span>只需四步即可成功对接</span>
+            </div>
+            <div class="container buzhou">
+                <div class="row ">
+                    <ul> 
+                        <li class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><div>商户注册</div></li>
+                        <li class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><div>线上测试</div></li>
+                        <li class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><div>参数配置</div></li>
+                        <li class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><div>完成接入</div></li> 
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="ix ix-layout-2">
+
+            <div class="title">
+                <h3>聚合支付解决方案</h3>
+                <span>一站式支付解决方案，让您的业务功能轻松实现</span>
+            </div>
+
+            <div class="container">
+                <div class="row">
+                    <div class="pay_scene all active"> 
+                        <ul class="clearfix"> 
+                            <li class="pro_item left"> 
+                                <div class="pro_name">站群管理</div> 
+                                <div class="pro_type">一套接口多站收款</div> 
+                            </li>
+                            <li class="pro_item left"> 
+                                <div class="pro_name">智能切换</div> 
+                                <div class="pro_type">多收款账户智能秒切</div> 
+                            </li> 
+                            <li class="pro_item left"> 
+                                <div class="pro_name">智能检测</div> 
+                                <div class="pro_type">一键检测所有接口状态</div> 
+                            </li> 
+                            <li class="pro_item left"> 
+                                <div class="pro_name">代理模式</div> 
+                                <div class="pro_type">代理分润模式</div> 
+                            </li>
+                            <li class="pro_item left"> 
+                                <div class="pro_name">第四方</div> 
+                                <div class="pro_type">隐藏支付实时转接</div> 
+                            </li>
+                            <li class="pro_item left"> 
+                                <div class="pro_name">金融行业</div> 
+                                <div class="pro_type">玩转线上线下支付</div> 
+                            </li>
+                            <li class="pro_item left"> 
+                                <div class="pro_name">零售电商</div> 
+                                <div class="pro_type">扫码移动全覆盖</div> 
+                            </li>
+                            <li class="pro_item left"> 
+                                <div class="pro_name">游戏充值</div> 
+                                <div class="pro_type">实时支付秒充钱</div> 
+                            </li>
+                            <li class="pro_item left"> 
+                                <div class="pro_name">移动支付</div> 
+                                <div class="pro_type">安卓苹果全覆盖</div> 
+                            </li>
+                        </ul> 
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+
+        <div class="ix ix-layout-3">
+            <div class="container padding-none">
+
+                <div class="title">
+                    <h3>{#$sitename#}的优势</h3>
+                    <span>简单的支付模式，专业的产品服务</span>
+                </div>
+
+
+                <div class="row">
+
+                    <div class="col-xs-12 col-sm-12 col-md-4  col-lg-4 box">
+                        <div class="icon">
+                            <img src="__PUBLIC__/index/auto/casebanner_34.jpg" alt="">
+                        </div>
+
+                        <ul>
+                            <li>网站与接口分离，多账户智能秒切换，多重</li>
+                            <li>加密传输，保障交易成交，减少账户失败概率</li>
+                            <li>轻松无人值守模式，是您的贴身管家！</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-4  col-lg-4 box">
+                        <div class="icon">
+                            <img src="__PUBLIC__/index/auto/casebanner_36.jpg" alt="">
+                        </div>
+
+                        <ul>
+                            <li>通过标准化研发，统一支付接口，</li>
+                            <li>实现全场景对接，仅需一套配置标准！</li>
+                        </ul>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-4  col-lg-4 box">
+                        <div class="icon">
+                            <img src="__PUBLIC__/index/auto/casebanner_39.jpg" alt="">
+                        </div>
+
+                        <ul>
+                            <li>帮助企业整合互联网金融资源，提供产业链内</li>
+                            <li>金融产品对接和金融技术服务。</li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+        <div class="ix ix-layout-4">
+
+            <div class="title">
+                <h3>{#$sitename#}合作伙伴</h3>
+                <span>与国内知名公司和团队合作，为您带来优质的价值，为您的支付之路保驾护航</span>
+            </div>
+
+
+            <div class="container padding-none">
+
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-6 col-md-2  col-lg-2">
+                        <div class="list-bg">
+                            <img src="__PUBLIC__/index/auto/casebanner_48.jpg" alt="银联">
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2  col-lg-2">
+                        <div class="list-bg">
+                            <img src="__PUBLIC__/index/auto/casebanner_55.jpg" alt="支付宝">
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2  col-lg-2">
+                        <div class="list-bg">
+                            <img src="__PUBLIC__/index/auto/casebanner_58.jpg" alt="微信支付">
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2  col-lg-2">
+
+                        <div class="list-bg">
+                            <img src="__PUBLIC__/index/auto/casebanner_61.jpg" alt="京东钱包">
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2  col-lg-2">
+                        <div class="list-bg">
+                            <img src="__PUBLIC__/index/auto/casebanner_64.jpg" alt="百度钱包">
+                        </div>
+
+                    </div>
+
+                    <div class="col-xs-6 col-sm-6 col-md-2  col-lg-2">
+                        <div class="list-bg">
+                            <img src="__PUBLIC__/index/auto/casebanner_67.jpg" alt="QQ钱包">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--footer-->
+        <!--QQ-->
+        <div class="gbf-aside-right">
+            <ul>
+                <li>
+                    <i class="iconfont icon-yidongduan1"></i>
+                    <div class="show-li">
+                        <div class="ix-phone">
+                            <p>{#$config.phone#}</p>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="http://wpa.qq.com/msgrd?v=3&amp;uin={#$config.qq#}&amp;Menu=yes"><i class="iconfont icon-qq"></i></a>
+                </li>
+                <li class="h-top" style="display: none;">
+                    <i class="iconfont icon-huojian"></i>
+                </li>
+            </ul>
+        </div>
+        <!--QQend-->
+
+        <!--footer-->
+        <div class="footer">
+            <div class="container">
+                <div class="row" align="center">
+                    <p>&copy;&nbsp;2017-2018 {#$sitename#}{#$Think.config.FX_VERSION#}&nbsp;版权所有 {#if condition=" $config['beian'] neq ''"#}{#$config['beian']#}{#/if#}</p>
+                </div>
+            </div>
+        </div>
+        <!--footer end-->
+        {#include file="Index/login" /#}
+</body>
+</html>

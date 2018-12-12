@@ -1,0 +1,67 @@
+<div class="mask"></div>
+<form name="form1" method="post" action="{#:U('Index/login')#}">
+    <div class="logTc">
+        <div class="closeBar"><span class="close"></span></div>
+        <h2>用户登录</h2>
+        <div class="dlCon">
+            <span class="tip1"></span>
+            <p class="p1"><input type="text" placeholder="请输入用户名" class="username usernamelogin" name="username"  value="" /></p>
+            <span class="tip1"></span>
+            <p class="p1"><input type="password" placeholder="请输入密码" class="password passwordlogin" name="password"  value="" /></p>
+            <span class="tip1"></span>
+            <p class="p1">
+                <input type="text" placeholder="请输入验证码" class="yzm1 password verifyCode" name="yzm"  value="" style="width:240px;margin-right:10px;" />
+                <img height="45" width="125" class="verifyImg" src="{#:U('Index/Index/verify')#}" border="0" title="点击刷新验证码" align="absmiddle" />
+            </p>
+            <p class="p3"><input type="button" value="登录" name="btn" class="loginedbtn" /></p>
+        </div>
+        <div class="dlBot">
+            <p>还没有{#$sitename#}账号？<a href="{#:U('/reg')#}" class="ljzc">立即注册</a> <a href="{#:U('/pass')#}" class="ljzc">找回密码</a></p>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        //登录弹出框
+        $(".loginBtn").click(function (event) {
+            event.preventDefault();
+            $(".mask").show();
+            $(".logTc").show();
+            $(".close").click(function () {
+                $(".mask").hide();
+                $(".logTc").hide();
+            });
+            $('.dlCon .verifyImg').click();
+        });
+        $('.loginedbtn').on('click', function () {
+            var username = $('.usernamelogin').val();
+            var password = $('.passwordlogin').val();
+            var yzm = $('.yzm1').val();
+            if (username == '' || password == '') {
+                layer.alert('请输入用户名和密码');
+                return;
+            }
+            var index = layer.load();
+            $.post('{#:U("Index/Index/login")#}', {'username': username, 'code': yzm, 'password': password, 't': Math.random()}, function (result) {
+                layer.close(index);
+                if (result.status == '0') {
+                    if ($('[name=yzm]').length > 0)
+                        $('[name=yzm]').val('');
+                    if ($('.verifyImg').length > 0)
+                        $('.verifyImg').click();
+                    layer.alert(result['data']);
+                    return;
+                }
+                if (result.status == '1') {
+                    layer.msg(result['data'][0], {'time': 1000 * parseInt(result['data'][2])}, function () {
+                        if (typeof (result['data'][1]) != 'undefined' && result['data'][1]) {
+                            window.location.href = result['data'][1];
+                        }
+                    });
+                    return;
+                }
+                layer.alert(result);
+            });
+        });
+    });
+</script>

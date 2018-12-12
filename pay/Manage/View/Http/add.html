@@ -1,0 +1,99 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Http/save')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    域名名称：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control"  name="httpname" value="{#$edit.httpname#}" required lay-verify="required" placeholder="请输入域名名称" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    域名：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="http" value="{#$edit.http#}" />
+                                    * 请使用http://或者https://前缀,结尾不要带/
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    是否默认域名：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifdefault" class="form-control">
+                                        <option value="0" {#if condition="$edit['ifdefault'] eq '0'"#}selected="selected"{#/if#}>不是</option>
+                                        <option value="1" {#if condition="$edit['ifdefault'] eq '1'"#}selected="selected"{#/if#}>是</option>
+                                    </select>
+                                    * 仅能设定一个域名为默认域名，如果当前设定会自动取消其他域名的默认属性
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    隐藏域名：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="hiddenhttp" value="{#$edit.hiddenhttp#}" />
+                                    * 隐藏支付域名 带http://或https://前缀的可访问地址，为空则不隐藏支付域名 注意在api支付域名于当前系统域名相同时，此处留空 ,结尾不要带/
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    是否默认隐藏域名：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifdefaulthidden" class="form-control">
+                                        <option value="0" {#if condition="$edit['ifdefaulthidden'] eq '0'"#}selected="selected"{#/if#}>不是</option>
+                                        <option value="1" {#if condition="$edit['ifdefaulthidden'] eq '1'"#}selected="selected"{#/if#}>是</option>
+                                    </select>
+                                    * 仅能设定一个域名为默认隐藏域名，如果当前设定会自动取消其他隐藏域名的默认属性
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    锁定：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="locked" class="form-control">
+                                        <option value="0" {#if condition="$edit['locked'] eq '0'"#}selected="selected"{#/if#}>开启</option>
+                                        <option value="1" {#if condition="$edit['locked'] eq '1'"#}selected="selected"{#/if#}>锁定</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="id" value="{#$edit.id#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Http/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#} 

@@ -1,0 +1,344 @@
+﻿@charset "UTF-8";html{color:#333;background:#fff}
+body{font:12px/1.5 arial}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td{margin:0;padding:0}
+address,caption,cite,code,dfn,em,th,var,optgroup{font-style:inherit;font-weight:inherit}em{font-style:normal}h1,h2,h3,h4,h5,h6{font-size:100%}
+
+a:link{text-decoration:none; font-size:12px; font-style:normal; color:#3F628C;}
+a:visited{text-decoration:none; font-size:12px; font-style:normal; color:#3F628C;}
+a:hover{text-decoration: none; font-size:12px; font-style:normal; color:#3F628C;}
+a:active{text-decoration:none; font-size:12px; font-style:normal; color:#3F628C;}
+
+
+.header_wrap{height:85px;border-bottom:3px solid #28529a;min-width:950px}
+.header{width:950px;margin:0 auto; overflow:hidden;}
+.header .fl{padding:10px 0 0;position:relative;float:left}
+.header .fl img{position:absolute;left:10px;top:4px}
+.logo_unionPay{width:200px;height:80px; overflow:hidden;float:left}
+.header .fr{position:relative;z-index:10;float:right;margin-top:8px;}
+.header .fr p{color:#F60;width:500px;text-align:right;position:absolute;top:22px;right:70px; font-size:22px;font-weight:bold;font-style:oblique;}
+.header .fr a{color:#9ea4ae;width:500px;text-align:right;position:absolute;top:17px;right:230px;}
+
+.content{width:950px;margin:0 auto; /*padding-top:20PX;*/}
+
+.tb_style{width:100%; margin:0 auto; /*margin-top:10px;*/ background-color:white;}
+.td_title{  border-top:2px solid #E7EAEC; padding-left:15PX;border-bottom:1px solid #E7EAEC;color:#28529A; font-size:16px; font-weight:bold;}
+.td_border{padding-left:25PX; font-size:13px; color:#666; }
+
+
+
+/* CSS Document */
+ul,li{ list-style:none;}
+*{ padding:0; margin:0;}
+a {
+    text-decoration: none;
+}
+.main{ background-color:#ecedf2; padding-top:15px; padding-bottom:2px;}
+.main .content{ box-shadow: 0 0 5px rgba(0,0,0,.2); background-color:white; }
+.content:hover{ box-shadow: 0 0 12px rgba(0,0,0,.25);}
+.bank-wrap{ padding-left:10px; padding-right:10px; padding-top:15px;  padding-bottom:15px;}
+.ui-tab-items{overflow:hidden;}
+
+.ui-tab-item {float: left;margin-right: 15px;position: relative;margin-bottom: -1px;}
+.ui-tab-item a { border-radius: 3px 3px 0 0; line-height: 34px; background: #F0F0F0; padding: 0 18px;border: 1px solid #f7f7f7;
+border-bottom: 0;color: #4D4D4D;display: inline-block;font-size: 14px;border-color: #c6c6c6;}
+.bw-tab-quick a{ padding-left:50px; }
+.bank-wrap .bw-tab-quick a i {position: absolute;top: 6px;left: 15px; background-repeat:no-repeat; display:block;}
+
+
+.bw-tab-curr a { border-radius: 3px 3px 0 0; line-height: 34px; background: #fff; padding: 0 18px;border: 1px solid #f7f7f7;
+border-bottom: 0;color: #4D4D4D;display: inline-block;font-size: 14px;border-color: #c6c6c6;}
+.bw-tab-curr a{ padding-left:50px; }
+.bank-wrap .bw-tab-curr a i {position: absolute;top: 6px;left: 15px; background-repeat:no-repeat; display:block; background-color:}
+
+
+.bw-tab-content{ padding:20px 10px 10px; overflow:hidden;}
+.bw-tab-content .kj{ width:450px; border-right:1px solid #e1e1e1; float:left; }
+.bw-tab-content .kj-txt{ wtdth:400px; float:left; padding-left:30px;}
+.bank-wrap .bw-tab-content .payment-list {width: 940px; overflow:hidden;}
+.bank-wrap .bw-tab-content .pl-wrap {width: 950px;overflow:hidden;}
+.payment-list .pl-item {position: relative;_zoom: 1;float: left;background-color: #fff;padding: 5px 0;height: 28px;width: 188px;
+margin-right: 42px;margin-bottom: 15px;cursor: pointer;border: 1px solid #b0c2e1;border-radius: 2px;    }
+.payment-list .pl-item .bank-logo {margin-left: 25px;}
+.bank-logo {
+    background-image:url(./bank-logo.png);
+    background-repeat: no-repeat;
+    display: block;
+    width: 125px;
+    height: 28px;
+    overflow: hidden;
+    text-indent: -9999px;
+}
+#back-icbc{ background-position:0 -140px;}
+#bank-ccb {
+    background-position: 0 -336px;
+}
+#bank-cmb {
+    background-position: 0 -784px;
+}
+#bank-abc {
+    background-position: 0 -532px;
+}
+#bank-bcom {
+    background-position: 0 -392px;
+}
+#bank-gdb {
+    background-position: 0 -196px;
+}
+#bank-boc {
+    background-position: 0 -840px;
+}
+#bank-cmbc {
+    background-position: 0 -448px;
+}
+#bank-hxb {
+    background-position: 0 -308px;
+}
+#bank-cib {
+    background-position: 0 -756px;
+}
+#bank-ceb {
+    background-position: 0 -168px;
+}
+#bank-psbc {
+    background-position: 0 -869px;
+}
+#bank-cncb{
+    background-position: 0 -896px;
+}
+#bank-pab{
+    background-position: 0 -560px;
+}
+#bank-sdb{
+    background-position: 0 -700px;
+}
+#bank-bos{
+    background-position: 0 -672px;
+}
+#bank-srcb{
+    background-position: 0 -645px;
+}
+
+#bank-hzcb{
+    background-position: 0 -254px;
+}
+#bank-nbcb{
+    background-position: 0 -504px;
+}
+#bank-cbhb{
+    background-position: 0 -55px;
+}
+#bank-njcb{
+    background-position: 0 -477px;
+}
+#bank-hebb{
+    background-position: 0 -55px;
+}
+#bank-spdb{
+    background-position: 0 -588px;
+}
+.paybox.paybox-selected {
+border: 0;
+border: 1px solid #c6c6c6;
+padding: 10px 0px 10px 0px;
+border-radius: 2px;
+background-color: #fff;
+}
+
+.footer{margin:10px auto 0;height:50px;width:100%;color:#728196;padding:10px 0 0;text-align:center; background-color:#FFF;}
+.footer div{ height:7px; }
+
+
+/* 新的网银直连 */
+.payments {
+    float: left;
+    padding: 0;
+    width: 918px;
+}
+
+.pay_bank { width: 100%; float: left; }
+.pay_bank li { float: left; padding: 0 12px; +padding: 0 11px; padding-bottom: 15px; position: relative; }
+.pay_bank li .promptInf { position: absolute; top: -31px; left: 22px; +left:29px; padding: 3px 5px; width: 172px; text-align: center; color: #FFF; background-color: #989EA2; }
+.pay_bank li .promptInf b { position: absolute; top: 23px; left: 22px; background: url('./index_1.png') no-repeat -54px 0; width: 8px; height: 5px; }
+.pay_bank li.delpaRi { padding-right: 0; }
+.pay_bank li .radioBt { margin: 12px 10px 0 0; float: left; }
+.pay_bank .more { color: #1197f5; border: 1px solid #d9dee1; width: 180px; height: 38px; float: left; text-align: center; line-height: 38px; cursor: pointer; background: url(./index.gif) no-repeat 140px -22px; margin-left: 23px; }
+.pay_bank .more_up { background: url(./index.gif) no-repeat 140px -46px; margin-left: 23px; +margin-left:30px;
+}
+.pay_bank .more:hover { color: #1187f5; text-decoration: underline; }
+.pay_bank li label { border: 1px solid #d9dee1; width: 180px; height: 38px; float: left; background: url(./bank.gif) no-repeat; text-align: center; line-height: 38px; cursor: pointer; }
+.pay_bank li .l_current { border: 2px solid #ffc010; position: relative; top: -1px; left: -1px; width: 178px; height: 36px; }
+.pay_bank li .pitchOn { position: absolute; background: url(./index_1.png) no-repeat 0 -483px; width: 19px; height: 19px; right: -2px; bottom: -2px; }
+.pay_bank li.delPadright { padding-right: 0; }
+.nextStep { margin: 10px 0 0 35px; }
+
+.pay_ico .ICBC { background-position: 15px 1px; }   /* 工行 */
+.pay_ico .ABC { background-position: 15px -37px; }  /* 农行 */
+.pay_ico .BOC { background-position: 15px -75px; }  /* 中行 */
+.pay_ico .CCB { background-position: 15px -113px; } /* 建行 */
+.pay_ico .CMB { background-position: 15px -151px; } /* 招行 */
+.pay_ico .GDB { background-position: 15px -189px; } /* 广发 */
+.pay_ico .CEB { background-position: 15px -227px; } /* 光大 */
+.pay_ico .CNCB { background-position: 15px -265px; }   /* 中信 */
+.pay_ico .CITIC { background-position: 15px -265px; }   /* 中信 */
+.pay_ico .COMM { background-position: 15px -303px; } /* 交行 */
+.pay_ico .BCOM { background-position: 15px -303px; }    /* 交行 */
+.pay_ico .PAB { background-position: 15px -341px; } /* 平安 */
+.pay_ico .PABC { background-position: 15px -341px; } /* 平安 */
+.pay_ico .CMBC { background-position: 15px -379px; }    /* 民生 */
+.pay_ico .CIB { background-position: 15px -417px; } /* 兴业 */
+.pay_ico .SPDB { background-position: 15px -455px; }    /* 浦发 */
+.pay_ico .HXB { background-position: 15px -493px; }  /* 华夏 */
+.pay_ico .PSBC { background-position: 15px -531px; }  /* 邮储 */
+.pay_ico .BCCB { background-position: 15px -569px; }    /* 北京银行 */
+.pay_ico .BOB { background-position: 15px -569px; }    /* 北京银行 */
+.pay_ico .BJRCB { background-position: 15px -607px; }/* 北京农商行 */
+.pay_ico .BOSH{ background-position: 15px -645px; } /* 上海银行 */
+.pay_ico .BOFS { background-position: 15px -645px; } /* 上海银行 */
+.pay_ico .DESZ { background-position: 15px -1215px; }    /* 深发 */
+.pay_ico .SDB { background-position: 15px -1215px; }    /* 深发 */
+
+.pay_ico .NBCB { background-position: 15px -1480px; }   /* 宁波银行 */
+.pay_ico .BEA { background-position: 15px -1580px; }    /* 东亚银行 */
+.pay_ico .NJCB { background-position: 15px -1440px; }   /* 南京银行 */
+.pay_ico .BON { background-position: 15px -1440px; }   /* 南京银行 */
+.pay_ico .BOCD { background-position: 15px -1530px; }   /* 成都银行 */
+.pay_ico .SHRCB { background-position: 15px -1623px; }   /* 上海农商行 */
+.pay_ico .CBHB { background-position: 15px -1675px; }   /* 渤海银行 */
+
+/* B2B银行图标 */
+.pay_ico .ICBCB2B { background-position: 15px -683px; } /* 工行企业 */
+.pay_ico .ABCB2B { background-position: 15px -721px; }  /* 农行企业 */
+.pay_ico .CCBB2B { background-position: 15px -759px; }  /* 建行企业 */
+.pay_ico .CMBB2B { background-position: 15px -797px; }  /* 招行企业 */
+.pay_ico .SPABANKB2B { background-position: 15px -835px; }  /* 平安企业 */
+.pay_ico .BOCB2B { background-position: 15px -1253px; } /* 中行企业 */
+.pay_ico .CEBB2B { background-position: 15px -1291px; } /* 光大企业 */
+.pay_ico .SPDBB2B { background-position: 15px -1329px; }    /* 浦发企业 */
+.pay_ico .COMMB2B { background-position: 15px -1367px; } /* 交行企业 */
+
+/*按钮*/
+/* .blackBtn { position: absolute; right: 0; top: 17px; display: inline-table; width: 60px; text-align: center; height: 27px; line-height: 27px; color: #fff; background: #6c6c6c; behavior: url(/pie.htc); border-radius: 5px; cursor: pointer; } */
+.grayBtn, .grayBtn:hover { float: left; width: auto; padding: 0 75px; text-align: center; text-decoration: none;  height: 40px; line-height: 40px; color: #fff; background-color: #CCC; cursor: default; font-size: 16px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; }
+.yellowBtn { float: left; width: auto; padding: 0 75px; text-align: center; text-decoration: none;  height: 40px; line-height: 40px; background-color: #f15015; cursor: pointer; font-size: 16px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; }
+.bw-tab-content a{color: #fff; font-size: 16px;}
+.yellowBtn:hover { background-color: #ff9900; color: #fff; text-decoration: none; }
+.disableBtn { float: left; width: auto; padding: 0 75px; text-align: center; text-decoration: none;  height: 40px; line-height: 40px; color: #fff; background-color: #827773; cursor: pointer; font-size: 16px; -moz-border-radius: 2px; -webkit-border-radius: 2px; border-radius: 2px; }
+.disableBtn:hover { background-color: #ADA29E; color: #fff; text-decoration: none; }
+
+
+/* 新版-在线客服 */
+.izl-rmenu{
+           margin-right: 0;
+           width: 82px;
+           position: fixed;
+           right: 2px;
+           top: 50%;
+           -webkit-box-shadow: #DDD 0px 1px 5px;
+           -moz-box-shadow: #DDD 0px 1px 5px;
+           box-shadow: #DDD 0px 1px 5px;
+           z-index:999;
+}
+.izl-rmenu .consult{    
+    background-image: url(./consult_icon.gif);
+    background-repeat: no-repeat;
+    background-position: center -77px;
+    display: block;
+    height: 76px;
+    width: 82px;
+}
+
+
+.izl-rmenu .consult .phone {
+    background-color: rgb(247,247,255);
+    position: absolute;
+    width: 160px;
+    left: -160px;
+    top: 0px;
+    line-height: 73px;
+    color: #000;
+    font-size: 18px;
+    text-align: center;
+    display: none;
+    box-shadow: #DDD -1px 1px 4px;
+}
+
+.izl-rmenu a.consult:hover .phone{display:inline !important;}
+.izl-rmenu .cart {
+    background-image: url(./consult_icon.gif);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    display: block;
+    height: 16px;
+    width: 16px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #45BDFF;
+    text-align: center;
+    padding-top: 15px;
+    padding-right: 18px;
+    padding-bottom: 47px;
+    padding-left: 48px;
+}
+.izl-rmenu a.cart:hover .pic{display:block;}
+.izl-rmenu .btn_top {
+    background-image: url(./float_top.gif);
+    background-repeat: no-repeat;
+    background-position: center top;
+    display: block;
+    height: 39px;
+    width: 82px;
+    -webkit-transition: all 0s ease-in-out;
+    -moz-transition: all 0s ease-in-out;
+    -o-transition: all 0s ease-in-out;
+    transition: all 0s ease-in-out;
+}
+.izl-rmenu .btn_top:hover {
+    background-image: url(./float_top.gif);
+    background-repeat: no-repeat;
+    background-position: center bottom;
+}
+.izl-rmenu .cart .pic {
+    display:none;
+    position: absolute;
+    left: -160px;
+    top: 65px;
+    width: 160px;
+    height: 160px;
+    background:url(./wechat.png);
+}
+#udesk-feedback-tab {
+    position: fixed;
+    right: 2px;
+    top: 50%;
+    margin-top: -76px;
+    -webkit-box-shadow: #DDD 0px -1px 5px;
+    -moz-box-shadow: #DDD 0px -1px 5px;
+    box-shadow: #DDD 0px -1px 5px;
+    z-index: 10000;
+    cursor: pointer;
+    background-image: url(./consult_icon.gif);
+    background-repeat: no-repeat;
+    background-position: center top;
+    display: block;
+    height: 76px;
+    width: 82px;
+    background-color: #FFF!important;
+    z-index:999;
+}
+
+a#udesk-feedback-tab:hover .qq{display:inline !important;}
+
+.qq {
+    background-color: rgb(247,247,255);
+    position: absolute;
+    width: 160px;
+    left: -160px;
+    top: 0px;
+    line-height: 73px;
+    color: #000;
+    font-size: 18px;
+    text-align: center;
+    display: none;
+    box-shadow: #DDD -1px 1px 4px;
+}
+

@@ -1,0 +1,117 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Userhttp/save')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    商户id：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="userid" value="{#$edit.userid#}" required lay-verify="required" placeholder="请输入商户id" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    网站名称：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="sitename" value="{#$edit.sitename#}" required lay-verify="required" placeholder="请输入网站名称" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    网站域名：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" {#if condition="$edit['status'] eq '1'"#}readonly{#/if#} name="http" value="{#$edit.http#}" required lay-verify="required" placeholder="请输入网站域名" />
+                                           * 例如：www.baidu.com
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    网站类型：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="sitestyle" value="{#$edit.sitestyle#}" placeholder="请输入网站类型" />
+                                    * 例如：商城
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    备案号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="beian" value="{#$edit.beian#}" placeholder="请输入备案号" />
+                                    * 例如：京ICP备1000015258
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    网站管理员：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="siteadmin" value="{#$edit.siteadmin#}" placeholder="请输入网站管理员" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    手机：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="sitephone" value="{#$edit.sitephone#}" placeholder="请输入手机" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    QQ：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="siteqq" value="{#$edit.siteqq#}" placeholder="请输入账户" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    审核：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="status" class="form-control">
+                                        <option value="0" {#if condition="$edit['status'] eq '0'"#}selected="selected"{#/if#}>待审核</option>
+                                        <option value="1" {#if condition="$edit['status'] eq '1'"#}selected="selected"{#/if#}>通过</option>
+                                        <option value="2" {#if condition="$edit['status'] eq '2'"#}selected="selected"{#/if#}>未通过</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="id" value="{#$edit.id#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Userhttp/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#} 

@@ -1,0 +1,142 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <h3>
+                    <span class="current">{#$pageName#}</span>
+                </h3>
+                <br>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form class="layui-form layui-form-pane form-inline" action="" method="get">
+                            <div class="form-group">
+                                <input class="form-control" name="userid" placeholder="商户ID" value="{#$Think.request.userid#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="username" placeholder="商户账户"  value="{#$Think.request.username#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="phone" placeholder="手机号" value="{#$Think.request.phone#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="email" placeholder="邮箱" value="{#$Think.request.email#}" size="12" type="text">
+                            </div>
+                            <div class="form-group">
+                                <select name="status" class="layui-btn-small ajax-action form-control"  >
+                                    <option value="">所有状态</option>
+                                    <option value="0" {#if condition="$Think.request.status eq '0'"#}selected="selected"{#/if#}>正常</option>
+                                    <option value="1" {#if condition="$Think.request.status eq '1'"#}selected="selected"{#/if#}>锁定</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="ifkl" class="layui-btn-small ajax-action form-control">
+                                    <option value="" {#if condition="$Think.request.ifkl eq ''"#}selected="selected"{#/if#}>全部扣量类型</option>
+                                    <option value="-1" {#if condition="$Think.request.ifkl eq '-1'"#}selected="selected"{#/if#}>系统默认</option>
+                                    <option value="0" {#if condition="$Think.request.ifkl eq '0'"#}selected="selected"{#/if#}>不扣量</option>
+                                    <option value="1" {#if condition="$Think.request.ifkl eq '1'"#}selected="selected"{#/if#}>扣量</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="ifagent" class="layui-btn-small ajax-action form-control"  >
+                                    <option value="">全部代理</option>
+                                    <option value="0" {#if condition="$Think.request.ifagent eq '0'"#}selected="selected"{#/if#}>否</option>
+                                    <option value="1" {#if condition="$Think.request.ifagent eq '1'"#}selected="selected"{#/if#}>是</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="ifusercheck" class="layui-btn-small ajax-action form-control"  >
+                                    <option value="">全部认证状态</option>
+                                    <option value="0" {#if condition="$Think.request.ifusercheck eq '0'"#}selected="selected"{#/if#}>未认证</option>
+                                    <option value="1" {#if condition="$Think.request.ifusercheck eq '1'"#}selected="selected"{#/if#}>申请认证</option>
+                                    <option value="2" {#if condition="$Think.request.ifusercheck eq '2'"#}selected="selected"{#/if#}>认证通过</option>
+                                    <option value="3" {#if condition="$Think.request.ifusercheck eq '3'"#}selected="selected"{#/if#}>认证失败</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" name="agent" placeholder="代理id" value="{#$Think.request.agent#}" size="12" type="text">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search">
+                                </span>
+                                &nbsp;立即查询
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <form action="" method="post"  class="ajax-form">
+                    <div class="set set0 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <td colspan="10">
+                                        <button class="btn btn-primary anniu delbtn" type="button" data-url="{#:U('User/delete')#}"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</button>
+                                        <button class="btn btn-primary anniu addbtn" type="button" data-url="{#:U('User/add')#}"><span class="glyphicon glyphicon-edit"></span>&nbsp;添加</button>
+                                        <button class="btn btn-primary anniu flushbtn" type="button" data-url="#"><span class="glyphicon glyphicon-refresh"></span>&nbsp;刷新</button>
+                                    </td>
+                                </tr>
+                                <tr class="info">
+                                    <th style="width: 15px;"><input type="checkbox" name="mmAll" class="selectAllCheckbox"/></th>
+                                    <th align="center" >商户ID</th>
+                                    <th align="center">用户名称</th>
+                                    <th align="center">手机</th>
+                                    <th align="center">email</th>
+                                    <th align="center">注册时间</th>
+                                    <th align="center">余额</th>
+                                    <th align="center">提现</th>
+                                    <th align="center">代理id</th>
+                                    <th align="center">保证金</th>
+                                    <th align="center">结算类型</th>
+                                    <th align="center">扣量</th>
+                                    <th align="center">操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <tr id="tr{#$n.id#}" >
+                                    <td align="center"><input type="checkbox" class="thisid checkbox" title="{#$n.id#}" name="thisid[]" value="{#$n.id#}"/></td>
+                                    <td align="center"><a href="{#:U('User/edit',array('id'=>$n['id'],'p'=>$_GET['p']))#}">{#$n.userid#}</a></td>
+                                    <td align="center">{#$n.username#}{#if condition="$n['httpid'] gt 0"#}<span class="label label-primary" title="绑定域名：{#$n['http']#}">绑</span>{#/if#}
+                                    {#if condition="$n['ifcheckphone'] eq '1'"#}<span class="label label-primary" title="已验证手机号">验</span>{#/if#}
+                                    {#if condition="$n['ifusercheck'] eq '1'"#}<span class="label label-danger" title="申请认证商户">申</span>{#/if#}
+                                    {#if condition="$n['ifusercheck'] eq '2'"#}<span class="label label-primary" title="已认证商户">认</span>{#/if#}
+                                    {#if condition="$n['ifagent'] eq '1'"#}<span class="label label-primary" title="代理商户">代理</span>{#/if#}
+                                    {#if condition="$n['status'] eq '1'"#}<span class="label label-danger" title="锁定商户">锁</span>{#/if#}</td>
+                                    <td align="center">{#$n.phone#}</td>
+                                    <td align="center">{#$n.email#}</td>
+                                    <td align="center">{#$n.addtime#}</td>
+                                    <td align="center">{#$n.money#}</td>
+                                    <td align="center">{#$n.tx#}</td>
+                                    <td align="center">{#$n.agent#}</td>
+                                    <td align="center">{#$n.regmoney#}</td>
+                                    <td align="center">{#$n.balancestyle#}</td>
+                                    <td align="center">{#$n.ifklname#}</td>
+                                    <td align="center">
+                                        <a href="{#:U('User/edit',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-edit"></span>&nbsp;编辑</a>
+                                        <a href="javascript:;" data-id="{#$n.id#}" data-url="{#:U('User/delete',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-danger layui-btn-mini ajax-delete btn btn-primary"><span class="glyphicon glyphicon-remove"></span>&nbsp;删除</a>
+                                        <a href="{#:U('User/fl',array('id'=>$n['id'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-tags"></span>&nbsp;费率</a>
+                                        {#if condition="$n.ifusercheck neq '0'"#}<a href="{#:U('User/info',array('id'=>$n['userid'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-check"></span>&nbsp;认证</a>{#/if#}
+                                        {#if condition="$n.ifagent eq '1'"#}<a href="{#:U('User/index',array('id'=>$n['id'],'agent'=>$n['userid']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-user"></span>&nbsp;下级列表</a>{#/if#}
+                                        {#if condition="$n.money gt 0"#}<a href="{#:U('User/sendmoney',array('id'=>$n['id']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-bitcoin"></span>&nbsp;结算</a>{#/if#}
+                                    </td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="15" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </tbody>
+                        </table>
+                        <div id="wypage">{#$page#}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#}

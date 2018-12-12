@@ -1,0 +1,151 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Dingdan/save')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    系统订单号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control ddh" name="ordernum" value="{#$edit.ordernum#}" required lay-verify="required" placeholder="请输入订单号" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    用户订单号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control ddh" name="sigleddh" value="{#$edit.sigleddh#}" required lay-verify="required" placeholder="请输入用户订单号" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    提交参数：
+                                </label>
+                                <div class="col-md-4">
+                                    <textarea class="form-control params" cols="50" rows="5" name="params" >{#$edit.params#}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    发送地址：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control notifyurl" name="notifyurl" value="{#$edit.notifyurl#}" required lay-verify="required" placeholder="请输入发送地址" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    返回值：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control returntxt" name="return" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control stylee" name="e" value="{#$e#}"/>
+                                    <input type="hidden" class="form-control" name="ddid" value="{#$edit.ddid#}"/>
+                                    <input type="hidden" class="form-control notifystyle" name="notifystyle" value="{#$edit.notifystyle#}"/>
+                                    <button type="button" class="btn btn-primary resend">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved"></span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Dingdan/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    订单参数：
+                                </label>
+                                <div class="col-md-4">
+                                    {#if condition="$data"#}
+                                    <table class="table table-hover">
+                                        {#volist name="data" id="n" #}
+                                        <tr class="info"><td>{#$key#}</td><td>{#$n#}</td></tr>
+                                        {#/volist#}
+                                    </table>
+                                    {#/if#}
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="panel-body">
+                        <div class="panel-heading">
+                            代理数据
+                        </div>
+                        <div class="form-group">
+                            <table class="table table-hover">
+                                <tr class="info">
+                                    <th>id</th>
+                                    <th>代理id</th>
+                                    <th>分销等级</th>
+                                    <th>系统设定</th>
+                                    <th>代理金额</th>
+                                    <th>费率</th>
+                                    <th>添加时间</th>
+                                </tr>
+                                {#if condition="$agentBuffer"#}
+                                {#volist name="agentBuffer" id="n" #}
+                                <tr>
+                                    <td align="center">{#$n.id#}</td>
+                                    <td align="center">{#$n.agent#}</td>
+                                    <td align="center">{#$n.level#}</td>
+                                    <td align="center">{#$n.syslevel#}</td>
+                                    <td align="center">{#$n.agentmoney#}</td>
+                                    <td align="center">{#$n.fl#}</td>
+                                    <td align="center">{#$n.addtime|date="Y-m-d H:i:s",####}</td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="10" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $('.resend').on('click', function () {
+        var index = layer.load();
+        var ddh = $('.ddh').val();
+        var e = $('.stylee').val();
+        var notifyurl = $('.notifyurl').val();
+        var notifystyle = $('.notifystyle').val();
+        var params = $('.params').html();
+        $.post('{#:U("Dingdan/save")#}', {'url': notifyurl, 'ddh': ddh, 'e': e, 'params': params, 'notifystyle': notifystyle, 'times': Math.random()}, function (data) {
+            layer.close(index);
+            if (data.status == 1) {
+                $('.returntxt').val(data['data'][0]);
+                layer.alert('返回信息：' + data['data'][0]);
+            } else if (data.status == 0) {
+                layer.alert('返回信息：' + data['data']);
+            } else {
+                layer.alert('返回信息：' + data);
+            }
+        });
+    });
+
+</script>
+{#include file="Public/footer" /#} 

@@ -1,0 +1,188 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('User/info')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    商户号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="userid" value="{#$edit.userid#}" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    验证类型：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="checkstyle" value="{#$edit.checkstylename#}" />
+                                </div>
+                            </div>
+                            <div class="form-group qiye">
+                                <label class="col-md-2 control-label">
+                                    企业名称：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="editionname" value="{#$edit.editionname#}" />
+                                </div>
+                            </div>
+                            <div class="form-group qiye">
+                                <label class="col-md-2 control-label">
+                                    企业编号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="editionid" value="{#$edit.editionid#}" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                    法人姓名：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="myname" value="{#$edit.myname#}" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                    法人身份证号：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="myid" value="{#$edit.myid#}" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                    通讯地址：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="address" value="{#$edit.address#}" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                    联系方式：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="phone" value="{#$edit.phone#}" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                    邮箱：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="email" value="{#$edit.email#}" />
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                    身份证正面：
+                                </label>
+                                <div class="col-md-4">
+                                    {#if condition="$edit.sfzzm eq ''"#}<img src="{#$edit.noimg#}" width="200"/>{#else/#}<a href="{#$edit.sfzzm#}" target="_blank"><img src="{#$edit.sfzzm#}" width="200"/></a>{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                    身份证反面：
+                                </label>
+                                <div class="col-md-4">
+                                    {#if condition="$edit.sfzfm eq ''"#}<img src="{#$edit.noimg#}" width="200"/>{#else/#}<a href="{#$edit.sfzfm#}" target="_blank"><img src="{#$edit.sfzfm#}" width="200"/></a>{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                    身份证手持：
+                                </label>
+                                <div class="col-md-4">
+                                    {#if condition="$edit.sfzsc eq ''"#}<img src="{#$edit.noimg#}" width="200"/>{#else/#}<a href="{#$edit.sfzsc#}" target="_blank"><img src="{#$edit.sfzsc#}" width="200"/></a>{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group qiye">
+                                <label class="col-md-2 control-label">
+                                    营业执照：
+                                </label>
+                                <div class="col-md-4">
+                                    {#if condition="$edit.yyzz eq ''"#}<img src="{#$edit.noimg#}" width="200"/>{#else/#}<a href="{#$edit.yyzz#}" target="_blank"><img src="{#$edit.yyzz#}" width="200"/></a>{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group qiye">
+                                <label class="col-md-2 control-label">
+                                    门头照：
+                                </label>
+                                <div class="col-md-4">
+                                    {#if condition="$edit.mtz eq ''"#}<img src="{#$edit.noimg#}" width="200"/>{#else/#}<a href="{#$edit.mtz#}" target="_blank"><img src="{#$edit.mtz#}" width="200"/></a>{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group qiye">
+                                <label class="col-md-2 control-label">
+                                    办公照1：
+                                </label>
+                                <div class="col-md-4">
+                                    {#if condition="$edit.bgz1 eq ''"#}<img src="{#$edit.noimg#}" width="200"/>{#else/#}<a href="{#$edit.bgz1#}" target="_blank"><img src="{#$edit.bgz1#}" width="200"/></a>{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group qiye">
+                                <label class="col-md-2 control-label">
+                                    办公照2：
+                                </label>
+                                <div class="col-md-4">
+                                    {#if condition="$edit.bgz2 eq ''"#}<img src="{#$edit.noimg#}" width="200"/>{#else/#}<a href="{#$edit.bgz2#}" target="_blank"><img src="{#$edit.bgz2#}" width="200"/></a>{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                   审核：
+                                </label>
+                                <div class="col-md-4">
+                                    <select class="status form-control" name="status">
+                                        <option value="1" {#if condition="$edit.status eq '1'"#}selected="selected"{#/if#}>审核通过</option>
+                                        <option value="2" {#if condition="$edit.status eq '2'"#}selected="selected"{#/if#}>审核失败</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <label class="col-md-2 control-label">
+                                   审核说明：
+                                </label>
+                                <div class="col-md-4">
+                                    <textarea name="msg" class="form-control" rows="10" cols="80">{#$edit['msg']#}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="id" value="{#$edit.userid#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('User/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+  {#if condition="$edit.checkstyle eq '0'"#}$('.qiye').hide();{#/if#}
+</script>
+{#include file="Public/footer" /#} 

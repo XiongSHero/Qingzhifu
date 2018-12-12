@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <title>支付接口 - 轻支付</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,Chrome=1">
+        <meta name="renderer" content="webkit">
+    </head>
+    <body>
+        <form id="Form1" name="Form1" method="post" action="./index.php">
+            商品名称：<input type="text" name="fxdesc" value='test'/>
+            金额：<input type="text" name="fxfee" value='10'/>
+            支付类型：<select type="text" name="fxpay">
+                <option value="bank">网银支付</option>
+            </select>
+            <input type="submit" value="支付"/>
+        </form>
+    </body>
+</html>

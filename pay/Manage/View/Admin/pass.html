@@ -1,0 +1,65 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Admin/pass')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    管理员账户：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" disabled='' name="adminname" value="{#$edit.adminname#}" required lay-verify="required" placeholder="请输入管理员账户" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    原密码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="password" class="form-control" name="passwordy" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    密码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="password" class="form-control" name="password" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    重复密码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="password" class="form-control" name="password2" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="adminid" value="{#$edit.adminid#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#} 

@@ -1,0 +1,209 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Api/saveuser')#}" method="post">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    名称：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control"  name="pzname" value="{#$edit.pzname#}" required lay-verify="required" placeholder="请输入名称" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    类型：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="style" class="form-control style">
+                                        {#volist name="liststyle" id="n" #}
+                                        <option  tid='{#$n.id#}' value="{#$n.en#}" {#if condition="$edit['style'] eq $n['en']"#}selected="selected"{#/if#}>{#$n.stylename#}</option>
+                                        {#/volist#}
+                                    </select>
+                                </div>
+                                <a href="{#:U('Apistyle/add')#}">添加类型</a>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    回调地址：
+                                </label>
+                                <div class="col-md-4 huidiao">
+                                </div>
+                            </div>
+                            <div class="params"></div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    是否开启代付：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifrepay" class="form-control">
+                                        <option value="0" {#if condition="$edit.ifrepay eq '0'"#}selected="selected"{#/if#}>关闭</option>
+                                        <option value="1" {#if condition="$edit.ifrepay eq '1'"#}selected="selected"{#/if#}>开启</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    绑定域名：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="httpid" class="form-control flselect">
+                                        <option value="0" {#if condition="$edit.httpid eq '0'"#}selected="selected"{#/if#}>使用默认域名</option>
+                                        {#volist name="http" id="n" #}
+                                        <option value="{#$n.id#}" {#if condition="$edit['httpid'] eq $n['id']"#}selected="selected"{#/if#}>{#$n.httpname#}({#$n.http#})</option>
+                                        {#/volist#}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>选项</th>
+                                        <th>接口名称</th>
+                                        <th>费率(例如10%，这里输入10)</th>
+                                        <th>上游费率(例如10%，这里输入10)</th>
+                                        <th>单笔最小金额</th>
+                                        <th>单笔最大金额</th>
+                                        <th>每日限额</th>
+                                        <th>转入</th>
+                                        <th>开关</th>
+                                    </tr>
+                                    {#if condition="$list"#}
+                                    {#volist name="list" id="n" #}
+                                    <tr>
+                                        <td><input name="jkid[]" type="checkbox" {#if condition="$n.pzid neq null"#}checked="checked"{#/if#} value="{#$n.jkid#}"/></td>
+                                        <td>{#$n.jkname#}</td>
+                                        <td><input name="fl_{#$n.jkid#}" class="form-control" type="text"  value="{#$n.fl#}"/></td>
+                                        <td><input name="syfl_{#$n.jkid#}" class="form-control" type="text"  value="{#$n.syfl#}"/></td>
+                                        <td><input name="je_{#$n.jkid#}" class="form-control" type="text"  value="{#$n.je#}"/></td>
+                                        <td><input name="jemax_{#$n.jkid#}" class="form-control" type="text"  value="{#$n.jemax#}"/></td>
+                                        <td><input name="jetotal_{#$n.jkid#}" class="form-control" type="text"  value="{#$n.jetotal#}"/></td>
+                                        <td><select name="ifjump_{#$n.jkid#}" class="form-control">
+                                                {#volist name="jumpname" id="m" #}
+                                                <option value="{#$key#}" {#if condition="$n.ifjump eq $key"#}selected="selected"{#/if#}>{#$m#}</option>
+                                                {#/volist#}
+                                            </select></td>
+                                        <td><select name="ifopen_{#$n.jkid#}" class="form-control">
+                                                <option value="0" {#if condition="$n.ifopen eq '0'"#}selected="selected"{#/if#}>关闭</option>
+                                                <option value="1" {#if condition="$n.ifopen eq '1'"#}selected="selected"{#/if#}>开启</option>
+                                            </select></td>
+                                    </tr>
+                                    {#/volist#}
+                                    {#else/#}
+                                    <tr>
+                                        <td colspan="10" align="center">暂无数据 <a href="{#:U('Api/add')#}">添加</a></td>
+                                    </tr>
+                                    {#/if#}
+                                </table>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="pzid" value="{#$edit.pzid#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Api/user')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.style').on('change', function () {
+            var stylelist = [{#$newliststyle#}];
+            var edit = [{#$editstyle#}];
+            var t = $(this).find('option:selected').val();
+            var tid = $(this).find('option:selected').attr('tid');
+            var tname = $(this).find('option:selected').html();
+            $('.showpay').css({'display': 'none'});
+            $('.' + t).css({'display': 'block'});
+
+            var str = '';
+            if (stylelist != [] && typeof (stylelist[0])) {
+                stylelist = stylelist[0];
+            }
+            if (edit != [] && typeof (edit[0]) != 'undefined') {
+                edit = edit[0];
+            }
+            if (typeof (stylelist[tid]) != 'undefined') {
+                var params = stylelist[tid]['params'];
+                var tmpstr = '';
+                var selected = '';
+                for (i in params) {
+                    if (typeof (edit[t + '_' + params[i]['en']]) != 'undefined') {
+                        tmpstr = edit[t + '_' + params[i]['en']];
+                    } else
+                        tmpstr = '';
+                    if (params[i]['input'] == 'text') {
+                        str += '<div class="form-group showpay '+stylelist[tid]['en']+'">' +
+                                '        <label class="col-md-2 control-label">' +
+                                '            ' + params[i]['title'] + '：' +
+                                '        </label>' +
+                                '        <div class="col-md-4">' +
+                                '            <input type="text" class="form-control"  name="' + t + '_' + params[i]['en'] + '" value="' + tmpstr + '" placeholder="请输入' + params[i]['title'] + '" />' +
+                                '        </div>' +
+                                '    </div>';
+                    } else if (params[i]['input'] == 'textarea') {
+                        str += '<div class="form-group showpay '+stylelist[tid]['en']+'">' +
+                                '        <label class="col-md-2 control-label">' +
+                                '            ' + params[i]['title'] + '：' +
+                                '        </label>' +
+                                '        <div class="col-md-4">' +
+                                '           <textarea cols="50" rows="5" class="form-control" name="' + t + '_' + params[i]['en'] + '">' + tmpstr + '</textarea>' +
+                                '        </div>' +
+                                '    </div>';
+                    } else if (params[i]['input'] == 'select') {
+                        var options = params[i]['value'].split(',');
+                        str += '<div class="form-group showpay '+stylelist[tid]['en']+'">' +
+                                '        <label class="col-md-2 control-label">' +
+                                '            ' + params[i]['title'] + '：' +
+                                '        </label>' +
+                                '        <div class="col-md-4">' +
+                                '        <select name="' + t + '_' + params[i]['en'] + '" class="form-control flselect">';
+                        for (var j in options) {
+                            if (tmpstr == options[j])
+                                selected = "selected='selected'";
+                            else
+                                selected = '';
+                            str += '<option value="' + options[j] + '" ' + selected + '>' + options[j] + '</option>';
+                        }
+                        str += '        </select>' +
+                                '        </div>' +
+                                '    </div>';
+                    }
+                }
+            }
+            $('.params').html(str);
+
+            $('.huidiao').html('<p>' + tname + '异步 http://{#$Think.server.HTTP_HOST#}/Pay/notify/' + t + '</p>' +
+                    '<p>' + tname + '同步 http://{#$Think.server.HTTP_HOST#}/Pay/backurl/' + t + '</p>');
+        });
+        $('.style').change();
+    });
+</script>
+{#include file="Public/footer" /#} 

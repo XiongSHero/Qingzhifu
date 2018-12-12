@@ -1,0 +1,226 @@
+{#include file="Public/header" /#}
+
+<body class="fixed-sidebar full-height-layout gray-bg" >
+
+    <div class="pace pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner">
+            </div>
+        </div>
+        <div class="pace-activity">
+        </div>
+    </div>
+    <div id="wrapper">
+        {#include file="Public/left" /#}
+        <div id="page-wrapper" class="gray-bg">
+            {#include file="Public/top" /#}
+
+            <div class="row wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <em class="fa fa-list">
+                                    </em>
+                                    {#$pageName#}</div>
+                            </div>
+                            <div class="panel-body">
+                                <div class="content-box">
+                                    <form class="form-ajax form-horizontal"  action="{#:U('Index/Home/info')#}" method="post">
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                状态：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <label class="form-control btn btn-config">{#$edit.statusname#}</label>
+                                            </div>
+                                        </div>
+                                        {#if condition="$edit.status eq '2'"#}
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                审核说明：
+                                            </label>
+                                            <div class="col-md-6 ">
+                                                <label class="form-control btn btn-config">{#$edit.msg#}</label>
+                                                
+                                            </div>
+                                        </div>
+                                        {#/if#}
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                验证类型：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <select class="checkstyle form-control" name="checkstyle">
+                                                    {#if condition="$config.ifopenusercheckstyle neq '2'"#}<option value="0" {#if condition="$edit.checkstyle eq '0'" #}selected="selected"{#/if#}>个人</option>{#/if#}
+                                                    {#if condition="$config.ifopenusercheckstyle neq '1'"#}<option value="1" {#if condition="$edit.checkstyle eq '1'" #}selected="selected"{#/if#}>企业</option>{#/if#}
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group qiye">
+                                            <label class="col-md-2 control-label">
+                                                企业名称：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control editionname" name="editionname" value="{#$edit.editionname#}" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group qiye">
+                                            <label class="col-md-2 control-label">
+                                                企业编号：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control editionid" name="editionid" value="{#$edit.editionid#}" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                法人姓名：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control myname" name="myname" value="{#$edit.myname#}" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                法人身份证号：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input class="form-control myid" name="myid" value="{#$edit.myid#}" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                通讯地址：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="address" class="form-control" value="{#$edit.address#}" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                联系方式：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="phone" class="form-control" value="{#$edit.phone#}" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                邮箱：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="email" class="form-control" value="{#$edit.email#}" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                身份证正面：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="sfzzm" id="sfzzm" class="form-control" value="{#$edit.sfzzm#}" type="hidden" >
+                                                <input name="sfzzminput" id="sfzzminput" class="form-control" onchange="uploadImg('sfzzm', 'sfzzmimg', this);" value="" type="file" style="display:none;">
+                                                <a href="javascript:;" onclick="selfile('sfzzminput');" class="btn btn-primary">上传</a>
+                                                <img id="sfzzmimg" src="{#$edit.sfzzm#}" width="200"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                身份证反面：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="sfzfm" id="sfzfm" class="form-control" value="{#$edit.sfzfm#}" type="hidden" >
+                                                <input name="sfzfminput" id="sfzfminput" class="form-control" onchange="uploadImg('sfzfm', 'sfzfmimg', this);" value="" type="file" style="display:none;">
+                                                <a href="javascript:;" onclick="selfile('sfzfminput');" class="btn btn-primary">上传</a>
+                                                <img id="sfzfmimg" src="{#$edit.sfzfm#}" width="200"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-md-2 control-label">
+                                                身份证手持：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="sfzsc" id="sfzsc" class="form-control" value="{#$edit.sfzsc#}" type="hidden" >
+                                                <input name="sfzscinput" id="sfzscinput" class="form-control" onchange="uploadImg('sfzsc', 'sfzscimg', this);" value="" type="file" style="display:none;">
+                                                <a href="javascript:;" onclick="selfile('sfzscinput');" class="btn btn-primary">上传</a>
+                                                <img id="sfzscimg" src="{#$edit.sfzsc#}" width="200"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group qiye">
+                                            <label class="col-md-2 control-label">
+                                                营业执照：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="yyzz" id="yyzz" class="form-control" value="{#$edit.yyzz#}" type="hidden" >
+                                                <input name="yyzzinput" id="yyzzinput" class="form-control" onchange="uploadImg('yyzz', 'yyzzimg', this);" value="" type="file" style="display:none;">
+                                                <a href="javascript:;" onclick="selfile('yyzzinput');" class="btn btn-primary">上传</a>
+                                                <img id="yyzzimg" src="{#$edit.yyzz#}" width="200"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group qiye">
+                                            <label class="col-md-2 control-label">
+                                                门头照：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="mtz" id="mtz" class="form-control" value="{#$edit.mtz#}" type="hidden" >
+                                                <input name="mtzinput" id="mtzinput" class="form-control" onchange="uploadImg('mtz', 'mtzimg', this);" value="" type="file" style="display:none;">
+                                                <a href="javascript:;" onclick="selfile('mtzinput');" class="btn btn-primary">上传</a>
+                                                <img id="mtzimg" src="{#$edit.mtz#}" width="200"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group qiye">
+                                            <label class="col-md-2 control-label">
+                                                办公照1：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="bgz1" id="bgz1" class="form-control" value="{#$edit.bgz1#}" type="hidden" >
+                                                <input name="bgz1input" id="bgz1input" class="form-control" onchange="uploadImg('bgz1', 'bgz1img', this);" value="" type="file" style="display:none;">
+                                                <a href="javascript:;" onclick="selfile('bgz1input');" class="btn btn-primary">上传</a>
+                                                <img id="bgz1img" src="{#$edit.bgz1#}" width="200"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group qiye">
+                                            <label class="col-md-2 control-label">
+                                                办公照2：
+                                            </label>
+                                            <div class="col-md-6">
+                                                <input name="bgz2" id="bgz2" class="form-control" value="{#$edit.bgz2#}" type="hidden" >
+                                                <input name="bgz2input" id="bgz2input" class="form-control" onchange="uploadImg('bgz2', 'bgz2img', this);" value="" type="file" style="display:none;">
+                                                <a href="javascript:;" onclick="selfile('bgz2input');" class="btn btn-primary">上传</a>
+                                                <img id="bgz2img" src="{#$edit.bgz2#}" width="200"/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-offset-2 col-md-6">
+                                                <button type="submit" class="btn btn-primary">
+                                                    &nbsp;
+                                                    <i class="fa fa-check-square-o"></i>
+                                                    &nbsp;提交审核&nbsp;
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $('.checkstyle').live('click', function () {
+                var check = $(this).find('option:selected').val();
+                if (check == 1) {
+                    $('.qiye').show();
+                } else {
+                    $('.qiye').hide();
+                }
+            });
+            {#if condition = "$edit.checkstyle eq '0'" #}$('.qiye').hide();
+            {#/if#}
+        });
+    </script>
+    {#include file="Public/footer" /#}

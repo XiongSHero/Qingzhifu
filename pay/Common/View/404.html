@@ -1,0 +1,75 @@
+<html>
+<head>
+<title>糟糕，{#$message#}</title>
+<meta http-equiv=content-type content="text/html; charset=UTF-8">
+<style type=text/css>
+body {
+    font-size: 14px; font-family: tahoma;
+}
+td {
+    font-size: 14px; font-family: tahoma;line-height:25px;
+}
+a:link {
+    color: #636363; text-decoration: none
+}
+a:visited {
+    color: #838383; text-decoration: none
+}
+a:hover {
+    color: #a3a3a3; text-decoration: underline
+}
+body {
+    background-color: #cccccc; 
+}
+</style>
+</head>
+<body style="table-layout: fixed; word-break: break-all;">
+<table height="95%" cellspacing=0 cellpadding=0 width="100%" align=center 
+border=0>
+  <tbody>
+  <tr valign=center align=middle>
+    <td>
+      <table cellspacing=0 cellpadding=0 width=468 bgcolor=#ffffff border=0>
+        <tbody>
+        <tr>
+          <td width=20 background="__ROOT__/Public/default/image/rbox_1.gif" 
+height=20></td>
+          <td width=108 background="__ROOT__/Public/default/image/rbox_2.gif" 
+          height=20></td>
+          <td width=56><img height=20 src="__ROOT__/Public/default/image/rbox_ring.gif" 
+            width=56></td>
+          <td width=100 background="__ROOT__/Public/default/image/rbox_2.gif"></td>
+          <td width=56><img height=20 src="__ROOT__/Public/default/image/rbox_ring.gif" 
+            width=56></td>
+          <td width=108 background="__ROOT__/Public/default/image/rbox_2.gif"></td>
+          <td width=20 background="__ROOT__/Public/default/image/rbox_3.gif" 
+        height=20></td></tr>
+        <tr>
+          <td align=left background="__ROOT__/Public/default/image/rbox_4.gif" 
+          rowspan=2></td>
+          <td align=middle bgcolor=#eeeeee colspan=5 height=50>
+            <p><strong>糟糕，{#$message#}<br>
+              <br>
+            </strong></p></td>
+          <td align=left background="__ROOT__/Public/default/image/rbox_6.gif" 
+          rowspan=2></td></tr>
+        <tr>
+          <td align=left colspan=5 height=80>
+            <p align=center><br>
+            <p id=lid2>请选择您要进行的下一步操作：</p>
+            <ul>
+              <li id=list1>等待，约{#$waitSecond#}秒钟后跳转到首页。<br>
+              <li id=list2>自己动手转到 <a href="{#$jumpUrl#}">{#$config.SiteName#}</a> 主页。 
+              <li id=list3>单击<a 
+              href="javascript:history.back(1)">后退</a>按钮，尝试其他链接。 </li></ul>
+            <div align=right><br>
+            {#$Think.config.SYSTEM_NAME#}</div></td></tr>
+        <tr>
+          <td align=left background="__ROOT__/Public/default/image/rbox_7.gif" 
+          height=20></td>
+          <td align=left background="__ROOT__/Public/default/image/rbox_8.gif" colspan=5 
+          height=20></td>
+          <td align=left background="__ROOT__/Public/default/image/rbox_9.gif" 
+          height=20></td></tr></tbody></table></td></tr></tbody></table>
+</body>
+</html>

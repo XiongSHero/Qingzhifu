@@ -1,0 +1,149 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <h3>
+                    <span class="current">{#$pageName#}</span>
+                </h3>
+                <br>
+                <div class="row tagtopdiv">
+                    <div class="col-md-4 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">当日</span>
+                                    <h5>收入</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.havemoney#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    当日收入
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">当日</span>
+                                    <h5>笔数</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    {#$tj.num#} 笔
+                                </h4>
+                                <h4 class="pull-right">
+                                    当日笔数
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-xs-6 ">
+                        <div class="panel">
+                            <div class="panel-body">
+                                <div class="ibox-title">
+                                    <span class="label label-success pull-right">当日</span>
+                                    <h5>总金额</h5>
+                                </div>
+                                <h4 class="pull-left text-danger">
+                                    ￥{#$tj.totalmoney#} 元
+                                </h4>
+                                <h4 class="pull-right">
+                                    总金额
+                                </h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <form id="J_Date" class="layui-form layui-form-pane form-inline" action="" method="get">
+                            <div class="form-group">
+                                <select name="pzid" class="layui-btn-small ajax-action form-control"  >
+                                    <option value="">所有账户</option>
+                                    {#volist name="pzBufferList" id="n" #}
+                                    <option value="{#$n.pzid#}" {#if condition="$Think.request.pzid eq $n['pzid']"#}selected="selected"{#/if#}>{#$n.pzname#}</option>
+                                    {#/volist#}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <select name="time" class="layui-btn-small ajax-action form-control"  >
+                                    {#volist name="timeBuffer" id="n" #}
+                                    <option value="{#$n.time#}" {#if condition="$Think.request.time eq $n['time']"#}selected="selected"{#/if#}>{#$n.name#}</option>
+                                    {#/volist#}
+                                </select>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <span class="glyphicon glyphicon-search">
+                                </span>
+                                &nbsp;立即查询
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <form action="" method="post"  class="ajax-form">
+                    <div class="set set0 table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr class="info">
+                                    <th style="width: 15px;"><input type="checkbox" name="mmAll" class="selectAllCheckbox"/></th>
+                                    <th align="center" >ID</th>
+                                    <th align="center">商户id</th>
+                                    <th align="center">订单号</th>
+                                    <th align="center">平台订单号</th>
+                                    <th align="center">订单类型</th>
+                                    <th align="center">实收金额</th>
+                                    <th align="center">支出金额</th>
+                                    <th align="center">代理金额</th>
+                                    <th align="center">状态</th>
+                                    <th align="center">添加时间</th>
+                                    <th align="center">支付时间</th>
+                                    <th align="center">通道</th>
+                                    <th align="center">通知</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {#if condition="$list"#}
+                                {#volist name="list" id="n" #}
+                                <tr id="tr{#$n.ddid#}" >
+                                    <td align="center"><input type="checkbox" class="thisid checkbox" title="{#$n.ddid#}" name="thisid[]" value="{#$n.ddid#}"/></td>
+                                    <td align="center">{#$n.ddid#}</td>
+                                    <td align="center">{#$n.userid#}</td>
+                                    <td align="center"><a href="{#:U('Dingdan/edit',array('id'=>$n['ddid'],'p'=>$_GET['p']))#}">{#$n.ordernum#}</a></td>
+                                    <td align="center">{#$n.preordernum#}</td>
+                                    <td align="center">{#$n.ddstylename#}</td>
+                                    <td align="center">{#$n.totalmoney#}</td>
+                                    <td align="center">{#$n.havemoney#}</td>
+                                    <td align="center">{#$n.dailimoney#}</td>
+                                    <td align="center">{#$n.statusname#}</td>
+                                    <td align="center">{#$n.addtime#}</td>
+                                    <td align="center">{#$n.paytime#}</td>
+                                    <td align="center">{#$n.jkstyle#}({#$pzBuffer[$n['pzid']]['pzname']#})</td>
+                                    <td align="center">{#$n.tzzt#}
+                                        {#if condition="$n.tz lt 2"#}<a href="{#:U('Dingdan/edit',array('id'=>$n['ddid'],'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-repeat"></span>&nbsp;重发</a>{#/if#}
+                                        {#if condition="$n.status eq '0'"#}<a href="{#:U('Dingdan/edit',array('id'=>$n['ddid'],'e'=>1,'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-edit"></span>&nbsp;手动补单</a>{#/if#}
+                                        {#if condition="$n.status eq '1' or $n.status eq '2'"#}<a href="{#:U('Dingdan/edit',array('id'=>$n['ddid'],'e'=>2,'p'=>$_GET['p']))#}" class="layui-btn layui-btn-normal layui-btn-mini btn btn-primary"><span class="glyphicon glyphicon-edit"></span>&nbsp;手动退单</a>{#/if#}
+                                    </td>
+                                </tr>
+                                {#/volist#}
+                                {#else/#}
+                                <tr>
+                                    <td colspan="18" align="center">暂无数据</td>
+                                </tr>
+                                {#/if#}
+                            </tbody>
+                        </table>
+                        <div id="wypage">{#$page#}</div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#}

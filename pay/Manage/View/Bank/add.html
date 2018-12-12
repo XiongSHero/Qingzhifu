@@ -1,0 +1,107 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-horizontal" enctype="multipart/form-data" action="{#:U('Bank/save')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    银行名称：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="bankname" value="{#$edit.bankname#}" required lay-verify="required" placeholder="请输入银行名称" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    银行编码：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="bankcode" value="{#$edit.bankcode#}" required lay-verify="required" placeholder="请输入银行编码" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    图片（手动修改）：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="icon" value="{#$edit['icon']#}"  placeholder="请输入图片地址" />
+                                    * 以斜杠开头 {#if condition="$edit['icon']"#}<img src="{#$edit['icon']#}" width="180" height="40"/>{#/if#}
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    图片（文件上传）：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="file" class="form-control" name="file" accept="jpg,png,gif,jpeg"/>
+                                    * 如果不修改请留空 图片大小180*40
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    排序：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control" name="orderid" value="{#$edit.orderid|default=99#}" required lay-verify="required" placeholder="请输入排序" />
+                                    * 数字越小越靠前
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    状态：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="status" class="form-control">
+                                        <option value="0" {#if condition="$edit['status'] eq '0'"#}selected="selected"{#/if#}>正常</option>
+                                        <option value="1" {#if condition="$edit['status'] eq '1'"#}selected="selected"{#/if#}>取消</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    绑定接口账户：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="pzid" class="form-control daifuid">
+                                        <option value="" {#if condition="$edit.pzid eq ''"#}selected="selected"{#/if#}>请选择</option>
+                                        {#volist name="pzBuffer" id="n" #}
+                                        <option value="{#$n['pzid']#}" {#if condition="$edit.pzid eq $n['pzid']"#}selected="selected"{#/if#}>{#$n.pzname#}</option>
+                                        {#/volist#}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="id" value="{#$edit.id#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Bank/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#} 

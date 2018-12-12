@@ -1,0 +1,89 @@
+{#include file="Public/header" /#}
+{#include file="Public/top" /#}
+<div id="main">
+    <div class="container-fluid">
+        <div class="row">
+            {#include file="Public/left" /#}
+            <div class="right-content">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        {#$pageName#}
+                    </div>
+                    <div class="panel-body">
+                        <form class="layui-form form-container form-ajax form-horizontal" action="{#:U('Api/save')#}" method="post">
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    名称：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control"  name="jkname" value="{#$edit.jkname#}" required lay-verify="required" placeholder="请输入名称" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    类型：
+                                </label>
+                                <div class="col-md-4">
+                                    <input type="text" class="form-control"  name="jkstyle" value="{#$edit.jkstyle#}" required lay-verify="required" placeholder="请输入类型" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    通道开启：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifopen" class="form-control flselect">
+                                        <option value="1" {#if condition="$edit.ifopen eq '1'"#}selected="selected"{#/if#}>开启</option>
+                                        <option value="0" {#if condition="$edit.ifopen eq '0'"#}selected="selected"{#/if#}>关闭</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    商户默认开启：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="ifuseropen" class="form-control flselect">
+                                        <option value="1" {#if condition="$edit.ifuseropen eq '1'"#}selected="selected"{#/if#}>开启</option>
+                                        <option value="0" {#if condition="$edit.ifuseropen eq '0'"#}selected="selected"{#/if#}>关闭</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-2 control-label">
+                                    绑定域名：
+                                </label>
+                                <div class="col-md-4">
+                                    <select name="httpid" class="form-control flselect">
+                                        <option value="0" {#if condition="$edit.httpid eq '0'"#}selected="selected"{#/if#}>使用默认域名</option>
+                                        {#volist name="http" id="n" #}
+                                        <option value="{#$n.id#}" {#if condition="$edit['httpid'] eq $n['id']"#}selected="selected"{#/if#}>{#$n.httpname#}({#$n.http#})</option>
+                                        {#/volist#}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-4">
+                                    <input type="hidden" class="form-control" name="act" value="{#$act#}"/>
+                                    <input type="hidden" class="form-control" name="jkid" value="{#$edit.jkid#}"/>
+                                    <button type="submit" class="btn btn-primary ">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-saved">
+                                        </span>
+                                        &nbsp;提交&nbsp;
+                                    </button>
+                                    <button type="button" class="btn btn-primary jumpbutton" data-url="{#:U('Api/index')#}">
+                                        &nbsp;
+                                        <span class="glyphicon glyphicon-arrow-left"></span>
+                                        &nbsp;返回&nbsp;
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{#include file="Public/footer" /#} 
